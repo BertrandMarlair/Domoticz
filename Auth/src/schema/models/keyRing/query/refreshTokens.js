@@ -1,7 +1,7 @@
 import { decode } from "jsonwebtoken";
 import { createUserToken } from "../../../../core/auth";
 import { getUserById } from "../../user/utils";
-import TokensType from "../type/TokensType";
+import TokensType from "../type/tokensType";
 
 export default (t) => 
     t.field("refreshTokens", {
