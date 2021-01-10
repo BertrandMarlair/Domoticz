@@ -17,6 +17,9 @@ const Layout = ({children, classes}) => {
     const {isSidebarOpened} = layout;
     const menu = useMenu();
 
+    console.log("--- Global ---");
+    console.log(children);
+
     return (
         <Fragment>
             <Header />

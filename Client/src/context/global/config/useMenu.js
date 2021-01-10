@@ -10,6 +10,16 @@ const menu = () => {
                 name: "menu.global.applications",
                 link: "/app/application",
             },
+            {
+                icon: "Build",
+                name: "menu.global.tests",
+                link: "/app/test",
+            },
+            {
+                icon: "Build",
+                name: "menu.contexttest.page",
+                link: "/contexttest/page",
+            },
         ],
     };
 };
