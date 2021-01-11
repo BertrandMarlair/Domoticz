@@ -46,6 +46,11 @@ export interface NexusGenRootTypes {
     color: string; // String!
     title: string; // String!
   }
+  Test: { // root type
+    _id: string; // ID!
+    description: string; // String!
+    title: string; // String!
+  }
   String: string;
   Int: number;
   Float: number;
@@ -70,13 +75,20 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     editApplication: NexusGenRootTypes['Application']; // Application!
+    editTest: NexusGenRootTypes['Test']; // Test!
   }
   Query: { // field return type
     getAllApplications: NexusGenRootTypes['Application'][] | null; // [Application!]
+    getAllTests: NexusGenRootTypes['Test'][] | null; // [Test!]
   }
   Status: { // field return type
     code: string; // String!
     color: string; // String!
+    title: string; // String!
+  }
+  Test: { // field return type
+    _id: string; // ID!
+    description: string; // String!
     title: string; // String!
   }
 }
@@ -89,7 +101,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Application" | "Delete" | "Mutation" | "Query" | "Status";
+export type NexusGenObjectNames = "Application" | "Delete" | "Mutation" | "Query" | "Status" | "Test";
 
 export type NexusGenInputNames = never;
 
