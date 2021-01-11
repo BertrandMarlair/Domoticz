@@ -3,14 +3,13 @@ import {Route} from "react-router-dom";
 import {Redirect} from "react-router-dom";
 
 import isAuthenticated from "../../../core/auth/isAuthenticated";
-import {defaultRoute} from "./router";
 
 const Provider = ({component: Component, ...rest}) => {
     const checkAuth = () => {
-        if (!isAuthenticated()) {
+        if (isAuthenticated()) {
             return <Route {...rest} render={(props) => <Component {...props} />} />;
         }
-        return <Redirect to={defaultRoute} />;
+        return <Redirect to="/" />;
     };
 
     return checkAuth();
