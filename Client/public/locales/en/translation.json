@@ -2,6 +2,10 @@
     "menu": {
         "global": {
             "applications": "Applications"
+        },
+        "contexttest": {
+            "pages": "Pages",
+            "createBlock": "Create block"
         }
     },
     "header": {
@@ -140,6 +144,30 @@
             "invalidToken": "Invalid token!",
             "expiredToken": "Expired token!"
         }
+    },
+    "contexttest": {
+        "createBlock": {
+            "title": "Create new block",
+            "titleInputTitle": "Titre",
+            "titleInputLabel": "Your new title",
+            "descriptionInputTitle": "Description",
+            "descriptionInputLabel": "Your new description",
+            "submit": "Create"
+        },
+        "editBlock": {
+            "title": "Edit block",
+            "titleInputTitle": "Titre",
+            "descriptionInputTitle": "Description",
+            "submit": "Create"
+        },
+        "block": {
+            "see": "See",
+            "edit": "Edit",
+            "delete": "Delete"
+        }
+    },
+    "sidebar": {
+        "collapse": "Collapse"
     },
     "notfound": {
         "title": "Page not found",

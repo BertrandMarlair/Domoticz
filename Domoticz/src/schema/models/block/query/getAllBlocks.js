@@ -1,4 +1,6 @@
 import BlockType from "../type/block";
+import {DBBlocks} from "../index";
+import {query} from "../../../../core/mongo";
 
 export default (t) => 
     t.list.field("getAllBlocks", {
@@ -11,16 +13,9 @@ export default (t) =>
 
 
 const getAllBlocks = async () => {
-    return [
-        {
-            _id: "891374917391",
-            title: "Domotics",
-            description: "this is a test",
-        },
-        {
-            _id: "891374917392",
-            title: "Jeedmon",
-            description: "this is a test",
-        }
-    ];
+    const blocksData = await query(DBBlocks, {});
+    
+    if(blocksData){
+        return blocksData;
+    }
 }

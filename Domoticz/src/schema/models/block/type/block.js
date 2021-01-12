@@ -1,7 +1,7 @@
 import { objectType } from "nexus";
 
 const BlockType = objectType({
-    name: "Test",
+    name: "Block",
     definition(t) {
         t.field("_id", { type: "ID" });
         t.string("title");

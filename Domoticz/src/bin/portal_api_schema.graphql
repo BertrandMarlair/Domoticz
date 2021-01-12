@@ -8,8 +8,25 @@ type Application {
   title: String!
 }
 
+type Block {
+  _id: ID!
+  description: String!
+  title: String!
+}
+
+input createBlockInput {
+  description: String
+  title: String!
+}
+
 type Delete {
   id: Int!
+}
+
+input editBlockInput {
+  description: String
+  id: String!
+  title: String!
 }
 
 """Email custom scalar type"""
@@ -19,12 +36,15 @@ scalar Email
 scalar Json
 
 type Mutation {
+  createBlock(block: createBlockInput!): Block!
   editApplication: Application!
+  editBlock(block: editBlockInput!): Block!
   editTest: Test!
 }
 
 type Query {
   getAllApplications: [Application!]
+  getAllBlocks: [Block!]
   getAllTests: [Test!]
 }
 

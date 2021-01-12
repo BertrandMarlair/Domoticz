@@ -26,6 +26,15 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  createBlockInput: { // input type
+    description?: string | null; // String
+    title: string; // String!
+  }
+  editBlockInput: { // input type
+    description?: string | null; // String
+    id: string; // String!
+    title: string; // String!
+  }
 }
 
 export interface NexusGenEnums {
@@ -33,6 +42,11 @@ export interface NexusGenEnums {
 
 export interface NexusGenRootTypes {
   Application: { // root type
+    _id: string; // ID!
+    description: string; // String!
+    title: string; // String!
+  }
+  Block: { // root type
     _id: string; // ID!
     description: string; // String!
     title: string; // String!
@@ -62,6 +76,8 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  createBlockInput: NexusGenInputs['createBlockInput'];
+  editBlockInput: NexusGenInputs['editBlockInput'];
 }
 
 export interface NexusGenFieldTypes {
@@ -70,15 +86,23 @@ export interface NexusGenFieldTypes {
     description: string; // String!
     title: string; // String!
   }
+  Block: { // field return type
+    _id: string; // ID!
+    description: string; // String!
+    title: string; // String!
+  }
   Delete: { // field return type
     id: number; // Int!
   }
   Mutation: { // field return type
+    createBlock: NexusGenRootTypes['Block']; // Block!
     editApplication: NexusGenRootTypes['Application']; // Application!
+    editBlock: NexusGenRootTypes['Block']; // Block!
     editTest: NexusGenRootTypes['Test']; // Test!
   }
   Query: { // field return type
     getAllApplications: NexusGenRootTypes['Application'][] | null; // [Application!]
+    getAllBlocks: NexusGenRootTypes['Block'][] | null; // [Block!]
     getAllTests: NexusGenRootTypes['Test'][] | null; // [Test!]
   }
   Status: { // field return type
@@ -94,6 +118,14 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createBlock: { // args
+      block: NexusGenInputs['createBlockInput']; // createBlockInput!
+    }
+    editBlock: { // args
+      block: NexusGenInputs['editBlockInput']; // editBlockInput!
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
@@ -101,9 +133,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Application" | "Delete" | "Mutation" | "Query" | "Status" | "Test";
+export type NexusGenObjectNames = "Application" | "Block" | "Delete" | "Mutation" | "Query" | "Status" | "Test";
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = "createBlockInput" | "editBlockInput";
 
 export type NexusGenEnumNames = never;
 

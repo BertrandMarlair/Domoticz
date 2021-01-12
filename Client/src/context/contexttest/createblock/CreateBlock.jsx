@@ -6,6 +6,7 @@ import style from "./CreateBlockStyle";
 import {useTranslation} from "react-i18next";
 import {useMutation} from "@apollo/react-hooks";
 
+import notify from "../../../core/snackbar/snackbar";
 import Card from "../../../components/card/Card";
 import Input from "../../../components/input/Input";
 import Error from "../../../components/error/Error";
@@ -24,11 +25,12 @@ const CreateBlock = ({classes}) => {
     const [createBlockMutation, {data, error, loading}] = useMutation(CREATE_BLOCK);
 
     useEffect(() => {
-        if (data?.block?._id) {
+        if (data?.createBlock?._id) {
             notify(t("contexttest.createBlock.success.createBlock"), {
                 variant: "success",
             });
         }
+
         if (error) {
             setErrors("contexttest.createBlock.errors.failCreateBlock");
         }
@@ -45,13 +47,15 @@ const CreateBlock = ({classes}) => {
             setErrorTitle("");
         }
 
+        setErrors(null);
+
         if (validation) {
             const input = {
                 title,
                 description,
             };
 
-            createBlockMutation({variables: {...input}});
+            createBlockMutation({variables: {block: {...input}}});
         }
     };
 
@@ -67,12 +71,12 @@ const CreateBlock = ({classes}) => {
                     <form className={classes.form} onSubmit={(e) => createBlock(e)}>
                         <div className={classes.inputTitle}>
                             <SmallTitle bold className={classes.label}>
-                                {t("contexttest.createBlock.title.nameInputTitle")}
+                                {t("contexttest.createBlock.titleInputTitle")}
                             </SmallTitle>
                             <Input
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
-                                placeholder={t("contexttest.createBlock.title.nameInputLabel")}
+                                placeholder={t("contexttest.createBlock.titleInputLabel")}
                                 autoComplete={"title"}
                                 type={"text"}
                                 helperText={t(errorTitle)}
@@ -81,12 +85,12 @@ const CreateBlock = ({classes}) => {
                         </div>
                         <div className={classes.inputDescription}>
                             <SmallTitle bold className={classes.label}>
-                                {t("contexttest.createBlock.description.nameInputTitle")}
+                                {t("contexttest.createBlock.descriptionInputTitle")}
                             </SmallTitle>
                             <Input
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                                placeholder={t("contexttest.createBlock.description.nameInputLabel")}
+                                placeholder={t("contexttest.createBlock.descriptionInputLabel")}
                                 autoComplete={"description"}
                                 type={"text"}
                             />
@@ -109,9 +113,11 @@ const CreateBlock = ({classes}) => {
 export default withStyles(style)(CreateBlock);
 
 const CREATE_BLOCK = gql`
-    mutation CreateBlock($title: String!, $description: String) {
-        createBlock(block: {title: $title, description: $description}) {
+    mutation createBlock($block: createBlockInput!) {
+        createBlock(block: $block) {
+            _id
             title
+            description
         }
     }
 `;
