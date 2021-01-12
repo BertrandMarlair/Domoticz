@@ -40,7 +40,7 @@ const SideBar = ({classes, match}) => {
             {icon: "Shuffle", link: "/app/shuffle"},
         ],
         footer: [
-            {icon: "Add", link: "/app/add"},
+            {icon: "Add", link: "/add/provider"},
             {icon: "Setting", link: "/app/settings"},
             {icon: "Verified", link: "/app/admin"},
         ],
@@ -84,12 +84,12 @@ const SideBar = ({classes, match}) => {
                         return (
                             <NavLink to={item.link} key={`sideBarItem/${i}`} className={classes.menuItem}>
                                 <div
-                                    className={classes.icon}
+                                    className={classes.target}
                                     style={{
-                                        borderLeft: currentUrl
-                                            ? `4px solid ${theme.palette.primary.main}`
-                                            : "4px solid transparent",
-                                    }}>
+                                        background: currentUrl ? theme.palette.primary.main : "transparent",
+                                        boxShadow: currentUrl && `1px 0px 11px ${theme.palette.primary.light}90`,
+                                    }}></div>
+                                <div className={classes.icon}>
                                     <Icon
                                         size={22}
                                         color={currentUrl ? theme.palette.primary.light : theme.palette.grey.primary}>

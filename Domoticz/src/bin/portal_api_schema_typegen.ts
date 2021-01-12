@@ -26,6 +26,13 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  editProviderInput: { // input type
+    _id: string; // ID!
+    description: string; // String!
+    icon: string; // String!
+    slug: string; // String!
+    title: string; // String!
+  }
 }
 
 export interface NexusGenEnums {
@@ -41,6 +48,13 @@ export interface NexusGenRootTypes {
     id: number; // Int!
   }
   Mutation: {};
+  Provider: { // root type
+    _id: string; // ID!
+    description: string; // String!
+    icon: string; // String!
+    slug: string; // String!
+    title: string; // String!
+  }
   Query: {};
   Status: { // root type
     color: string; // String!
@@ -62,6 +76,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  editProviderInput: NexusGenInputs['editProviderInput'];
 }
 
 export interface NexusGenFieldTypes {
@@ -75,10 +90,19 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     editApplication: NexusGenRootTypes['Application']; // Application!
+    editProvider: NexusGenRootTypes['Provider']; // Provider!
     editTest: NexusGenRootTypes['Test']; // Test!
+  }
+  Provider: { // field return type
+    _id: string; // ID!
+    description: string; // String!
+    icon: string; // String!
+    slug: string; // String!
+    title: string; // String!
   }
   Query: { // field return type
     getAllApplications: NexusGenRootTypes['Application'][] | null; // [Application!]
+    getAllProviders: NexusGenRootTypes['Provider'][] | null; // [Provider!]
     getAllTests: NexusGenRootTypes['Test'][] | null; // [Test!]
   }
   Status: { // field return type
@@ -94,6 +118,11 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    editProvider: { // args
+      provider: NexusGenInputs['editProviderInput']; // editProviderInput!
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
@@ -101,9 +130,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Application" | "Delete" | "Mutation" | "Query" | "Status" | "Test";
+export type NexusGenObjectNames = "Application" | "Delete" | "Mutation" | "Provider" | "Query" | "Status" | "Test";
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = "editProviderInput";
 
 export type NexusGenEnumNames = never;
 
