@@ -8,8 +8,33 @@ type Application {
   title: String!
 }
 
+type Block {
+  _id: ID!
+  description: String!
+  title: String!
+}
+
+input createBlockInput {
+  description: String
+  title: String!
+}
+
 type Delete {
   id: Int!
+}
+
+<<<<<<< HEAD
+input editBlockInput {
+  description: String
+  id: String!
+=======
+input editProviderInput {
+  _id: ID!
+  description: String!
+  icon: String!
+  slug: String!
+>>>>>>> develop
+  title: String!
 }
 
 """Email custom scalar type"""
@@ -19,16 +44,44 @@ scalar Email
 scalar Json
 
 type Mutation {
+  createBlock(block: createBlockInput!): Block!
   editApplication: Application!
+<<<<<<< HEAD
+  editBlock(block: editBlockInput!): Block!
+  editTest: Test!
+=======
+  editProvider(provider: editProviderInput!): Provider!
+  editTest: Test!
+}
+
+type Provider {
+  _id: ID!
+  description: String!
+  icon: String!
+  slug: String!
+  title: String!
+>>>>>>> develop
 }
 
 type Query {
   getAllApplications: [Application!]
+<<<<<<< HEAD
+  getAllBlocks: [Block!]
+=======
+  getAllProviders: [Provider!]
+>>>>>>> develop
+  getAllTests: [Test!]
 }
 
 type Status {
   code: String!
   color: String!
+  title: String!
+}
+
+type Test {
+  _id: ID!
+  description: String!
   title: String!
 }
 

@@ -133,7 +133,7 @@ const Signin = ({classes, history}) => {
                                 </div>
                                 <form className={classes.form} onSubmit={(e) => createUser(e)}>
                                     <div className={classes.input}>
-                                        <SmallTitle bold className={classes.label}>
+                                        <SmallTitle color="label" className={classes.label}>
                                             {t("connect.signin.nameInputTitle")}
                                         </SmallTitle>
                                         <Input
@@ -149,7 +149,7 @@ const Signin = ({classes, history}) => {
                                     </div>
                                     <div className={classes.input}>
                                         <div className={classes.inputType}>
-                                            <SmallTitle bold className={classes.label}>
+                                            <SmallTitle color="label" className={classes.label}>
                                                 {t("connect.signin.typeInputTitle")}
                                             </SmallTitle>
                                             <Select
@@ -164,7 +164,7 @@ const Signin = ({classes, history}) => {
                                         </div>
                                     </div>
                                     <div className={classes.input}>
-                                        <SmallTitle bold className={classes.label}>
+                                        <SmallTitle color="label" className={classes.label}>
                                             {t("connect.signin.passwordInputTitle")}
                                         </SmallTitle>
                                         <Input
@@ -178,7 +178,7 @@ const Signin = ({classes, history}) => {
                                         />
                                     </div>
                                     <div className={classes.input}>
-                                        <SmallTitle bold className={classes.label}>
+                                        <SmallTitle color="label" className={classes.label}>
                                             {t("connect.signin.confirmPasswordInputTitle")}
                                         </SmallTitle>
                                         <Input

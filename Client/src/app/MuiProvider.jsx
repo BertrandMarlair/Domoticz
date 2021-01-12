@@ -35,7 +35,7 @@ const MuiProvider = ({children}) => {
 
     const editBackgroundColor = useCallback((muiTheme) => {
         if (muiTheme) {
-            document.getElementsByTagName("html")[0].style.background = muiTheme.palette.background.default;
+            document.getElementsByTagName("html")[0].style.background = muiTheme.palette.background.dark;
         }
     }, []);
 

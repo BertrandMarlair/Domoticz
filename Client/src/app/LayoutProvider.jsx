@@ -13,6 +13,12 @@ import {defaultRoute as globalDefaultRoute} from "../context/global/config/route
 import disconnectedRoute from "../context/disconnected/config/router";
 import {defaultRoute as disconnectedDefaultRoute} from "../context/disconnected/config/router";
 
+import contexttestRoute from "../context/contexttest/config/router";
+import {defaultRoute as contexttestDefaultRoute} from "../context/contexttest/config/router";
+
+import addRoute from "../context/add/config/router";
+import {defaultRoute as addDefaultRoute} from "../context/add/config/router";
+
 import NotFound from "../context/public/notFound/NotFound";
 
 import {EventEmitter} from "../core/events/events";
@@ -64,6 +70,34 @@ const LayoutProvider = ({location}) => {
                             <Redirect to={disconnectedDefaultRoute} />
                         </Switch>
                     </ConnectLayout>
+                );
+            case "add":
+                const AddLayout = lazy(() => import("../context/add/config/Layout"));
+                const AddProvider = lazy(() => import("../context/add/config/Provider"));
+
+                return (
+                    <AddLayout>
+                        <Switch>
+                            {addRoute.map((params, index) => (
+                                <AddProvider {...params} key={`dynamicRoute${index}`} />
+                            ))}
+                            <Redirect to={addDefaultRoute} />
+                        </Switch>
+                    </AddLayout>
+                );
+            case "contexttest":
+                const ContexttestLayout = lazy(() => import("../context/contexttest/config/Layout"));
+                const ContexttestProvider = lazy(() => import("../context/contexttest/config/Provider"));
+
+                return (
+                    <ContexttestLayout>
+                        <Switch>
+                            {contexttestRoute.map((params, index) => (
+                                <ContexttestProvider {...params} key={`dynamicRoute${index}`} />
+                            ))}
+                            <Redirect to={contexttestDefaultRoute} />
+                        </Switch>
+                    </ContexttestLayout>
                 );
             default:
                 return <NotFound />;
