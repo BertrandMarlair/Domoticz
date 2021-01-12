@@ -3,7 +3,7 @@ import {getLocalstorage, setLocalstorage} from "../localstorage/localStorage";
 const localDarkMode = getLocalstorage("dark-mode-enabled");
 
 export const initialState = {
-    isDarkMode: localDarkMode,
+    isDarkMode: localDarkMode ?? true,
 };
 
 export const TOGGLE_DARKMODE = "Layout/TOGGLE_DARKMODE";

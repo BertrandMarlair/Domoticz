@@ -2,7 +2,6 @@ import React from "react";
 import {Helmet} from "react-helmet";
 import {useTheme} from "@material-ui/core";
 import {useSelector} from "react-redux";
-import {heightAppBar} from "./constant";
 
 const Style = () => {
     const layout = useSelector((state) => state.darkMode);
@@ -11,7 +10,7 @@ const Style = () => {
 
     return (
         <Helmet>
-            {layout && layout.isDarkMode && (
+            {layout?.isDarkMode && (
                 <style>
                     {`
                         .MuiCheckbox-colorPrimary.Mui-checked {
@@ -25,18 +24,15 @@ const Style = () => {
             )}
             <style>
                 {`
-                    html, body, #root {
-                        height: calc(100% - ${heightAppBar}px);
-                    }
-                    ul, li {
-                            color: ${theme.palette.text.primary};
-                    }
                     .react-select__option.react-select__option--is-focused {
                         background: ${theme.palette.hover.select} !important;
                     }
-
                     html {
                         zoom: ${zoom};
+                    }
+                    .MuiOutlinedInput-input:-webkit-autofill {
+                        -webkit-box-shadow: 0 0 0 100px ${theme.palette.background.default} inset;
+                        -webkit-text-fill-color: #fff;
                     }
                 `}
             </style>

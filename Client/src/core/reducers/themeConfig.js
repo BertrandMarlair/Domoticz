@@ -1,13 +1,14 @@
 /* eslint-disable no-case-declarations */
 import {getLocalstorage, setLocalstorage} from "../localstorage/localStorage";
+import {primary, primaryDark, primaryLight} from "../style/constant";
 
 const localColor = getLocalstorage("color");
 const localZoom = getLocalstorage("zoom");
 
 export const initialState = {
-    primaryColor: localColor ? localColor.primaryColor : "#0f325f",
-    primaryLightColor: localColor ? localColor.primaryLightColor : "#4165ED",
-    primaryDarkColor: localColor ? localColor.primaryDarkColor : "#061d3b",
+    primaryColor: localColor ? localColor.primaryColor : primary,
+    primaryLightColor: localColor ? localColor.primaryLightColor : primaryLight,
+    primaryDarkColor: localColor ? localColor.primaryDarkColor : primaryDark,
     zoom: localZoom ? parseFloat(localZoom) : 1,
 };
 

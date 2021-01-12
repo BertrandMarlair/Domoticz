@@ -20,15 +20,23 @@ scalar Json
 
 type Mutation {
   editApplication: Application!
+  editTest: Test!
 }
 
 type Query {
   getAllApplications: [Application!]
+  getAllTests: [Test!]
 }
 
 type Status {
   code: String!
   color: String!
+  title: String!
+}
+
+type Test {
+  _id: ID!
+  description: String!
   title: String!
 }
 

@@ -40,14 +40,14 @@ const style = (theme) => ({
         position: "relative",
         display: "flex",
         height: "-webkit-fill-available",
-        borderBottom: `${containerHeight}px solid ${theme.palette.primary.main}`,
+        borderBottom: `${containerHeight}px solid ${theme.palette.background.constant}`,
         borderLeft: "85px solid transparent",
         [`@media (max-width: ${mediaQuerySizeXs}px)`]: {
             width: "100%",
             height: "auto",
             borderBottom: "unset",
             borderLeft: "unset",
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: theme.palette.background.constant,
             borderRadius: 8,
         },
     },
@@ -92,7 +92,12 @@ const style = (theme) => ({
     label: {
         margin: "5px 0",
     },
-    inputEmail: {
+    inputName: {
+        marginTop: 20,
+        marginBottom: 30,
+    },
+    inputPassword: {
+        marginTop: 20,
         marginBottom: 30,
     },
     forgotButton: {

@@ -1,19 +1,19 @@
 import {lazy} from "react";
 
-const Application = lazy(() => import("../application/Application"));
+const Home = lazy(() => import("../home/Home"));
 const Test = lazy(() => import("../test/Test"));
 
-export const defaultRoute = "/app/application";
+export const defaultRoute = "/app/home";
 export const name = "App";
 export const slug = "app";
 
 const dashboardRoutes = [
     {
-        path: "/app/application",
-        name: "Application",
-        component: Application,
+        path: "/app/home",
+        name: "Home",
+        component: Home,
         exact: true,
-        breadCrumbs: [{name: "Application", url: "/app/application"}],
+        breadCrumbs: [{name: "Home", url: "/app/home"}],
     },
     {
         path: "/app/test",

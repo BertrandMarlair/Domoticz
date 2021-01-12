@@ -1,35 +1,24 @@
 import React, {Fragment, Suspense} from "react";
-import {useSelector} from "react-redux";
 import MediaQuery from "react-responsive";
 
 import {withStyles} from "@material-ui/core";
 import style from "./Style";
 
 import SideBar from "../../../components/sideBar/SideBar";
-import Header from "../../../components/header/Header";
 
-import {mediaQuerySizeXs, widthSideBarClosed, widthSideBarOpnend} from "../../../core/style/constant";
-import useMenu from "../config/useMenu";
+import {mediaQuerySizeXs, widthSideBar} from "../../../core/style/constant";
 import LoaderLayout from "../../../components/loading/LoaderLayout";
 
 const Layout = ({children, classes}) => {
-    const layout = useSelector((state) => state.layout);
-    const {isSidebarOpened} = layout;
-    const menu = useMenu();
-
-    console.log("--- Global ---");
-    console.log(children);
-
     return (
         <Fragment>
-            <Header />
-            <SideBar menu={menu} />
+            <SideBar />
             <Suspense fallback={<LoaderLayout />}>
                 <MediaQuery query={`(min-width: ${mediaQuerySizeXs}px)`}>
                     <div
                         className={classes.drawer}
                         style={{
-                            paddingLeft: isSidebarOpened ? widthSideBarOpnend : widthSideBarClosed,
+                            paddingLeft: widthSideBar,
                         }}>
                         <div className={classes.drawerWrapper} id="dashboard">
                             {children}

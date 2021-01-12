@@ -7,10 +7,16 @@ import Popper from "@material-ui/core/Popper";
 import PropTypes from "prop-types";
 import Card from "../card/Card";
 
-const CustomPopper = ({children, anchorEl, handleClose, width, classes}) => {
+const CustomPopper = ({children, anchorEl, handleClose, width, classes, placement = "bottom"}) => {
     return (
-        <Popper open={!!anchorEl} anchorEl={anchorEl} transition disablePortal style={{zIndex: 1}}>
-            {({TransitionProps, placement}) => (
+        <Popper
+            open={!!anchorEl}
+            anchorEl={anchorEl}
+            transition
+            disablePortal
+            placement={placement}
+            style={{zIndex: 1}}>
+            {({TransitionProps}) => (
                 <Grow
                     {...TransitionProps}
                     style={{
@@ -31,6 +37,7 @@ CustomPopper.propTypes = {
     anchorRef: PropTypes.object,
     children: PropTypes.node,
     className: PropTypes.string,
+    placement: PropTypes.string,
 };
 
 export default withStyles(style)(CustomPopper);
