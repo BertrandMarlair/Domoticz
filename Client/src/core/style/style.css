@@ -11,63 +11,13 @@ body {
     min-width: 320px;
 }
 
-@font-face {
-    font-family: 'SFPro';
-    font-style: normal;
-    font-weight: 100;
-    src: url('./fonts/SFPro/FontsFree-Net-SFProDisplay-Ultralight.ttf'); 
-}
-@font-face {
-    font-family: 'SFPro';
-    font-style: normal;
-    font-weight: 200;
-    src: url('./fonts/SFPro/FontsFree-Net-SFProDisplay-Thin.ttf'); 
-}
-@font-face {
-    font-family: 'SFPro';
-    font-style: normal;
-    font-weight: 300;
-    src: url('./fonts/SFPro/FontsFree-Net-SFProText-Light.ttf'); 
-}
-@font-face {
-    font-family: 'SFPro';
-    font-style: normal;
-    font-weight: 400;
-    src: url('./fonts/SFPro/FontsFree-Net-SFProText-Regular.ttf'); 
-}
-@font-face {
-    font-family: 'SFPro';
-    font-style: italic;
-    font-weight: 400;
-    src: url('./fonts/SFPro/FontsFree-Net-SFProText-MediumItalic.ttf'); 
-}
-@font-face {
-    font-family: 'SFPro';
-    font-style: normal;
-    font-weight: 500;
-    src: url('./fonts/SFPro/FontsFree-Net-SFProDisplay-Semibold.ttf'); 
-}
-@font-face {
-    font-family: 'SFPro';
-    font-style: normal;
-    font-weight: 600;
-    src: url('./fonts/SFPro/FontsFree-Net-SFProText-Bold.ttf'); 
-}
-
-@font-face {
-    font-family: 'SFPro';
-    font-style: normal;
-    font-weight: 700;
-    src: url('./fonts/SFPro/FontsFree-Net-SFProText-Heavy.ttf'); 
-}
-
 .select__single-value {
     color: inherit !important;
 }
 * {
     transition: background-color 0.2s;
     box-sizing: border-box;
-    font-family: SFPro;
+    font-family: 'Lato', sans-serif;
 }
 a {
     outline: none;
@@ -76,7 +26,7 @@ a {
 }
 
 ul, li {
-    font-family: SFPro;
+    font-family: Lato;
     font-style: normal;
     font-weight: 200;
     font-size: 0.85rem;

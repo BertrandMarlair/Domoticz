@@ -61,6 +61,9 @@ const typographyStyle = (theme) => ({
     success: {
         color: theme.palette.success.main,
     },
+    label: {
+        color: theme.palette.text.light,
+    },
     warning: {
         color: theme.palette.warning.main,
     },
@@ -92,13 +95,13 @@ const typographyStyle = (theme) => ({
         textAlign: "center",
     },
     bold: {
-        fontWeight: 600,
+        fontWeight: 500,
     },
     normal: {
-        fontWeight: 400,
+        fontWeight: 300,
     },
     light: {
-        fontWeight: 300,
+        fontWeight: 200,
     },
     italic: {
         fontStyle: "italic",

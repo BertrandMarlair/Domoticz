@@ -11,6 +11,9 @@ import {
     borderReactionDark,
     borderMedium,
     textColorLight,
+    background,
+    backgroundDark,
+    backgroundMedium,
 } from "../style/constant";
 import {globalPalette} from "./globalPalette";
 import {globalMui} from "./globalMui";
@@ -19,6 +22,8 @@ import {lightenColor} from "../utils/misc";
 
 const useCustomTheme = () => {
     const theme = useSelector((state) => state.theme);
+
+    console.log(theme);
 
     const themeSettingsLight = {
         palette: {
@@ -59,9 +64,11 @@ const useCustomTheme = () => {
                 paper: "#ffffff",
                 default: "#fafafa",
                 light: "#f0f0f1",
+                dark: "#f0f0f1",
                 grey: "#F7F7F7",
                 reaction: "#e4efff",
                 card: "#ffffff",
+                constant: "#1F242F",
             },
             boxShadow: {
                 main: boxShadowLight,
@@ -109,8 +116,8 @@ const useCustomTheme = () => {
             },
             text: {
                 primary: "#ffffff",
-                secondary: "#c4c4c4",
-                light: "#39485d",
+                secondary: "#CDCDCD",
+                light: "#767679",
                 focus: "#39485d",
                 dark: "#ffffff",
                 title: "#ffffff",
@@ -122,12 +129,14 @@ const useCustomTheme = () => {
                 contrasted: "#ffffff",
             },
             background: {
-                paper: "#222e3d",
-                default: "#181f2b",
+                paper: backgroundMedium,
+                default: background,
+                card: background,
+                dark: backgroundDark,
                 light: "#222e3d",
                 grey: "#222e3d",
                 reaction: "#3c4d66",
-                card: "#2a3646",
+                constant: "#1F242F",
             },
             boxShadow: {
                 main: boxShadowDark,

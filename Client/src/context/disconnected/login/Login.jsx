@@ -102,7 +102,7 @@ const Login = ({classes, history}) => {
                         </div>
                         <form className={classes.form} onSubmit={(e) => loginUser(e)}>
                             <div className={classes.inputName}>
-                                <SmallTitle bold className={classes.label}>
+                                <SmallTitle color="label" className={classes.label}>
                                     {t("connect.login.nameInputTitle")}
                                 </SmallTitle>
                                 <Input
@@ -116,7 +116,7 @@ const Login = ({classes, history}) => {
                                 />
                             </div>
                             <div className={classes.inputPassword}>
-                                <SmallTitle bold className={classes.label}>
+                                <SmallTitle color="label" className={classes.label}>
                                     {t("connect.login.passwordInputTitle")}
                                 </SmallTitle>
                                 <Input
@@ -146,7 +146,7 @@ const Login = ({classes, history}) => {
                             </Title>
                         </div>
                         <div className={classes.description}>
-                            <Text centered color="white">
+                            <Text noWrap centered color="white">
                                 {t("connect.login.noAccountDescription")}
                             </Text>
                         </div>

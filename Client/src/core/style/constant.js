@@ -1,5 +1,6 @@
-export const primaryLight = "#0f325f";
-export const primaryDark = "#A1D078";
+export const primary = "#05cd69";
+export const primaryLight = "#12ea7e";
+export const primaryDark = "#05cd69";
 
 export const secondaryLight = "#39BE83";
 export const secondaryDark = "#39BE83";
@@ -20,77 +21,101 @@ export const textColorLight = "#565F5A";
 export const textColorDark = "#C4C4C4";
 export const textColorLightGrey = "#dad4d4";
 
-export const backgroundDark = "#18202B";
-export const backgroundMedium = "#222e3d";
+export const background = "#2c2d43";
+export const backgroundDark = "#2c2d43";
+export const backgroundMedium = "#2f3247";
 export const backgroundWhite = "#ffffff";
 
-export const activeCell = "#bad2ea";
-
-export const bfineColor = {
-    name: "bfine",
-    primary: "#0f325f",
-    primaryLight: "#3e5a7e",
-    primaryDark: "#0c284c",
-};
-
 export const blueLight = {
-    name: "blueLight",
     primary: "#2261A1",
     primaryLight: "#428cd7",
     primaryDark: "#0d263f",
 };
 
 export const green = {
-    name: "green",
     primary: "#0D4524",
     primaryLight: "#1c964e",
     primaryDark: "#04150b",
 };
 
 export const greenLight = {
-    name: "greenLight",
     primary: "#156B39",
     primaryLight: "#26c066",
     primaryDark: "#0d4022",
 };
 
 export const red = {
-    name: "red",
     primary: "#691A16",
     primaryLight: "#A62E21",
     primaryDark: "#3f100d",
 };
 
 export const redLight = {
-    name: "redLight",
     primary: "#A62E21",
     primaryLight: "#d94f40",
     primaryDark: "#40120d",
 };
 
 export const yellow = {
-    name: "yellow",
     primary: "#cccc00",
     primaryLight: "#d6d632",
     primaryDark: "#a3a300",
 };
 
 export const dark = {
-    name: "dark",
     primary: "#2E2E2E",
     primaryLight: "#595959",
     primaryDark: "#0d0d0d",
 };
 
 export const light = {
-    name: "light",
     primary: "#DFDFDF",
     primaryLight: "#ebebeb",
     primaryDark: "#b2b2b2",
 };
 
+export const grey = {
+    primary: "#696B7A",
+    primaryLight: "#94959B",
+    primaryDark: "#484952",
+};
+
+export const error = {
+    main: "#EB5701",
+    light: "#e57373",
+    dark: "#CD4B00",
+    contrastText: "#ffffff",
+};
+
+export const success = {
+    main: "#13B760",
+    light: "#2BD87C",
+    dark: "#08AA54",
+    contrastText: "#ffffff",
+};
+
+export const warning = {
+    main: "#de7e00",
+    light: "#fc9403",
+    dark: "#ba6b03",
+    contrastText: "#ffffff",
+};
+
+export const white = {
+    main: "#ffffff",
+    light: "#D9D9D9",
+    contrastText: "#565F5A",
+    contrast: "#000000",
+};
+
+export const link = {
+    main: "#4891FF",
+    light: "#6ca1f2",
+    dark: "#2476f2",
+};
+
 export const boxShadowLight = "0px 12px 28px rgba(0, 9, 128, 0.1)";
-export const boxShadowDark = "0px 12px 28px rgba(0, 9, 128, 0.1)";
+export const boxShadowDark = "0px 0px 20px rgb(43 46 66)";
 export const boxShadowLightWhite = "0px 12px 28px #bfc1d4";
 export const boxShadowDarkWhite = "0px 12px 28px #0f101f";
 
@@ -118,11 +143,10 @@ export const sizeMd = 900;
 export const sizeL = 1200;
 export const sizeXl = "100vw";
 
-export const fontFamily = "SFPro";
+export const fontFamily = "Lato";
 
 export const heightAppBar = 43;
-export const widthSideBarClosed = 55;
-export const widthSideBarOpnend = 200;
+export const widthSideBar = 60;
 
 export const mediaQuerySizeXl = 1490;
 export const mediaQuerySizeSm = 1279;
@@ -133,6 +157,12 @@ export const mediaQuerySizeXxs = 500;
 export const displayBetween = {
     display: "flex",
     justifyContent: "space-between",
+    alignItems: "center",
+};
+
+export const displayCenter = {
+    display: "flex",
+    justifyContent: "center",
     alignItems: "center",
 };
 

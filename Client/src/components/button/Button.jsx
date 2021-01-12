@@ -53,7 +53,7 @@ const CustomButton = (props) => {
     });
 
     return (
-        <div className={containerClasses} data-test-id={rest["data-test-id"]}>
+        <div className={containerClasses}>
             <Button {...rest} classes={muiClasses} className={btnClasses} disabled={disabled}>
                 {loading && <Loading button small />}
                 {children}

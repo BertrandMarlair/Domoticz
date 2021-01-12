@@ -1,4 +1,4 @@
-import {displayBetween, displayVerticalCenter, heightAppBar} from "../../core/style/constant";
+import {displayVerticalCenter} from "../../core/style/constant";
 
 const style = (theme) => ({
     container: {
@@ -22,7 +22,7 @@ const style = (theme) => ({
         alignItems: "center",
         width: "100%",
         height: "100%",
-        background: theme.palette.primary.main,
+        background: theme.palette.background.dark,
         animationName: "$opacityReduce",
         animationDuration: "1s",
         opacity: 0,
@@ -96,55 +96,9 @@ const style = (theme) => ({
         height: "100%",
         width: "100%",
     },
-    nav: {
-        zIndex: 1,
-        height: heightAppBar,
-        top: 0,
-        width: "100%",
-        position: "fixed",
-        background: theme.palette.primary.main,
-        ...displayBetween,
-    },
-    options: {
-        ...displayVerticalCenter,
-    },
-    optionItem: {
-        margin: "0 5px",
-        padding: 4,
-        height: 32,
-        borderRadius: 6,
-        transition: "0.2s",
-        cursor: "pointer",
-        minWidth: 50,
-        ...displayVerticalCenter,
-        "&:hover": {
-            backgroundColor: `${theme.palette.white.main}2f`,
-        },
-    },
     sideOptions: {
         marginRight: 15,
         ...displayVerticalCenter,
-    },
-    sideBar: {
-        left: 0,
-        top: heightAppBar,
-        position: "fixed",
-        boxShadow: theme.palette.boxShadow.main,
-        height: `calc(100% - ${heightAppBar}px)`,
-        background: theme.palette.background.paper,
-        transition: "0.3s",
-        display: "flex",
-        flexDirection: "column",
-        overflow: "hidden",
-        zIndex: 1,
-    },
-    body: {
-        position: "relative",
-        marginTop: heightAppBar,
-        height: `calc(100% - ${heightAppBar}px)`,
-    },
-    skeleton: {
-        backgroundColor: "rgb(255 255 255 / 11%)",
     },
 });
 

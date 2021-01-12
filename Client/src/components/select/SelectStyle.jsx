@@ -13,7 +13,7 @@ const style = (theme) => ({
         background: theme.palette.background.paper,
         color: theme.palette.text.primary,
         borderRadius: 6,
-        minHeight: "32px !important",
+        minHeight: "35px !important",
         top: "40%",
         display: "flex",
         justifyContent: "space-between",

@@ -39,8 +39,8 @@ const CustomSelect = (props) => {
         fontWeight: 300,
         color: theme.palette.text.primary,
         borderRadius: 6,
-        maxHeight: "32px !important",
-        minHeight: "unset !important",
+        maxHeight: "48px !important",
+        minHeight: "48px !important",
         top: "40%",
         ...style,
     });
@@ -62,6 +62,7 @@ const CustomSelect = (props) => {
             ...selectStyle(provided),
             borderColor: error ? "red" : "#c4c4c4",
             overflow: "hidden",
+            maxHeight: "70px !important",
         }),
         input: (provided) => ({
             ...provided,

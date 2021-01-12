@@ -2,16 +2,21 @@ import {borderLight, remS} from "../style/constant";
 
 export const globalMui = {
     overrides: {
+        MuiButton: {
+            root: {
+                textTransform: "inherit",
+            },
+        },
         MuiInputBase: {
             input: {
-                fontFamily: "SFPro",
+                fontFamily: "Lato",
                 fontWeight: 300,
                 padding: "6.5px 15px !important",
             },
         },
         MuiOutlinedInput: {
             input: {
-                fontFamily: "SFPro",
+                fontFamily: "Lato",
                 fontWeight: 300,
             },
             multiline: {
@@ -103,7 +108,7 @@ export const globalMui = {
                 fontSize: remS,
                 lineHeight: "normal",
                 fontWeight: 300,
-                fontFamily: "SFPro",
+                fontFamily: "Lato",
                 letterSpacing: 0,
             },
         },

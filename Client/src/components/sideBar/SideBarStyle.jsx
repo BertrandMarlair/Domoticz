@@ -1,36 +1,47 @@
-import {heightAppBar, displayVerticalCenter, widthSideBarOpnend} from "../../core/style/constant";
+import {displayVerticalCenter, widthSideBar, displayCenter} from "../../core/style/constant";
 
 const style = (theme) => ({
     root: {
         left: 0,
-        marginTop: heightAppBar,
         position: "fixed",
         boxShadow: theme.palette.boxShadow.main,
-        height: `calc(100% - ${heightAppBar}px)`,
+        height: "100%",
         background: theme.palette.background.paper,
         transition: "0.3s",
         display: "flex",
         flexDirection: "column",
-        overflow: "hidden",
         zIndex: 1299,
     },
-    head: {
-        height: 60,
-        padding: "5px 0",
-        borderBottom: theme.palette.border.colored,
+    logo: {
+        ...displayCenter,
+        marginTop: 20,
+    },
+    optionItem: {
+        height: 42,
+        cursor: "pointer",
+        width: 42,
         ...displayVerticalCenter,
     },
-    subHead: {
-        height: 60,
-        padding: "5px 0",
-        borderBottom: theme.palette.border.colored,
+    options: {
         ...displayVerticalCenter,
+    },
+    optionItemSmall: {
+        marginBottom: 10,
+        transition: "0.2s",
+        cursor: "pointer",
+        ...displayCenter,
+        width: "100%",
     },
     menuSubItemId: {
         marginLeft: 15,
     },
     content: {
+        marginTop: 40,
         flexGrow: 1,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: "column",
     },
     footer: {
         height: 60,
@@ -38,15 +49,25 @@ const style = (theme) => ({
     },
     menuItem: {
         height: 52,
+        marginTop: 10,
+        marginBottom: 10,
         display: "flex",
         alignItems: "center",
         cursor: "pointer",
         width: "100%",
     },
+    optionMenuItem: {
+        ...displayVerticalCenter,
+    },
+    target: {
+        width: 6,
+        marginLeft: "-3px",
+        height: "100%",
+        borderRadius: "10px",
+    },
     icon: {
         paddingRight: 18,
         paddingLeft: 15,
-        borderLeft: "4px solid transparent",
         height: "100%",
         ...displayVerticalCenter,
     },
@@ -60,7 +81,7 @@ const style = (theme) => ({
         transition: "0.3s",
         marginLeft: 5,
         paddingRight: 5,
-        minWidth: widthSideBarOpnend - 60,
+        minWidth: widthSideBar - 60,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -72,6 +93,50 @@ const style = (theme) => ({
         borderRadius: "100%",
         border: theme.palette.border.main,
         padding: 4,
+    },
+    zoomContainer: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+        margin: "0px 16px",
+    },
+    zoom: {
+        width: 50,
+    },
+    size: {
+        width: 35,
+    },
+    zoomContainerRight: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    zoomContainerLeft: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    emptyDiv: {
+        flex: 1,
+    },
+    iconRight: {
+        marginRight: 10,
+    },
+    iconLeft: {
+        marginLeft: 10,
+    },
+    iconCenter: {
+        margin: 10,
+    },
+    menuItemSubOptions: {
+        paddingLeft: 40,
+    },
+    menuItemSubOptionsTitle: {
+        marginTop: 5,
+        marginBottom: 5,
+        marginLeft: 5,
+        ...displayVerticalCenter,
     },
 });
 

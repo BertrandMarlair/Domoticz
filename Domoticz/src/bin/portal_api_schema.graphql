@@ -23,9 +23,17 @@ type Delete {
   id: Int!
 }
 
+<<<<<<< HEAD
 input editBlockInput {
   description: String
   id: String!
+=======
+input editProviderInput {
+  _id: ID!
+  description: String!
+  icon: String!
+  slug: String!
+>>>>>>> develop
   title: String!
 }
 
@@ -38,13 +46,30 @@ scalar Json
 type Mutation {
   createBlock(block: createBlockInput!): Block!
   editApplication: Application!
+<<<<<<< HEAD
   editBlock(block: editBlockInput!): Block!
   editTest: Test!
+=======
+  editProvider(provider: editProviderInput!): Provider!
+  editTest: Test!
+}
+
+type Provider {
+  _id: ID!
+  description: String!
+  icon: String!
+  slug: String!
+  title: String!
+>>>>>>> develop
 }
 
 type Query {
   getAllApplications: [Application!]
+<<<<<<< HEAD
   getAllBlocks: [Block!]
+=======
+  getAllProviders: [Provider!]
+>>>>>>> develop
   getAllTests: [Test!]
 }
 

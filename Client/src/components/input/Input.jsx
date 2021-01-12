@@ -36,7 +36,7 @@ const Input = (props) => {
             <TextField
                 variant="outlined"
                 inputProps={{
-                    style: {padding: "9.5px 15px", fontWeight: 300},
+                    style: {padding: "9.5px 15px", fontWeight: 300, minHeight: 35},
                     ...rest,
                 }}
                 InputProps={{
