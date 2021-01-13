@@ -113,4 +113,8 @@ export default [
         name: "Close",
         url: `${url}/close.svg`,
     },
+    {
+        name: "Hue",
+        url: `${url}/smart-energy.svg`,
+    },
 ];

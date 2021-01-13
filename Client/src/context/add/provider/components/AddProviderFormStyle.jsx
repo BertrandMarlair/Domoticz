@@ -1,4 +1,7 @@
 const style = () => ({
+    wrapper: {
+        padding: 20,
+    },
     title: {
         marginBottom: 20,
     },

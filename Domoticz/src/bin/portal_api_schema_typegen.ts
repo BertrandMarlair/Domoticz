@@ -30,19 +30,17 @@ export interface NexusGenInputs {
     description?: string | null; // String
     title: string; // String!
   }
-  editBlockInput: { // input type
-    description?: string | null; // String
-    id: string; // String!
-    title: string; // String!
-  }
-    
   createProviderInput: { // input type
     description: string; // String!
     icon: string; // String!
     slug: string; // String!
     title: string; // String!
   }
-
+  editBlockInput: { // input type
+    description?: string | null; // String
+    id: string; // String!
+    title: string; // String!
+  }
   editProviderInput: { // input type
     _id: string; // ID!
     description: string; // String!
@@ -99,8 +97,8 @@ export interface NexusGenRootTypes {
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
   createBlockInput: NexusGenInputs['createBlockInput'];
-  editBlockInput: NexusGenInputs['editBlockInput'];
   createProviderInput: NexusGenInputs['createProviderInput'];
+  editBlockInput: NexusGenInputs['editBlockInput'];
   editProviderInput: NexusGenInputs['editProviderInput'];
 }
 
@@ -124,11 +122,6 @@ export interface NexusGenFieldTypes {
     deleteProvider: NexusGenRootTypes['Provider']; // Provider!
     editApplication: NexusGenRootTypes['Application']; // Application!
     editBlock: NexusGenRootTypes['Block']; // Block!
-    editTest: NexusGenRootTypes['Test']; // Test!
-  }
-  Query: { // field return type
-    getAllApplications: NexusGenRootTypes['Application'][] | null; // [Application!]
-    getAllBlocks: NexusGenRootTypes['Block'][] | null; // [Block!]
     editProvider: NexusGenRootTypes['Provider']; // Provider!
     editTest: NexusGenRootTypes['Test']; // Test!
   }
@@ -141,6 +134,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     getAllApplications: NexusGenRootTypes['Application'][] | null; // [Application!]
+    getAllBlocks: NexusGenRootTypes['Block'][] | null; // [Block!]
     getAllProviders: NexusGenRootTypes['Provider'][] | null; // [Provider!]
     getAllTests: NexusGenRootTypes['Test'][] | null; // [Test!]
   }
@@ -161,13 +155,14 @@ export interface NexusGenArgTypes {
     createBlock: { // args
       block: NexusGenInputs['createBlockInput']; // createBlockInput!
     }
-    editBlock: { // args
-      block: NexusGenInputs['editBlockInput']; // editBlockInput!
     createProvider: { // args
       provider: NexusGenInputs['createProviderInput']; // createProviderInput!
     }
     deleteProvider: { // args
       _id: string; // ID!
+    }
+    editBlock: { // args
+      block: NexusGenInputs['editBlockInput']; // editBlockInput!
     }
     editProvider: { // args
       provider: NexusGenInputs['editProviderInput']; // editProviderInput!
@@ -180,13 +175,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Application" | "Block" | "Delete" | "Mutation" | "Query" | "Status" | "Test";
+export type NexusGenObjectNames = "Application" | "Block" | "Delete" | "Mutation" | "Provider" | "Query" | "Status" | "Test";
 
-export type NexusGenInputNames = "createBlockInput" | "editBlockInput";
-export type NexusGenObjectNames = "Application" | "Delete" | "Mutation" | "Provider" | "Query" | "Status" | "Test";
-
-export type NexusGenInputNames = "editProviderInput";
-export type NexusGenInputNames = "createProviderInput" | "editProviderInput";
+export type NexusGenInputNames = "createBlockInput" | "createProviderInput" | "editBlockInput" | "editProviderInput";
 
 export type NexusGenEnumNames = never;
 

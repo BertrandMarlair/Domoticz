@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, {useState, useEffect} from "react";
-import {withStyles, Grid} from "@material-ui/core";
+import {withStyles, Grid, IconButton} from "@material-ui/core";
 import style from "./ProviderStyle";
 import gql from "graphql-tag";
 import {useQuery} from "react-apollo";
@@ -16,9 +16,9 @@ import {useTheme} from "@material-ui/styles";
 import SmallTitle from "../../../components/typography/SmallTitle";
 import AddProviderForm from "./components/AddProviderForm";
 
-const Provider = ({classes}) => {
+const Provider = ({classes, history}) => {
     const [loaded, setLoaded] = useState(false);
-    const [provider, setProvider] = useState([]);
+    const [providers, setProviders] = useState([]);
     const [open, setOpen] = useState(false);
     const theme = useTheme();
 
@@ -32,7 +32,7 @@ const Provider = ({classes}) => {
 
     useEffect(() => {
         if (data?.getAllProviders) {
-            setProvider(data.getAllProviders);
+            setProviders(data.getAllProviders);
         }
     }, [data]);
 
@@ -56,20 +56,30 @@ const Provider = ({classes}) => {
             </Card>
             <Grid container className={classes.container}>
                 <Error errorMessage={error} />
-                {provider.map((app) => (
-                    <Grid item lg={4} md={6} xs={12} key={`application/${app._id}`} className={classes.gridItem}>
+                {providers.map((provider) => (
+                    <Grid item lg={4} md={6} xs={12} key={`provider/${provider._id}`} className={classes.gridItem}>
                         <Card className={classes.card}>
-                            <Title>{app.title}</Title>
+                            <div>
+                                <Icon>{provider.icon}</Icon>
+                                <Title>{provider.title}</Title>
+                            </div>
                             <Text noWrap className={classes.description}>
-                                {app.description}
+                                {provider.description}
                             </Text>
+                            <div>
+                                <IconButton onClick={() => history.push(`/add/provider/${provider.slug}`)}>
+                                    <Icon color={theme.palette.primary.main} size={50}>
+                                        Add
+                                    </Icon>
+                                </IconButton>
+                            </div>
                         </Card>
                     </Grid>
                 ))}
             </Grid>
             {loading && <Loading absolute />}
             <Modal open={open} onClose={() => setOpen(false)}>
-                <AddProviderForm onClose={() => setOpen(false)} />
+                <AddProviderForm onClose={() => setOpen(false)} setProviders={setProviders} />
             </Modal>
         </div>
     );
@@ -82,6 +92,8 @@ const GET_PROVIDER = gql`
         getAllProviders {
             _id
             title
+            icon
+            slug
             description
         }
     }

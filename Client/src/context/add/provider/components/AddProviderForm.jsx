@@ -13,7 +13,7 @@ import Text from "../../../../components/typography/Text";
 import Title from "../../../../components/typography/Title";
 import SmallTitle from "../../../../components/typography/SmallTitle";
 
-const AddProviderForm = ({classes, history, onClose}) => {
+const AddProviderForm = ({classes, history, onClose, setProviders}) => {
     const [title, setTitle] = useState("");
     const [errorTitle, setErrorTitle] = useState(null);
     const [description, setDescription] = useState("");
@@ -33,6 +33,7 @@ const AddProviderForm = ({classes, history, onClose}) => {
             notify(t("connect.signin.success.signin"), {
                 variant: "success",
             });
+            setProviders((e) => [...e, {...data.createProvider}]);
             onClose();
         }
     }, [data, history, t]);
@@ -81,7 +82,7 @@ const AddProviderForm = ({classes, history, onClose}) => {
     };
 
     return (
-        <div>
+        <div className={classes.wrapper}>
             <div className={classes.title}>
                 <Title normal centered>
                     Creation d'un provider

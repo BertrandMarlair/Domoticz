@@ -30,17 +30,17 @@ type Delete {
   id: Int!
 }
 
+input editBlockInput {
+  description: String
+  id: String!
+  title: String!
+}
+
 input editProviderInput {
   _id: ID!
   description: String!
   icon: String!
   slug: String!
-  title: String!
-}
-
-input editBlockInput {
-  description: String
-  id: String!
   title: String!
 }
 
@@ -56,7 +56,6 @@ type Mutation {
   deleteProvider(_id: ID!): Provider!
   editApplication: Application!
   editBlock(block: editBlockInput!): Block!
-  editTest: Test!
   editProvider(provider: editProviderInput!): Provider!
   editTest: Test!
 }

@@ -4,15 +4,12 @@ import MediaQuery from "react-responsive";
 import {withStyles} from "@material-ui/core";
 import style from "./Style";
 
-import SideBar from "../../../components/sideBar/SideBar";
-
 import {mediaQuerySizeXs, widthSideBar} from "../../../core/style/constant";
 import LoaderLayout from "../../../components/loading/LoaderLayout";
 
 const Layout = ({children, classes}) => {
     return (
         <Fragment>
-            <SideBar />
             <Suspense fallback={<LoaderLayout />}>
                 <MediaQuery query={`(min-width: ${mediaQuerySizeXs}px)`}>
                     <div

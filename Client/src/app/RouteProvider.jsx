@@ -13,7 +13,7 @@ const RouteProvider = (props) => {
     const dispatch = useDispatch();
     const logout = () => dispatch({type: "LOGOUT"});
     const [loaded, setLoaded] = useState(false);
-    const [checkAuthUser, {data, loading, error}] = useLazyQuery(CHECK_USER);
+    const [checkAuthUser, {data, error}] = useLazyQuery(CHECK_USER);
 
     const history = useHistory();
 
@@ -37,7 +37,6 @@ const RouteProvider = (props) => {
 
     return (
         <Fragment>
-            {loading && <LoaderScreen />}
             {!loaded && <LoaderScreen />}
             <NoInternetConnection />
             <Router basename={process.env.PUBLIC_URL}>

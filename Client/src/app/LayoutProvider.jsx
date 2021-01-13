@@ -3,6 +3,8 @@ import React, {useMemo, useEffect, lazy} from "react";
 
 import {withRouter, Redirect, Switch} from "react-router-dom";
 import {useSnackbar} from "notistack";
+import SideBar from "../components/sideBar/SideBar";
+import Connected from "../components/connected/Connected";
 
 import "../core/style/style.css";
 import {SNACKBAR_EVENT} from "../core/constants";
@@ -104,7 +106,14 @@ const LayoutProvider = ({location}) => {
         }
     }, [layoutContainerTarget]);
 
-    return <main style={{height: "100%", display: "flex"}}>{renderLayout}</main>;
+    return (
+        <main style={{height: "100%", display: "flex"}}>
+            <Connected>
+                <SideBar />
+            </Connected>
+            {renderLayout}
+        </main>
+    );
 };
 
 export default withRouter(LayoutProvider);
