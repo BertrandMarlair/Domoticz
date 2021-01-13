@@ -115,9 +115,9 @@ const useCustomTheme = () => {
                 contrastText: "#ffffff",
             },
             text: {
-                primary: "#ffffff",
+                primary: "#eaeaea",
                 secondary: "#CDCDCD",
-                light: "#767679",
+                light: "#8f8f96",
                 focus: "#39485d",
                 dark: "#ffffff",
                 title: "#ffffff",

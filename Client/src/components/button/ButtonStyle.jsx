@@ -134,7 +134,7 @@ const style = (theme) => ({
     },
     sm: {
         fontSize: "0.8rem",
-        padding: "5px 5px",
+        padding: "5px 15px",
     },
     big: {
         padding: "18px 40px",

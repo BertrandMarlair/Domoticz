@@ -8,6 +8,13 @@ type Application {
   title: String!
 }
 
+input createProviderInput {
+  description: String!
+  icon: String!
+  slug: String!
+  title: String!
+}
+
 type Delete {
   id: Int!
 }
@@ -27,6 +34,8 @@ scalar Email
 scalar Json
 
 type Mutation {
+  createProvider(provider: createProviderInput!): Provider!
+  deleteProvider(_id: ID!): Provider!
   editApplication: Application!
   editProvider(provider: editProviderInput!): Provider!
   editTest: Test!

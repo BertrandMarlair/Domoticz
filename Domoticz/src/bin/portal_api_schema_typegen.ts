@@ -26,6 +26,12 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  createProviderInput: { // input type
+    description: string; // String!
+    icon: string; // String!
+    slug: string; // String!
+    title: string; // String!
+  }
   editProviderInput: { // input type
     _id: string; // ID!
     description: string; // String!
@@ -76,6 +82,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  createProviderInput: NexusGenInputs['createProviderInput'];
   editProviderInput: NexusGenInputs['editProviderInput'];
 }
 
@@ -89,6 +96,8 @@ export interface NexusGenFieldTypes {
     id: number; // Int!
   }
   Mutation: { // field return type
+    createProvider: NexusGenRootTypes['Provider']; // Provider!
+    deleteProvider: NexusGenRootTypes['Provider']; // Provider!
     editApplication: NexusGenRootTypes['Application']; // Application!
     editProvider: NexusGenRootTypes['Provider']; // Provider!
     editTest: NexusGenRootTypes['Test']; // Test!
@@ -119,6 +128,12 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createProvider: { // args
+      provider: NexusGenInputs['createProviderInput']; // createProviderInput!
+    }
+    deleteProvider: { // args
+      _id: string; // ID!
+    }
     editProvider: { // args
       provider: NexusGenInputs['editProviderInput']; // editProviderInput!
     }
@@ -132,7 +147,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Application" | "Delete" | "Mutation" | "Provider" | "Query" | "Status" | "Test";
 
-export type NexusGenInputNames = "editProviderInput";
+export type NexusGenInputNames = "createProviderInput" | "editProviderInput";
 
 export type NexusGenEnumNames = never;
 
