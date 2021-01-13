@@ -82,6 +82,7 @@ Normal.propTypes = {
         "link",
         "contrasted",
         "default",
+        "lightGrey",
     ]),
 };
 

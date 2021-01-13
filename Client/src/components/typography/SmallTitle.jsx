@@ -68,7 +68,17 @@ SmallTitle.propTypes = {
     preWrap: PropTypes.bool,
     noWrap: PropTypes.bool,
     centered: PropTypes.bool,
-    color: PropTypes.oneOf(["primary", "secondary", "white", "success", "error", "warning", "contrasted", "label"]),
+    color: PropTypes.oneOf([
+        "primary",
+        "secondary",
+        "white",
+        "success",
+        "error",
+        "warning",
+        "contrasted",
+        "label",
+        "lightGrey",
+    ]),
 };
 
 export default withStyles(typographyStyle)(SmallTitle);

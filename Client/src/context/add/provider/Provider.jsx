@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, {useState, useEffect} from "react";
 import {withStyles, Grid} from "@material-ui/core";
 import style from "./ProviderStyle";
@@ -10,11 +11,16 @@ import Title from "../../../components/typography/Title";
 import Text from "../../../components/typography/Text";
 import Modal from "../../../components/modal/SimpleModal";
 import Button from "../../../components/button/Button";
+import Icon from "../../../components/icon/Icon";
+import {useTheme} from "@material-ui/styles";
+import SmallTitle from "../../../components/typography/SmallTitle";
+import AddProviderForm from "./components/AddProviderForm";
 
 const Provider = ({classes}) => {
     const [loaded, setLoaded] = useState(false);
     const [provider, setProvider] = useState([]);
     const [open, setOpen] = useState(false);
+    const theme = useTheme();
 
     const {data, loading, error} = useQuery(GET_PROVIDER);
 
@@ -32,9 +38,22 @@ const Provider = ({classes}) => {
 
     return (
         <div className={classes.root}>
-            <div>
-                <Button onClick={() => setOpen(true)}>Add new provider</Button>
-            </div>
+            <Card className={classes.addProvider}>
+                <div className={classes.addProviderHeader}>
+                    <Icon color={theme.palette.primary.main} className={classes.addProviderIcon}>
+                        Checked
+                    </Icon>
+                    <div>
+                        <SmallTitle className={classes.addProviderTitle}>Créer un nouveau provider</SmallTitle>
+                        <Text className={classes.addProviderText} color="lightGrey">
+                            Le provider est le point central d'un produit domotique pour la maison.
+                        </Text>
+                    </div>
+                </div>
+                <Button round size="sm" onClick={() => setOpen(true)}>
+                    Add new provider
+                </Button>
+            </Card>
             <Grid container className={classes.container}>
                 <Error errorMessage={error} />
                 {provider.map((app) => (
@@ -50,7 +69,7 @@ const Provider = ({classes}) => {
             </Grid>
             {loading && <Loading absolute />}
             <Modal open={open} onClose={() => setOpen(false)}>
-                <div>coucou</div>
+                <AddProviderForm onClose={() => setOpen(false)} />
             </Modal>
         </div>
     );

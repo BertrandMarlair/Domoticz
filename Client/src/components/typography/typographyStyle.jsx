@@ -2,11 +2,22 @@
 // // // Typography styles
 // #############################
 
-import {remXXS, strongWhiteBorder, remS, remL, sizeS, remXs, fontFamily, remXXl} from "../../core/style/constant";
+import {
+    remXXS,
+    strongWhiteBorder,
+    remS,
+    remL,
+    remMl,
+    sizeS,
+    remXs,
+    fontFamily,
+    remXXl,
+} from "../../core/style/constant";
 
 const typographyStyle = (theme) => ({
     defaultFontStyle: {
         fontFamily,
+        letterSpacing: "0.3px",
         fontSize: "0.9rem",
         lineHeight: 1.5,
         color: theme.palette.text.primary,
@@ -54,7 +65,7 @@ const typographyStyle = (theme) => ({
     },
     smallTitleText: {
         color: theme.palette.text.primary,
-        fontSize: remS,
+        fontSize: remMl,
         fontWeight: 400,
         wordBreak: "break-all",
     },
@@ -75,6 +86,9 @@ const typographyStyle = (theme) => ({
     },
     link: {
         color: theme.palette.link.main,
+    },
+    lightGrey: {
+        color: theme.palette.text.light,
     },
     contrasted: {
         color: theme.palette.text.fixed,
