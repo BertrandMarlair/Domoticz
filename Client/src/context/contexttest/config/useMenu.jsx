@@ -10,6 +10,11 @@ const menu = () => {
                 name: "menu.contexttest.pages",
                 link: "/contexttest/page",
             },
+            {
+                icon: "Build",
+                name: "menu.contexttest.createBlock",
+                link: "/contexttest/createblock",
+            },
         ],
     };
 };

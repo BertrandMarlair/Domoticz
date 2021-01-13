@@ -1,6 +1,7 @@
 import {lazy} from "react";
 
-const Mypage = lazy(() => import("../page/Page"));
+const Page = lazy(() => import("../page/Page"));
+const CreateBlock = lazy(() => import("../createblock/CreateBlock"));
 
 export const defaultRoute = "/contexttest/page";
 export const name = "ContextTest";
@@ -10,7 +11,13 @@ const contexttestRoutes = [
     {
         path: "/contexttest/page",
         name: "Page",
-        component: Mypage,
+        component: Page,
+        exact: true,
+    },
+    {
+        path: "/contexttest/createblock",
+        name: "CreateBlock",
+        component: CreateBlock,
         exact: true,
     },
 ];
