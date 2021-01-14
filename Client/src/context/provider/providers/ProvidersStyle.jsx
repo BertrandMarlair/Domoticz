@@ -1,4 +1,4 @@
-import {mediaQuerySizeSm} from "../../../core/style/constant";
+import {displayBetween, displayVerticalCenter, mediaQuerySizeSm} from "../../../core/style/constant";
 
 const style = () => ({
     root: {
@@ -30,6 +30,26 @@ const style = () => ({
         marginTop: 20,
         marginBottom: 50,
         flexGrow: 1,
+    },
+    addProvider: {
+        ...displayBetween,
+        margin: 20,
+    },
+    addProviderHeader: {
+        ...displayVerticalCenter,
+    },
+    addProviderIcon: {
+        margin: 20,
+    },
+    addProviderTitle: {
+        marginBottom: 2,
+    },
+    addProviderText: {
+        marginBottom: 8,
+    },
+    option: {
+        display: "flex",
+        flexDirection: "row-reverse",
     },
 });
 

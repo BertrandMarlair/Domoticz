@@ -49,6 +49,9 @@ const StyleIcon = (theme) => ({
     inheritCursor: {
         cursor: "inherit",
     },
+    center: {
+        margin: "auto",
+    },
 });
 
 export default StyleIcon;

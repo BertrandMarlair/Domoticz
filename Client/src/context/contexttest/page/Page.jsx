@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Fragment} from "react";
 import {withStyles, Grid, ButtonGroup} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
 import style from "./PageStyle";
@@ -99,45 +99,47 @@ const Page = ({classes}) => {
     return (
         <div className={classes.root}>
             <SimpleModal className={classes.modal} open={openEdit} onClose={handleCloseEdit}>
-                <Title normal centered>
-                    {t("contexttest.editBlock.title")}
-                </Title>
-                <form className={classes.form} onSubmit={(e) => editBlock(e)}>
-                    <div className={classes.inputTitle}>
-                        <SmallTitle bold className={classes.label}>
-                            {t("contexttest.editBlock.titleInputTitle")}
-                        </SmallTitle>
-                        <Input
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            placeholder={title}
-                            autoComplete={"title"}
-                            type={"text"}
-                            helperText={t(errorTitle)}
-                            error={!!errorTitle}
-                        />
-                    </div>
-                    <div className={classes.inputDescription}>
-                        <SmallTitle bold className={classes.label}>
-                            {t("contexttest.editBlock.descriptionInputTitle")}
-                        </SmallTitle>
-                        <Input
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            placeholder={description}
-                            autoComplete={"description"}
-                            type={"text"}
-                        />
-                    </div>
-                    <div className={classes.submit}>
-                        {<Error errorMessage={error || t(errors)} />}
-                        <div className={classes.formFooter}>
-                            <Button noMargin size="lg" loading={editLoading} type="submit">
-                                {t("contexttest.editBlock.submit")}
-                            </Button>
+                <Fragment>
+                    <Title normal centered>
+                        {t("contexttest.editBlock.title")}
+                    </Title>
+                    <form className={classes.form} onSubmit={(e) => editBlock(e)}>
+                        <div className={classes.inputTitle}>
+                            <SmallTitle bold className={classes.label}>
+                                {t("contexttest.editBlock.titleInputTitle")}
+                            </SmallTitle>
+                            <Input
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                placeholder={title}
+                                autoComplete={"title"}
+                                type={"text"}
+                                helperText={t(errorTitle)}
+                                error={!!errorTitle}
+                            />
                         </div>
-                    </div>
-                </form>
+                        <div className={classes.inputDescription}>
+                            <SmallTitle bold className={classes.label}>
+                                {t("contexttest.editBlock.descriptionInputTitle")}
+                            </SmallTitle>
+                            <Input
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                placeholder={description}
+                                autoComplete={"description"}
+                                type={"text"}
+                            />
+                        </div>
+                        <div className={classes.submit}>
+                            {<Error errorMessage={error || t(errors)} />}
+                            <div className={classes.formFooter}>
+                                <Button noMargin size="lg" loading={editLoading} type="submit">
+                                    {t("contexttest.editBlock.submit")}
+                                </Button>
+                            </div>
+                        </div>
+                    </form>
+                </Fragment>
             </SimpleModal>
             <Grid container className={classes.container}>
                 <Error errorMessage={error} />

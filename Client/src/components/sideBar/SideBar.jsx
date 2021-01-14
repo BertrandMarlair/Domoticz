@@ -36,14 +36,24 @@ const SideBar = ({classes, match}) => {
     const menu = {
         header: [
             {icon: "Home", link: "/app/home"},
-            {icon: "Menu", link: "/app/menu"},
-            {icon: "Shuffle", link: "/app/shuffle"},
+            {icon: "Menu", link: "/applications/menu"},
+            {icon: "Shuffle", link: "/stage/shuffle"},
         ],
         footer: [
-            {icon: "Add", link: "/add/provider"},
-            {icon: "Setting", link: "/app/settings"},
-            {icon: "Verified", link: "/app/admin"},
+            {icon: "SmartHome", link: "/provider/providers"},
+            {icon: "Setting", link: "/settings/settings"},
+            {icon: "Verified", link: "/admin/admin"},
         ],
+    };
+
+    const currentUrl = (link) => {
+        if (
+            match.url.split("/")[1] === link.split("/")[1] ||
+            window.location.pathname.split("/")[1] === link.split("/")[1]
+        ) {
+            return true;
+        }
+        return false;
     };
 
     return (
@@ -56,20 +66,23 @@ const SideBar = ({classes, match}) => {
             <div className={classes.content}>
                 <div className={classes.contentHeader}>
                     {menu.header.map((item, i) => {
-                        const currentUrl = match.url === item.link || window.location.pathname === item.link;
-
                         return (
                             <NavLink to={item.link} key={`sideBarItem/${i}`} className={classes.menuItem}>
                                 <div
                                     className={classes.target}
                                     style={{
-                                        background: currentUrl ? theme.palette.primary.main : "transparent",
-                                        boxShadow: currentUrl && `1px 0px 11px ${theme.palette.primary.light}90`,
+                                        background: currentUrl(item.link) ? theme.palette.primary.main : "transparent",
+                                        boxShadow:
+                                            currentUrl(item.link) && `1px 0px 11px ${theme.palette.primary.light}90`,
                                     }}></div>
                                 <div className={classes.icon}>
                                     <Icon
                                         size={22}
-                                        color={currentUrl ? theme.palette.primary.light : theme.palette.grey.primary}>
+                                        color={
+                                            currentUrl(item.link)
+                                                ? theme.palette.primary.light
+                                                : theme.palette.grey.primary
+                                        }>
                                         {item.icon}
                                     </Icon>
                                 </div>
@@ -79,20 +92,23 @@ const SideBar = ({classes, match}) => {
                 </div>
                 <div className={classes.contentFooter}>
                     {menu.footer.map((item, i) => {
-                        const currentUrl = match.url === item.link || window.location.pathname === item.link;
-
                         return (
                             <NavLink to={item.link} key={`sideBarItem/${i}`} className={classes.menuItem}>
                                 <div
                                     className={classes.target}
                                     style={{
-                                        background: currentUrl ? theme.palette.primary.main : "transparent",
-                                        boxShadow: currentUrl && `1px 0px 11px ${theme.palette.primary.light}90`,
+                                        background: currentUrl(item.link) ? theme.palette.primary.main : "transparent",
+                                        boxShadow:
+                                            currentUrl(item.link) && `1px 0px 11px ${theme.palette.primary.light}90`,
                                     }}></div>
                                 <div className={classes.icon}>
                                     <Icon
                                         size={22}
-                                        color={currentUrl ? theme.palette.primary.light : theme.palette.grey.primary}>
+                                        color={
+                                            currentUrl(item.link)
+                                                ? theme.palette.primary.light
+                                                : theme.palette.grey.primary
+                                        }>
                                         {item.icon}
                                     </Icon>
                                 </div>

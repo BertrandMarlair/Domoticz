@@ -14,8 +14,30 @@ type Block {
   title: String!
 }
 
+type Bridge {
+  _id: ID!
+  ipAddress: String!
+  name: String
+  providerId: ID!
+  token: String
+}
+
+type BridgeStatus {
+  bridgeId: String
+  error: String
+  ok: Boolean!
+}
+
 input createBlockInput {
   description: String
+  title: String!
+}
+
+input createProviderInput {
+  button: String!
+  description: String!
+  icon: String!
+  slug: String!
   title: String!
 }
 
@@ -31,6 +53,7 @@ input editBlockInput {
 
 input editProviderInput {
   _id: ID!
+  button: String!
   description: String!
   icon: String!
   slug: String!
@@ -45,14 +68,24 @@ scalar Json
 
 type Mutation {
   createBlock(block: createBlockInput!): Block!
+  createProvider(provider: createProviderInput!): Provider!
+  deleteProvider(_id: ID!): Provider!
   editApplication: Application!
   editBlock(block: editBlockInput!): Block!
   editProvider(provider: editProviderInput!): Provider!
   editTest: Test!
 }
 
+type PhilipsHue {
+  _id: ID!
+  bridges: [Bridge!]!
+  description: String!
+  title: String!
+}
+
 type Provider {
   _id: ID!
+  button: String!
   description: String!
   icon: String!
   slug: String!
@@ -64,6 +97,9 @@ type Query {
   getAllBlocks: [Block!]
   getAllProviders: [Provider!]
   getAllTests: [Test!]
+  getPhilipsHueDevices: PhilipsHue
+  hueBridgeConnection(ipAddress: String!): BridgeStatus
+  hueBridgeRegister(ipAddress: String!, name: String!): BridgeStatus
 }
 
 type Status {

@@ -113,4 +113,32 @@ export default [
         name: "Close",
         url: `${url}/close.svg`,
     },
+    {
+        name: "Hue",
+        url: `${url}/smart-energy.svg`,
+    },
+    {
+        name: "SmartTemperature",
+        url: `${url}/smart-temperature.svg`,
+    },
+    {
+        name: "More",
+        url: `${url}/more.svg`,
+    },
+    {
+        name: "Plug",
+        url: `${url}/plug.svg`,
+    },
+    {
+        name: "Device",
+        url: `${url}/device.svg`,
+    },
+    {
+        name: "Cpu",
+        url: `${url}/cpu.svg`,
+    },
+    {
+        name: "SmartHome",
+        url: `${url}/smart-home.svg`,
+    },
 ];

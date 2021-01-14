@@ -50,6 +50,7 @@ const CustomButton = (props) => {
         [classes.container]: true,
         [container]: container,
         [classes.fullWidth]: fullWidth,
+        [classes.className]: className,
     });
 
     return (

@@ -108,7 +108,7 @@ module.exports = {
         "no-multi-str": ERROR,
         "no-native-reassign": ERROR,
         "no-negated-in-lhs": ERROR,
-        "no-nested-ternary": ERROR,
+        "no-nested-ternary": OFF,
         "no-new": ERROR,
         "no-new-func": ERROR,
         "no-new-object": ERROR,
