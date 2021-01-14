@@ -19,6 +19,7 @@ const style = () => ({
     form: {
         width: "100%",
         padding: 30,
+        paddingTop: 0,
     },
     formFooter: {
         marginTop: 30,

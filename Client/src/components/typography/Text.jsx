@@ -11,7 +11,7 @@ const Normal = ({...props}) => {
     const {
         classes,
         children,
-        centered,
+        center,
         preWrap,
         white,
         small,
@@ -43,7 +43,7 @@ const Normal = ({...props}) => {
         [classes.hoverable]: hoverable,
         [classes.margin]: margin,
         [classes.preWrap]: preWrap,
-        [classes.centered]: centered,
+        [classes.center]: center,
         [classes[color]]: color,
         [classes.noWrap]: noWrap,
         [className]: className,
@@ -69,7 +69,7 @@ Normal.propTypes = {
     ellipsis: PropTypes.bool,
     hoverable: PropTypes.bool,
     preWrap: PropTypes.bool,
-    centered: PropTypes.bool,
+    center: PropTypes.bool,
     margin: PropTypes.bool,
     noWrap: PropTypes.bool,
     color: PropTypes.oneOf([

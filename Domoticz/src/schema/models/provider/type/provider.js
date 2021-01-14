@@ -6,8 +6,9 @@ const ProviderType = objectType({
         t.field("_id", { type: "ID" });
         t.string("title");
         t.string("slug");
-        t.string("description");
         t.string("icon");
+        t.string("button");
+        t.string("description");
     }
 });
 

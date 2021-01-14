@@ -7,6 +7,7 @@ const createProviderInput = inputObjectType({
       t.string("description", { required: true });
       t.string("slug", { required: true });
       t.string("icon", { required: true });
+      t.string("button", { required: true });
     },
 });
 

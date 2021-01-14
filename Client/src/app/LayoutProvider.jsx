@@ -18,8 +18,8 @@ import {defaultRoute as disconnectedDefaultRoute} from "../context/disconnected/
 import contexttestRoute from "../context/contexttest/config/router";
 import {defaultRoute as contexttestDefaultRoute} from "../context/contexttest/config/router";
 
-import addRoute from "../context/add/config/router";
-import {defaultRoute as addDefaultRoute} from "../context/add/config/router";
+import providerRoute from "../context/provider/config/router";
+import {defaultRoute as providerDefaultRoute} from "../context/provider/config/router";
 
 import NotFound from "../context/public/notFound/NotFound";
 
@@ -73,17 +73,17 @@ const LayoutProvider = ({location}) => {
                         </Switch>
                     </ConnectLayout>
                 );
-            case "add":
-                const AddLayout = lazy(() => import("../context/add/config/Layout"));
-                const AddProvider = lazy(() => import("../context/add/config/Provider"));
+            case "provider":
+                const AddLayout = lazy(() => import("../context/provider/config/Layout"));
+                const AddProvider = lazy(() => import("../context/provider/config/Provider"));
 
                 return (
                     <AddLayout>
                         <Switch>
-                            {addRoute.map((params, index) => (
+                            {providerRoute.map((params, index) => (
                                 <AddProvider {...params} key={`dynamicRoute${index}`} />
                             ))}
-                            <Redirect to={addDefaultRoute} />
+                            <Redirect to={providerDefaultRoute} />
                         </Switch>
                     </AddLayout>
                 );

@@ -5,7 +5,7 @@ import Text from "../typography/Text";
 import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 
-const CustomError = ({errorMessage, noPadding, classes, ...rest}) => {
+const CustomError = ({errorMessage, noPadding, classes, className, ...rest}) => {
     const {t} = useTranslation();
 
     const errorClasses = classNames({
@@ -20,7 +20,7 @@ const CustomError = ({errorMessage, noPadding, classes, ...rest}) => {
                 if (graphError[0].message) {
                     return (
                         <div className={errorClasses} {...rest}>
-                            <Text color="error">
+                            <Text className={className} color="error">
                                 {t(graphError[0].message.replace("AuthenticationError: ", "").replace("Error: ", ""))}
                             </Text>
                         </div>
@@ -28,32 +28,42 @@ const CustomError = ({errorMessage, noPadding, classes, ...rest}) => {
                 }
                 return (
                     <div className={errorClasses} {...rest}>
-                        <Text color="error">{t(JSON.stringify(graphError[0]))}</Text>
+                        <Text className={className} color="error">
+                            {t(JSON.stringify(graphError[0]))}
+                        </Text>
                     </div>
                 );
             }
             return (
                 <div className={errorClasses} {...rest}>
-                    <Text color="error">{t(JSON.stringify(graphError))}</Text>
+                    <Text className={className} color="error">
+                        {t(JSON.stringify(graphError))}
+                    </Text>
                 </div>
             );
         } else if (errorMessage.message) {
             if (errorMessage.message instanceof Array) {
                 return (
                     <div className={errorClasses} {...rest}>
-                        <Text color="error">{t(errorMessage.message[0].message)}</Text>
+                        <Text className={className} color="error">
+                            {t(errorMessage.message[0].message)}
+                        </Text>
                     </div>
                 );
             }
             return (
                 <div className={errorClasses} {...rest}>
-                    <Text color="error">{t(errorMessage).message}</Text>
+                    <Text className={className} color="error">
+                        {t(errorMessage).message}
+                    </Text>
                 </div>
             );
         } else if (typeof errorMessage === "string") {
             return (
                 <div className={errorClasses} {...rest}>
-                    <Text color="error">{t(errorMessage)}</Text>
+                    <Text className={className} color="error">
+                        {t(errorMessage)}
+                    </Text>
                 </div>
             );
         }

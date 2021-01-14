@@ -102,6 +102,9 @@ export const globalMui = {
             paperFullScreen: {
                 overflow: "auto",
             },
+            paperScrollPaper: {
+                overflowY: "scroll",
+            },
         },
         MuiTypography: {
             body1: {

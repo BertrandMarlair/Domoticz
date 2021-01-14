@@ -22,7 +22,15 @@ const editProvider = async (_, {provider}) => {
         throw new Error("provider.edit.errors.notFound");
     }
 
-    const newProvider = await updateOneById(DBProvider, provider._id, {$set: {...provider}});
+    const newProvider = await updateOneById(DBProvider, provider._id, {
+        $set: {
+            title: provider.title,
+            description: provider.description,
+            slug: provider.slug,
+            icon: provider.icon,
+            button: provider.button,
+        }
+    });
 
     console.log(newProvider);
 

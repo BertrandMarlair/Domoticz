@@ -36,6 +36,17 @@ export const validateEmail = (email) => {
     return re.test(String(email).toLowerCase());
 };
 
+export const validateIPAddress = (ipAddress) => {
+    if (
+        /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+            ipAddress,
+        )
+    ) {
+        return true;
+    }
+    return false;
+};
+
 const hslToHex = (h, s, l) => {
     h /= 360;
     s /= 100;

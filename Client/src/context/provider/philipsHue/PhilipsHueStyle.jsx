@@ -7,15 +7,6 @@ const style = () => ({
         minHeight: "90vh",
         padding: 10,
     },
-    [`@media (max-width: ${mediaQuerySizeSm}px)`]: {
-        container: {
-            width: "100%",
-            margin: "auto",
-        },
-    },
-    gridItem: {
-        padding: 20,
-    },
     card: {
         maxWidth: 400,
         minWidth: 245,
@@ -45,6 +36,22 @@ const style = () => ({
     },
     addProviderText: {
         marginBottom: 8,
+    },
+    addBridge: {
+        width: "fit-content",
+        margin: "auto",
+    },
+    addBridgeDescription: {
+        marginTop: 30,
+    },
+    bridgeImage: {
+        width: 200,
+        display: "block",
+        margin: "50px auto",
+    },
+    addBridgeicon: {
+        display: "block",
+        margin: "auto",
     },
 });
 

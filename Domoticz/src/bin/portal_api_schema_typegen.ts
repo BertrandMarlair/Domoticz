@@ -31,6 +31,7 @@ export interface NexusGenInputs {
     title: string; // String!
   }
   createProviderInput: { // input type
+    button: string; // String!
     description: string; // String!
     icon: string; // String!
     slug: string; // String!
@@ -43,6 +44,7 @@ export interface NexusGenInputs {
   }
   editProviderInput: { // input type
     _id: string; // ID!
+    button: string; // String!
     description: string; // String!
     icon: string; // String!
     slug: string; // String!
@@ -64,12 +66,30 @@ export interface NexusGenRootTypes {
     description: string; // String!
     title: string; // String!
   }
+  Bridge: { // root type
+    _id: string; // ID!
+    ipAddress: string; // String!
+    name?: string | null; // String
+    providerId: string; // ID!
+    token?: string | null; // String
+  }
+  BridgeStatus: { // root type
+    bridgeId?: string | null; // String
+    error?: string | null; // String
+    ok: boolean; // Boolean!
+  }
   Delete: { // root type
     id: number; // Int!
   }
   Mutation: {};
+  PhilipsHue: { // root type
+    _id: string; // ID!
+    description: string; // String!
+    title: string; // String!
+  }
   Provider: { // root type
     _id: string; // ID!
+    button: string; // String!
     description: string; // String!
     icon: string; // String!
     slug: string; // String!
@@ -113,6 +133,18 @@ export interface NexusGenFieldTypes {
     description: string; // String!
     title: string; // String!
   }
+  Bridge: { // field return type
+    _id: string; // ID!
+    ipAddress: string; // String!
+    name: string | null; // String
+    providerId: string; // ID!
+    token: string | null; // String
+  }
+  BridgeStatus: { // field return type
+    bridgeId: string | null; // String
+    error: string | null; // String
+    ok: boolean; // Boolean!
+  }
   Delete: { // field return type
     id: number; // Int!
   }
@@ -125,8 +157,15 @@ export interface NexusGenFieldTypes {
     editProvider: NexusGenRootTypes['Provider']; // Provider!
     editTest: NexusGenRootTypes['Test']; // Test!
   }
+  PhilipsHue: { // field return type
+    _id: string; // ID!
+    bridges: NexusGenRootTypes['Bridge'][]; // [Bridge!]!
+    description: string; // String!
+    title: string; // String!
+  }
   Provider: { // field return type
     _id: string; // ID!
+    button: string; // String!
     description: string; // String!
     icon: string; // String!
     slug: string; // String!
@@ -137,6 +176,9 @@ export interface NexusGenFieldTypes {
     getAllBlocks: NexusGenRootTypes['Block'][] | null; // [Block!]
     getAllProviders: NexusGenRootTypes['Provider'][] | null; // [Provider!]
     getAllTests: NexusGenRootTypes['Test'][] | null; // [Test!]
+    getPhilipsHueDevices: NexusGenRootTypes['PhilipsHue'] | null; // PhilipsHue
+    hueBridgeConnection: NexusGenRootTypes['BridgeStatus'] | null; // BridgeStatus
+    hueBridgeRegister: NexusGenRootTypes['BridgeStatus'] | null; // BridgeStatus
   }
   Status: { // field return type
     code: string; // String!
@@ -168,6 +210,15 @@ export interface NexusGenArgTypes {
       provider: NexusGenInputs['editProviderInput']; // editProviderInput!
     }
   }
+  Query: {
+    hueBridgeConnection: { // args
+      ipAddress: string; // String!
+    }
+    hueBridgeRegister: { // args
+      ipAddress: string; // String!
+      name: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
@@ -175,7 +226,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Application" | "Block" | "Delete" | "Mutation" | "Provider" | "Query" | "Status" | "Test";
+export type NexusGenObjectNames = "Application" | "Block" | "Bridge" | "BridgeStatus" | "Delete" | "Mutation" | "PhilipsHue" | "Provider" | "Query" | "Status" | "Test";
 
 export type NexusGenInputNames = "createBlockInput" | "createProviderInput" | "editBlockInput" | "editProviderInput";
 

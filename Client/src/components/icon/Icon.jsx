@@ -29,6 +29,7 @@ const GetIcon = ({
     light,
     onClick,
     inheritCursor,
+    center,
 }) => {
     const theme = useTheme();
 
@@ -71,6 +72,7 @@ const GetIcon = ({
         [classes.marginRight]: marginRight,
         [classes.light]: light,
         [classes.border]: border,
+        [classes.center]: center,
         [classes.inheritCursor]: inheritCursor,
     });
 
