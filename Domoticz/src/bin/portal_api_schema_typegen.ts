@@ -26,21 +26,11 @@ declare global {
 }
 
 export interface NexusGenInputs {
-<<<<<<< HEAD
-  createBlockInput: { // input type
-    description?: string | null; // String
-    title: string; // String!
-  }
-  editBlockInput: { // input type
-    description?: string | null; // String
-    id: string; // String!
-=======
   editProviderInput: { // input type
     _id: string; // ID!
     description: string; // String!
     icon: string; // String!
     slug: string; // String!
->>>>>>> develop
     title: string; // String!
   }
 }
