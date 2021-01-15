@@ -14,14 +14,6 @@ type Block {
   title: String!
 }
 
-type Bridge {
-  _id: ID!
-  ipAddress: String!
-  name: String
-  providerId: ID!
-  token: String
-}
-
 type BridgeStatus {
   bridgeId: String
   error: String
@@ -78,9 +70,30 @@ type Mutation {
 
 type PhilipsHue {
   _id: ID!
-  bridges: [Bridge!]!
+  bridges: [PhilipsHueBridge!]!
   description: String!
   title: String!
+}
+
+type PhilipsHueBridge {
+  _id: ID!
+  details: PhilipsHueBridgeDetails!
+  ipAddress: String!
+  providerId: ID!
+  token: String
+}
+
+type PhilipsHueBridgeDetails {
+  apiversion: String!
+  bridgeid: String!
+  datastoreversion: String!
+  factorynew: Boolean!
+  mac: String!
+  modelid: String!
+  name: String!
+  replacesbridgeid: String
+  starterkitid: String!
+  swversion: String!
 }
 
 type Provider {

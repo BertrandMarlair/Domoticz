@@ -115,7 +115,7 @@ const useCustomTheme = () => {
                 contrastText: "#ffffff",
             },
             text: {
-                primary: "#eaeaea",
+                primary: "#d8d8d8",
                 secondary: "#CDCDCD",
                 light: "#8f8f96",
                 focus: "#39485d",
@@ -133,7 +133,7 @@ const useCustomTheme = () => {
                 default: background,
                 card: background,
                 dark: backgroundDark,
-                light: "#222e3d",
+                light: "#3d4058",
                 grey: "#222e3d",
                 reaction: "#3c4d66",
                 constant: "#1F242F",

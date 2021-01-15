@@ -5,7 +5,6 @@ import style from "./PhilipsHueStyle";
 import gql from "graphql-tag";
 import Card from "../../../components/card/Card";
 import Icon from "../../../components/icon/Icon";
-import SmallTitle from "../../../components/typography/SmallTitle";
 import Text from "../../../components/typography/Text";
 import {useQuery} from "react-apollo";
 import Loading from "../../../components/loading/Loading";
@@ -30,19 +29,6 @@ const PhilipsHue = ({classes}) => {
     return (
         <div className={classes.root}>
             <Error errorMessage={error} />
-            <Card className={classes.addProvider}>
-                <div className={classes.addProviderHeader}>
-                    <Icon color={theme.palette.primary.main} className={classes.addProviderIcon}>
-                        Light
-                    </Icon>
-                    <div>
-                        <SmallTitle className={classes.addProviderTitle}>Philips Hue</SmallTitle>
-                        <Text className={classes.addProviderText} color="lightGrey">
-                            Le provider est le point central d'un produit domotique pour la maison.
-                        </Text>
-                    </div>
-                </div>
-            </Card>
             {loading ? (
                 <Loading absolute />
             ) : (
@@ -85,7 +71,6 @@ const GET_PHILIPS_HUE_DEVICES = gql`
                 providerId
                 ipAddress
                 token
-                name
             }
         }
     }

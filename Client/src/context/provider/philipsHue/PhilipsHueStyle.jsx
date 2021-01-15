@@ -1,11 +1,10 @@
-import {displayBetween, displayVerticalCenter, mediaQuerySizeSm} from "../../../core/style/constant";
+import {displayBetween, displayVerticalCenter, mediaQuerySizeS} from "../../../core/style/constant";
 
 const style = () => ({
     root: {
-        maxWidth: mediaQuerySizeSm,
+        maxWidth: mediaQuerySizeS,
         margin: "auto",
-        minHeight: "90vh",
-        padding: 10,
+        padding: 40,
     },
     card: {
         maxWidth: 400,

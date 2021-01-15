@@ -1,7 +1,7 @@
 import { objectType } from "nexus";
 import { query } from "../../../../core/mongo";
 import { DBBridges } from "../../bridge";
-import BridgeType from "../../bridge/type/bridge";
+import PhilipsHueBridgeType from "../../bridge/type/philipsHueBridge";
 
 const PhilipsHueType = objectType({
     name: "PhilipsHue",
@@ -10,7 +10,7 @@ const PhilipsHueType = objectType({
         t.string("title");
         t.string("description");
         t.list.field("bridges", { 
-            type: BridgeType,
+            type: PhilipsHueBridgeType,
             async resolve(...params){
                 return bridgesResolver(...params);
             }

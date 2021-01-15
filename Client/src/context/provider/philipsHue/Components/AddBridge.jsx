@@ -73,15 +73,20 @@ const AddBridge = ({classes, open, setOpen, fetchMore}) => {
         hueBridgeConnection({variables: {ipAddress: address}});
     };
 
+    const tryConnectToBridge = () => {
+        setRegisterError("");
+        hueBridgeRegister({variables: {ipAddress, name: bridge?.bridgeId}});
+        setLoadingRegister(true);
+        const tryToRegister = setInterval(() => {
+            hueBridgeRegister({variables: {ipAddress, name: bridge?.bridgeId}});
+        }, 5000);
+
+        setTryToRegisterInterval(tryToRegister);
+    };
+
     useEffect(() => {
         if (activeStep === 1) {
-            hueBridgeRegister({variables: {ipAddress, name: bridge?.bridgeId}});
-            setLoadingRegister(true);
-            const tryToRegister = setInterval(() => {
-                hueBridgeRegister({variables: {ipAddress, name: bridge?.bridgeId}});
-            }, 5000);
-
-            setTryToRegisterInterval(tryToRegister);
+            tryConnectToBridge();
         } else if (tryToRegisterInterval) {
             clearInterval(tryToRegisterInterval);
             setTryToRegisterInterval(null);
@@ -127,8 +132,9 @@ const AddBridge = ({classes, open, setOpen, fetchMore}) => {
                             Appuyer sur le bouton central du pont pour autoriser sa connection
                         </Text>
                         <img className={classes.bridgeImage} src="/assets/images/bridgeClick.png" alt="bridgeClick" />
-                        {loadingRegister && <Loading />}
+                        {loadingRegister && <Loading smallCircular />}
                         <Error className={classes.errorMessage} errorMessage={registerError} />
+                        {registerError && <Button onClick={() => tryConnectToBridge(1)}>Essayer à nouveau</Button>}
                         <div className={classes.buttonWrapper}>
                             <Button onClick={() => setActiveStep(0)} className={classes.button}>
                                 Back

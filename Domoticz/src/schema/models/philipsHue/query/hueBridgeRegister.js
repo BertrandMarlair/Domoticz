@@ -1,5 +1,5 @@
 import BridgeStatusType from "../../bridge/type/bridgeStatus";
-import { HueBridgeRegister } from "../../../../core/philips";
+import { HueBridgeConnection, HueBridgeRegister } from "../../../../core/philips";
 import { stringArg } from "nexus";
 import { insertOne, queryOne } from "../../../../core/mongo";
 import { DBProvider } from "../../provider";
@@ -30,6 +30,7 @@ const hueBridgeRegister = async (_, {ipAddress, name}) => {
     
     if (res?.data?.[0]) {
         const data = res?.data?.[0];
+        console.log(data);
         if (data?.error?.description === "link button not pressed") {
             return {
                 ok: false,
@@ -38,11 +39,13 @@ const hueBridgeRegister = async (_, {ipAddress, name}) => {
         }
         if (data.success) {
             const provider = await queryOne(DBProvider, {slug: "philips_hue"});
+            const bridgeDetails = await HueBridgeConnection(ipAddress);
+
             await insertOne(DBBridges, {
                 providerId: provider._id,
                 ipAddress,
-                name,
-                token: data.success.username
+                token: data.success.username,
+                details: {...bridgeDetails.data},
             });
 
             return {
