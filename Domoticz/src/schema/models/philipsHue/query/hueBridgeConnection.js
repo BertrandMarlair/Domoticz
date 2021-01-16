@@ -1,10 +1,10 @@
-import BridgeStatusType from "../../bridge/type/bridgeStatus";
+import PhilipsHueBridgeStatusType from "../type/bridge/philipsHueBridgeStatus";
 import { HueBridgeConnection } from "../../../../core/philips";
 import { stringArg } from "nexus";
 
 export default (t) => 
     t.field("hueBridgeConnection", {
-        type: BridgeStatusType,
+        type: PhilipsHueBridgeStatusType,
         nullable: true,
         args: {
             ipAddress: stringArg({required: true}),

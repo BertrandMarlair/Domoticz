@@ -71,6 +71,14 @@ const GET_PHILIPS_HUE_DEVICES = gql`
                 providerId
                 ipAddress
                 token
+                groups {
+                    bridgeId
+                    name
+                    lights {
+                        bridgeId
+                        name
+                    }
+                }
             }
         }
     }

@@ -2,6 +2,7 @@ import {
     PAGINATION_DEFAULT_LIMIT,
 } from "./constants";
 import {MongoClient, ObjectId} from "mongodb";
+import memoize from "memoizee";
 
 const options = {
     reconnectTries: 30,
@@ -9,6 +10,7 @@ const options = {
     poolSize: 10,
     bufferMaxEntries: 0,
     useNewUrlParser: true,
+    useUnifiedTopology: true,
 };
 
 const {
@@ -19,7 +21,7 @@ const {
     MONGO_INITDB_ROOT_PASSWORD,
 } = process.env;
 
-const mongo = async () => {
+const mongoConnection = async () => {
     try {
         const mongoClientPromise = MongoClient.connect(
             `mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_DOMOTICZ_HOSTNAME}:${MONGO_DOMOTICZ_PORT}`,
@@ -39,6 +41,8 @@ const mongo = async () => {
         return {error: err.message};
     }
 };
+
+const mongo = memoize(mongoConnection);
 
 export default mongo;
 
@@ -80,6 +84,26 @@ export const updateOne = async (collection_name, rawQuery, rawUpdate) => {
     const result = await db
         .collection(collection_name)
         .findOneAndUpdate(rawQuery, rawUpdate, {returnOriginal: false});
+
+    return result.value;
+};
+
+export const updateMany = async (collection_name, rawQuery, rawUpdate) => {
+    const db = await mongo();
+
+    const result = await db
+        .collection(collection_name)
+        .updateMany(rawQuery, rawUpdate, {returnOriginal: false});
+
+    return result.value;
+};
+
+export const updateManyById = async (collection_name, _id, rawUpdate) => {
+    const db = await mongo();
+
+    const result = await db
+        .collection(collection_name)
+        .updateMany({_id: new ObjectId(_id)}, rawUpdate, {returnOriginal: false});
 
     return result.value;
 };

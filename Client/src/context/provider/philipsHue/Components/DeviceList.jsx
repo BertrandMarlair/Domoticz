@@ -1,24 +1,25 @@
 /* eslint-disable */
 /* eslint-disable react/no-unescaped-entities */
 import React, {useEffect, useState} from "react";
-import {IconButton, useTheme, withStyles} from "@material-ui/core";
 import style from "./style";
-import Card from "../../../../components/card/Card";
-import Icon from "../../../../components/icon/Icon";
-import SmallTitle from "../../../../components/typography/SmallTitle";
-import Text from "../../../../components/typography/Text";
 import gql from "graphql-tag";
 import {useLazyQuery} from "react-apollo";
-import Loading from "../../../../components/loading/Loading";
-import Title from "../../../../components/typography/Title";
+import {IconButton, withStyles} from "@material-ui/core";
+import Card from "../../../../components/card/Card";
+import Icon from "../../../../components/icon/Icon";
 import Error from "../../../../components/error/Error";
+import Text from "../../../../components/typography/Text";
+import Title from "../../../../components/typography/Title";
+import Loading from "../../../../components/loading/Loading";
+import SmallTitle from "../../../../components/typography/SmallTitle";
+import {useHistory} from "react-router-dom";
 
 const DeviceList = ({classes, hue}) => {
-    const theme = useTheme();
-
     const [connectionIssueBride, setConnectionIssueBride] = useState(false);
     const [connectionSuccessBride, setConnectionSuccessBride] = useState(false);
     const [hueBridgeConnection, hueBridgeConnectionData] = useLazyQuery(HUE_BRIDGE_CONNECTION);
+
+    const history = useHistory()
 
     useEffect(() => {
         if (hue?.bridges?.length > 0) {
@@ -46,7 +47,7 @@ const DeviceList = ({classes, hue}) => {
             <Title className={classes.title} bold>
                 Gestion des appareils Philips Hue
             </Title>
-            <Card className={classes.device}>
+            <Card className={classes.device} onClick={() => history.push("/provider/philips_hue/bridge")}>
                 <div className={classes.deviceHeader}>
                     <Icon size={50} className={classes.deviceIcon}>
                         Bridge
@@ -65,7 +66,7 @@ const DeviceList = ({classes, hue}) => {
                     </div>
                 </div>
             </Card>
-            <Card className={classes.device}>
+            <Card className={classes.device} onClick={() => history.push("/provider/philips_hue/room")}>
                 <div className={classes.deviceHeader}>
                     <Icon size={40} className={classes.deviceIcon}>
                         Door
@@ -81,7 +82,7 @@ const DeviceList = ({classes, hue}) => {
                     </div>
                 </div>
             </Card>
-            <Card className={classes.device}>
+            <Card className={classes.device} onClick={() => history.push("/provider/philips_hue/light")}>
                 <div className={classes.deviceHeader}>
                     <Icon size={50} className={classes.deviceIcon}>
                         Lamp
@@ -97,7 +98,7 @@ const DeviceList = ({classes, hue}) => {
                     </div>
                 </div>
             </Card>
-            <Card className={classes.device}>
+            <Card className={classes.device} onClick={() => history.push("/provider/philips_hue/sensor")}>
                 <div className={classes.deviceHeader}>
                     <Icon size={50} className={classes.deviceIcon}>
                         Dimmer

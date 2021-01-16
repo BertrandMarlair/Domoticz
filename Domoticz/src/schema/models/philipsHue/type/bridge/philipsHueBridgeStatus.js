@@ -1,7 +1,7 @@
 import { objectType } from "nexus";
 
-const BridgeStatusType = objectType({
-    name: "BridgeStatus",
+const PhilipsHueBridgeStatusType = objectType({
+    name: "PhilipsHueBridgeStatus",
     definition(t) {
         t.boolean("ok");
         t.string("error", {nullable: true});
@@ -9,4 +9,4 @@ const BridgeStatusType = objectType({
     }
 });
 
-export default BridgeStatusType;
+export default PhilipsHueBridgeStatusType;

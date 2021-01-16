@@ -1,7 +1,7 @@
 import { objectType } from "nexus";
 
 const PhilipsHueBridgeDetailsType = objectType({
-    name: "PhilipsHueBridgeDetails",
+    name: "PhilipsHueBridgeDetailsType",
     definition(t) {
         t.string("name");
         t.string("datastoreversion");

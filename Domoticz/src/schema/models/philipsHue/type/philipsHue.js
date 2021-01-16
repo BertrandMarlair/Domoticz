@@ -1,7 +1,7 @@
 import { objectType } from "nexus";
 import { query } from "../../../../core/mongo";
-import { DBBridges } from "../../bridge";
-import PhilipsHueBridgeType from "../../bridge/type/philipsHueBridge";
+import { DBBridges } from "../index";
+import PhilipsHueBridgeType from "./bridge/philipsHueBridge";
 
 const PhilipsHueType = objectType({
     name: "PhilipsHue",
@@ -21,5 +21,5 @@ const PhilipsHueType = objectType({
 export default PhilipsHueType;
 
 const bridgesResolver = async  ({_id}) => {
-    return query(DBBridges, {providerId: _id});
+    return await query(DBBridges, {providerId: _id});
 }
