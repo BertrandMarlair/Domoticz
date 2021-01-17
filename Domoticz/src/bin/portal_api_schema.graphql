@@ -69,6 +69,7 @@ scalar Json
 type Mutation {
   createBlock(block: createBlockInput!): Block!
   createProvider(provider: createProviderInput!): Provider!
+  deleteBlock(_id: ID!): Block!
   deleteProvider(_id: ID!): Provider!
   editApplication: Application!
   editBlock(block: editBlockInput!): Block!
