@@ -1,49 +1,45 @@
-/* eslint-disable */
 /* eslint-disable react/no-unescaped-entities */
-import React, {useEffect, useState} from "react";
+import React from "react";
 import style from "./style";
-import gql from "graphql-tag";
-import {useLazyQuery} from "react-apollo";
 import {IconButton, withStyles} from "@material-ui/core";
 import Card from "../../../../components/card/Card";
 import Icon from "../../../../components/icon/Icon";
-import Error from "../../../../components/error/Error";
 import Text from "../../../../components/typography/Text";
 import Title from "../../../../components/typography/Title";
-import Loading from "../../../../components/loading/Loading";
+import GoBack from "../../../../components/goBack/GoBack";
 import SmallTitle from "../../../../components/typography/SmallTitle";
 import {useHistory} from "react-router-dom";
 
 const DeviceList = ({classes, hue}) => {
-    const [connectionIssueBride, setConnectionIssueBride] = useState(false);
-    const [connectionSuccessBride, setConnectionSuccessBride] = useState(false);
-    const [hueBridgeConnection, hueBridgeConnectionData] = useLazyQuery(HUE_BRIDGE_CONNECTION);
+    const history = useHistory();
 
-    const history = useHistory()
+    const getRoomCount = () => {
+        let count = 0;
 
-    useEffect(() => {
         if (hue?.bridges?.length > 0) {
             for (let bridge of hue.bridges) {
-                hueBridgeConnection({variables: {ipAddress: bridge.ipAddress}})
+                count = +bridge?.groups?.length ?? 0;
             }
         }
-    }, [hue]);
 
-    useEffect(() => {
-        if (hueBridgeConnectionData?.data?.hueBridgeConnection) {
-            const bridge = hueBridgeConnectionData.data.hueBridgeConnection;
-            console.log(bridge);
-            if (bridge.ok) {
-                setConnectionSuccessBride(true);
-            } else {
-                setConnectionIssueBride(true);
-                setConnectionSuccessBride(false);
+        return count;
+    };
+
+    const getLightCount = () => {
+        let count = 0;
+
+        if (hue?.bridges?.length > 0) {
+            for (let bridge of hue.bridges) {
+                count = +bridge?.lights?.length ?? 0;
             }
         }
-    }, [hueBridgeConnectionData]);
+
+        return count;
+    };
 
     return (
         <div className={classes.root}>
+            <GoBack />
             <Title className={classes.title} bold>
                 Gestion des appareils Philips Hue
             </Title>
@@ -57,12 +53,20 @@ const DeviceList = ({classes, hue}) => {
                         <Text className={classes.deviceText} color="lightGrey">
                             Le bridge est le point central d'une installation philips hue.
                         </Text>
-                        {connectionIssueBride && <Error className={classes.statusText} errorMessage={"Connection issue"} />}
                     </div>
                     <div className={classes.deviceEnd}>
-                        {hueBridgeConnectionData?.loading && <Loading smallCircular />}
-                        {connectionSuccessBride && <SmallTitle className={classes.statusText} color="success">Connecté</SmallTitle>}
-                        <IconButton className={classes.deviceIcon}><Icon>Right</Icon></IconButton>
+                        {hue?._id ? (
+                            <SmallTitle className={classes.statusText} color="success">
+                                Connecté
+                            </SmallTitle>
+                        ) : (
+                            <SmallTitle className={classes.statusText} color="error">
+                                Fail
+                            </SmallTitle>
+                        )}
+                        <IconButton className={classes.deviceIcon}>
+                            <Icon>Right</Icon>
+                        </IconButton>
                     </div>
                 </div>
             </Card>
@@ -78,7 +82,10 @@ const DeviceList = ({classes, hue}) => {
                         </Text>
                     </div>
                     <div className={classes.deviceEnd}>
-                        <IconButton className={classes.deviceIcon}><Icon>Right</Icon></IconButton>
+                        <Text>( {getRoomCount()} )</Text>
+                        <IconButton className={classes.deviceIcon}>
+                            <Icon>Right</Icon>
+                        </IconButton>
                     </div>
                 </div>
             </Card>
@@ -94,23 +101,10 @@ const DeviceList = ({classes, hue}) => {
                         </Text>
                     </div>
                     <div className={classes.deviceEnd}>
-                        <IconButton className={classes.deviceIcon}><Icon>Right</Icon></IconButton>
-                    </div>
-                </div>
-            </Card>
-            <Card className={classes.device} onClick={() => history.push("/provider/philips_hue/sensor")}>
-                <div className={classes.deviceHeader}>
-                    <Icon size={50} className={classes.deviceIcon}>
-                        Dimmer
-                    </Icon>
-                    <div>
-                        <SmallTitle className={classes.deviceTitle}>Configuration de la lumière</SmallTitle>
-                        <Text className={classes.deviceText} color="lightGrey">
-                            Configurer des capteurs et intérrupteurs
-                        </Text>
-                    </div>
-                    <div className={classes.deviceEnd}>
-                        <IconButton className={classes.deviceIcon}><Icon>Right</Icon></IconButton>
+                        <Text>( {getLightCount()} )</Text>
+                        <IconButton className={classes.deviceIcon}>
+                            <Icon>Right</Icon>
+                        </IconButton>
                     </div>
                 </div>
             </Card>
@@ -119,12 +113,3 @@ const DeviceList = ({classes, hue}) => {
 };
 
 export default withStyles(style)(DeviceList);
-
-const HUE_BRIDGE_CONNECTION = gql`
-    query hueBridgeConnection($ipAddress: String!) {
-        hueBridgeConnection(ipAddress: $ipAddress) {
-            ok
-            bridgeId
-        }
-    }
-`;

@@ -101,7 +101,7 @@ export interface NexusGenRootTypes {
   }
   PhilipsHueGroups: { // root type
     bridgeId: string; // ID!
-    class: string; // String!
+    class?: string | null; // String
     name: string; // String!
     recycle: boolean; // Boolean!
     type: string; // String!
@@ -135,6 +135,15 @@ export interface NexusGenRootTypes {
     x?: number | null; // Float
     y?: number | null; // Float
   }
+  PhilipsHueSensor: { // root type
+    manufacturername: string; // String!
+    modelid: string; // String!
+    name: string; // String!
+    recycle: boolean; // Boolean!
+    swversion: string; // String!
+    type: string; // String!
+    uniqueid: string; // String!
+  }
   Provider: { // root type
     _id: string; // ID!
     button: string; // String!
@@ -149,6 +158,7 @@ export interface NexusGenRootTypes {
     title: string; // String!
   }
   Subscription: {};
+  SyncAll: {};
   Test: { // root type
     _id: string; // ID!
     description: string; // String!
@@ -205,6 +215,7 @@ export interface NexusGenFieldTypes {
     config: NexusGenRootTypes['PhilipsHueBridgeDetailsType']; // PhilipsHueBridgeDetailsType!
     groups: NexusGenRootTypes['PhilipsHueGroups'][]; // [PhilipsHueGroups!]!
     ipAddress: string; // String!
+    lights: NexusGenRootTypes['PhilipsHueLight'][]; // [PhilipsHueLight!]!
     providerId: string; // ID!
     token: string | null; // String
   }
@@ -227,7 +238,7 @@ export interface NexusGenFieldTypes {
   }
   PhilipsHueGroups: { // field return type
     bridgeId: string; // ID!
-    class: string; // String!
+    class: string | null; // String
     lights: NexusGenRootTypes['PhilipsHueLight'][]; // [PhilipsHueLight!]!
     name: string; // String!
     recycle: boolean; // Boolean!
@@ -263,6 +274,15 @@ export interface NexusGenFieldTypes {
     x: number | null; // Float
     y: number | null; // Float
   }
+  PhilipsHueSensor: { // field return type
+    manufacturername: string; // String!
+    modelid: string; // String!
+    name: string; // String!
+    recycle: boolean; // Boolean!
+    swversion: string; // String!
+    type: string; // String!
+    uniqueid: string; // String!
+  }
   Provider: { // field return type
     _id: string; // ID!
     button: string; // String!
@@ -279,6 +299,7 @@ export interface NexusGenFieldTypes {
     getPhilipsHueDevices: NexusGenRootTypes['PhilipsHue'] | null; // PhilipsHue
     hueBridgeConnection: NexusGenRootTypes['PhilipsHueBridgeStatus'] | null; // PhilipsHueBridgeStatus
     hueBridgeRegister: NexusGenRootTypes['PhilipsHueBridgeStatus'] | null; // PhilipsHueBridgeStatus
+    syncAll: NexusGenRootTypes['SyncAll'] | null; // SyncAll
   }
   Status: { // field return type
     code: string; // String!
@@ -286,7 +307,10 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Subscription: { // field return type
-    syncPhilipsHue: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
+    syncAll: NexusGenRootTypes['SyncAll']; // SyncAll!
+  }
+  SyncAll: { // field return type
+    philipsHue: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
   }
   Test: { // field return type
     _id: string; // ID!
@@ -329,7 +353,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Application" | "Block" | "Delete" | "Mutation" | "PhilipsHue" | "PhilipsHueBridge" | "PhilipsHueBridgeDetailsType" | "PhilipsHueBridgeStatus" | "PhilipsHueGroups" | "PhilipsHueLight" | "PhilipsHueLightState" | "PhilipsHueLightXY" | "Provider" | "Query" | "Status" | "Subscription" | "Test";
+export type NexusGenObjectNames = "Application" | "Block" | "Delete" | "Mutation" | "PhilipsHue" | "PhilipsHueBridge" | "PhilipsHueBridgeDetailsType" | "PhilipsHueBridgeStatus" | "PhilipsHueGroups" | "PhilipsHueLight" | "PhilipsHueLightState" | "PhilipsHueLightXY" | "PhilipsHueSensor" | "Provider" | "Query" | "Status" | "Subscription" | "SyncAll" | "Test";
 
 export type NexusGenInputNames = "createBlockInput" | "createProviderInput" | "editBlockInput" | "editProviderInput";
 

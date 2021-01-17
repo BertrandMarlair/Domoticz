@@ -6,7 +6,7 @@ const style = (theme) => ({
         margin: "auto",
         padding: 40,
     },
-    room: {
+    light: {
         ...displayBetween,
         padding: "20px",
         minHeight: 90,
@@ -16,20 +16,20 @@ const style = (theme) => ({
             background: theme.palette.background.light,
         },
     },
-    roomHeader: {
+    lightHeader: {
         ...displayVerticalCenter,
         width: "100%",
     },
-    roomIcon: {
+    lightIcon: {
         margin: 20,
     },
-    roomTitle: {
+    lightTitle: {
         marginBottom: 2,
     },
-    roomText: {
+    lightText: {
         marginBottom: 8,
     },
-    roomEnd: {
+    lightEnd: {
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center",

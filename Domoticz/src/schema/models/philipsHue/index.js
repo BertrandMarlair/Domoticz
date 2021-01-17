@@ -9,7 +9,7 @@ import PhilipsHueBridgeStatusType from "./type/bridge/philipsHueBridgeStatus";
 import PhilipsHueLightType from "./type/lights/philipsHueLight";
 import PhilipsHueLightStateType from "./type/lights/philipsHueLightState";
 import PhilipsHueLightXYType from "./type/lights/philipsHueLightXY";
-import syncPhilipsHue from "./subscription/syncPhilipsHue";
+import PhilipsHueSensorType from "./type/sensor/philipsHueSensor";
 
 export const DBBridges = "Bridges";
 
@@ -23,13 +23,11 @@ export default {
         PhilipsHueLightType,
         PhilipsHueLightStateType,
         PhilipsHueLightXYType,
+        PhilipsHueSensorType,
     ],
     query: [
         getPhilipsHueDevices,
         hueBridgeConnection,
         hueBridgeRegister,
     ],
-    subscription: [
-        syncPhilipsHue
-    ]
 };

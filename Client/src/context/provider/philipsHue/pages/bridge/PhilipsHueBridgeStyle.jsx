@@ -6,7 +6,7 @@ const style = (theme) => ({
         margin: "auto",
         padding: 40,
     },
-    room: {
+    bridge: {
         ...displayBetween,
         padding: "20px",
         minHeight: 90,
@@ -16,20 +16,20 @@ const style = (theme) => ({
             background: theme.palette.background.light,
         },
     },
-    roomHeader: {
+    bridgeHeader: {
         ...displayVerticalCenter,
         width: "100%",
     },
-    roomIcon: {
+    bridgeIcon: {
         margin: 20,
     },
-    roomTitle: {
+    bridgeTitle: {
         marginBottom: 2,
     },
-    roomText: {
+    bridgeText: {
         marginBottom: 8,
     },
-    roomEnd: {
+    bridgeEnd: {
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center",

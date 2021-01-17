@@ -8,8 +8,7 @@ import { DBProvider } from "../../schema/models/provider";
 //////////// RUN EVERY 5 SECONDS
 
 export const syncPhilipsHue = () => {
-    const syncPhilipsHueCronJob = new CronJob('*/15 * * * * *', async () => {
-        console.log("RUN 5 SECONDS");
+    const syncPhilipsHueCronJob = new CronJob('*/5 * * * * *', async () => {
         const bridgesStatus = await QueryAllHueBridge();
 
         let bridesIds = [];

@@ -74,6 +74,7 @@ type PhilipsHueBridge {
   config: PhilipsHueBridgeDetailsType!
   groups: [PhilipsHueGroups!]!
   ipAddress: String!
+  lights: [PhilipsHueLight!]!
   providerId: ID!
   token: String
 }
@@ -99,7 +100,7 @@ type PhilipsHueBridgeStatus {
 
 type PhilipsHueGroups {
   bridgeId: ID!
-  class: String!
+  class: String
   lights: [PhilipsHueLight!]!
   name: String!
   recycle: Boolean!
@@ -139,6 +140,16 @@ type PhilipsHueLightXY {
   y: Float
 }
 
+type PhilipsHueSensor {
+  manufacturername: String!
+  modelid: String!
+  name: String!
+  recycle: Boolean!
+  swversion: String!
+  type: String!
+  uniqueid: String!
+}
+
 type Provider {
   _id: ID!
   button: String!
@@ -156,6 +167,7 @@ type Query {
   getPhilipsHueDevices: PhilipsHue
   hueBridgeConnection(ipAddress: String!): PhilipsHueBridgeStatus
   hueBridgeRegister(ipAddress: String!, name: String!): PhilipsHueBridgeStatus
+  syncAll: SyncAll
 }
 
 type Status {
@@ -165,7 +177,11 @@ type Status {
 }
 
 type Subscription {
-  syncPhilipsHue: PhilipsHue!
+  syncAll: SyncAll!
+}
+
+type SyncAll {
+  philipsHue: PhilipsHue!
 }
 
 type Test {

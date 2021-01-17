@@ -8,7 +8,7 @@ const PhilipsHueGroupsType = objectType({
         t.id("bridgeId");
         t.string("name");
         t.string("type");
-        t.string("class");
+        t.string("class", {nullable: true});
         t.boolean("recycle");
         t.list.field("lights",  {
             type: PhilipsHueLightType,
