@@ -7,6 +7,7 @@ import login from "./mutation/login";
 import TypeEnum from "./enum/typeEnum";
 import editUserInput from "./input/editUser";
 import checkAuthUser from "./query/checkAuthUser";
+import getAllUsers from "./query/getAllUsers";
 
 export default {
     type: [
@@ -20,6 +21,7 @@ export default {
     query: [
         getCurrentUser,
         checkAuthUser,
+        getAllUsers,
     ],
     input: [
         registerInput,

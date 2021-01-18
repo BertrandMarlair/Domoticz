@@ -231,7 +231,7 @@ const Page = ({classes}) => {
                                     type="submit"
                                     color="error"
                                     loading={deleteData?.loading}>
-                                    Supprimer le provider
+                                    Supprimer le block
                                 </Button>
                             </div>
                         </form>

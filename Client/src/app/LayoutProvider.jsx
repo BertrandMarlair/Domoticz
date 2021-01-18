@@ -15,8 +15,8 @@ import {defaultRoute as globalDefaultRoute} from "../context/global/config/route
 import disconnectedRoute from "../context/disconnected/config/router";
 import {defaultRoute as disconnectedDefaultRoute} from "../context/disconnected/config/router";
 
-import adminRoute from "../context/admin/config/router";
-import {defaultRoute as adminDefaultRoute} from "../context/admin/config/router";
+import userRoute from "../context/user/config/router";
+import {defaultRoute as userDefaultRoute} from "../context/user/config/router";
 
 import contexttestRoute from "../context/contexttest/config/router";
 import {defaultRoute as contexttestDefaultRoute} from "../context/contexttest/config/router";
@@ -90,19 +90,19 @@ const LayoutProvider = ({location}) => {
                         </Switch>
                     </AddLayout>
                 );
-            case "admin":
-                const AdminLayout = lazy(() => import("../context/admin/config/Layout"));
-                const AdminProvider = lazy(() => import("../context/admin/config/Provider"));
+            case "user":
+                const UserLayout = lazy(() => import("../context/user/config/Layout"));
+                const UserProvider = lazy(() => import("../context/user/config/Provider"));
 
                 return (
-                    <AdminLayout>
+                    <UserLayout>
                         <Switch>
-                            {adminRoute.map((params, index) => (
-                                <AdminProvider {...params} key={`dynamicRoute${index}`} />
+                            {userRoute.map((params, index) => (
+                                <UserProvider {...params} key={`dynamicRoute${index}`} />
                             ))}
-                            <Redirect to={adminDefaultRoute} />
+                            <Redirect to={userDefaultRoute} />
                         </Switch>
-                    </AdminLayout>
+                    </UserLayout>
                 );
             case "contexttest":
                 const ContexttestLayout = lazy(() => import("../context/contexttest/config/Layout"));

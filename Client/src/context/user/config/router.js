@@ -2,13 +2,13 @@ import {lazy} from "react";
 
 const User = lazy(() => import("../users/Users"));
 
-export const defaultRoute = "/admin/users";
-export const name = "Admin";
-export const slug = "admin";
+export const defaultRoute = "/user/users";
+export const name = "User";
+export const slug = "user";
 
 const dashboardRoutes = [
     {
-        path: "/admin/users",
+        path: "/user/users",
         name: "Users",
         component: User,
         exact: true,
