@@ -61,13 +61,11 @@ const typographyStyle = (theme) => ({
         color: theme.palette.text.primary,
         lineHeight: "normal",
         fontWeight: 300,
-        wordBreak: "break-all",
     },
     smallTitleText: {
         color: theme.palette.text.primary,
         fontSize: remMl,
         fontWeight: 400,
-        wordBreak: "break-all",
     },
     success: {
         color: theme.palette.success.main,

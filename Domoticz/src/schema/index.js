@@ -5,14 +5,14 @@ import provider from "./models/provider";
 import test from "./models/test";
 import block from "./models/block";
 import philipsHue from "./models/philipsHue";
-import bridge from "./models/bridge";
+import sync from "./models/sync";
 
 export default [
     commons,
     application,
     block,
+    sync,
     provider,
     philipsHue,
-    bridge,
     test,
 ]

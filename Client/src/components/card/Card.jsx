@@ -14,6 +14,7 @@ const Card = ({
     vignette,
     noShadow,
     widget,
+    onClick,
     style: customStyle,
 }) => {
     const cardClasses = classNames({
@@ -27,7 +28,7 @@ const Card = ({
     });
 
     return (
-        <div className={cardClasses} style={{width, ...customStyle}}>
+        <div className={cardClasses} style={{width, ...customStyle}} onClick={onClick}>
             {children}
         </div>
     );
@@ -36,6 +37,7 @@ const Card = ({
 Card.propTypes = {
     classes: PropTypes.object.isRequired,
     children: PropTypes.node,
+    onClick: PropTypes.func,
     className: PropTypes.string,
     noPadding: PropTypes.bool,
     noShadow: PropTypes.bool,

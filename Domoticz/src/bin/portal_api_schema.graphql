@@ -14,20 +14,6 @@ type Block {
   title: String!
 }
 
-type Bridge {
-  _id: ID!
-  ipAddress: String!
-  name: String
-  providerId: ID!
-  token: String
-}
-
-type BridgeStatus {
-  bridgeId: String
-  error: String
-  ok: Boolean!
-}
-
 input createBlockInput {
   description: String
   title: String!
@@ -79,9 +65,90 @@ type Mutation {
 
 type PhilipsHue {
   _id: ID!
-  bridges: [Bridge!]!
+  bridges: [PhilipsHueBridge!]!
   description: String!
   title: String!
+}
+
+type PhilipsHueBridge {
+  _id: ID!
+  config: PhilipsHueBridgeDetailsType!
+  groups: [PhilipsHueGroups!]!
+  ipAddress: String!
+  lights: [PhilipsHueLight!]!
+  providerId: ID!
+  token: String
+}
+
+type PhilipsHueBridgeDetailsType {
+  apiversion: String!
+  bridgeid: String!
+  datastoreversion: String!
+  factorynew: Boolean!
+  mac: String!
+  modelid: String!
+  name: String!
+  replacesbridgeid: String
+  starterkitid: String!
+  swversion: String!
+}
+
+type PhilipsHueBridgeStatus {
+  bridgeId: String
+  error: String
+  ok: Boolean!
+}
+
+type PhilipsHueGroups {
+  bridgeId: ID!
+  class: String
+  lights: [PhilipsHueLight!]!
+  name: String!
+  recycle: Boolean!
+  type: String!
+}
+
+type PhilipsHueLight {
+  bridgeId: ID!
+  manufacturername: String!
+  modelid: String!
+  name: String!
+  productid: String!
+  productname: String!
+  state: PhilipsHueLightState!
+  swconfigid: String!
+  swversion: String!
+  type: String!
+  uniqueid: String!
+}
+
+type PhilipsHueLightState {
+  alert: String!
+  bri: Int!
+  colormode: String!
+  ct: Int!
+  effect: String
+  hue: Int
+  mode: String!
+  on: Boolean!
+  reachable: Boolean!
+  sat: Int
+  xy: PhilipsHueLightXY!
+}
+
+type PhilipsHueLightXY {
+  x: Float
+  y: Float
+}
+
+type PhilipsHueSensor {
+  manufacturername: String!
+  modelid: String!
+  name: String!
+  recycle: Boolean!
+  swversion: String!
+  type: String!
+  uniqueid: String!
 }
 
 type Provider {
@@ -99,14 +166,23 @@ type Query {
   getAllProviders: [Provider!]
   getAllTests: [Test!]
   getPhilipsHueDevices: PhilipsHue
-  hueBridgeConnection(ipAddress: String!): BridgeStatus
-  hueBridgeRegister(ipAddress: String!, name: String!): BridgeStatus
+  hueBridgeConnection(ipAddress: String!): PhilipsHueBridgeStatus
+  hueBridgeRegister(ipAddress: String!, name: String!): PhilipsHueBridgeStatus
+  syncAll: SyncAll
 }
 
 type Status {
   code: String!
   color: String!
   title: String!
+}
+
+type Subscription {
+  syncAll: SyncAll!
+}
+
+type SyncAll {
+  philipsHue: PhilipsHue!
 }
 
 type Test {

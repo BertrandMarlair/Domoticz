@@ -3,6 +3,7 @@ import React, {useMemo, useEffect, lazy} from "react";
 
 import {withRouter, Redirect, Switch} from "react-router-dom";
 import {useSnackbar} from "notistack";
+import SyncDevices from "./SyncDevices";
 import SideBar from "../components/sideBar/SideBar";
 import Connected from "../components/connected/Connected";
 
@@ -128,7 +129,7 @@ const LayoutProvider = ({location}) => {
             <Connected>
                 <SideBar />
             </Connected>
-            {renderLayout}
+            <SyncDevices>{renderLayout}</SyncDevices>
         </main>
     );
 };

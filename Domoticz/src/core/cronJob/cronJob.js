@@ -1,6 +1,7 @@
-import {summary} from "../reminder/reminder";
+import {syncPhilipsHue} from "../syncStatus/syncPhilipsHue";
+
 const cronJob = () => {
-    summary();
+    syncPhilipsHue();
 }
 
 export default cronJob;

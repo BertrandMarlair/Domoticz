@@ -66,18 +66,6 @@ export interface NexusGenRootTypes {
     description: string; // String!
     title: string; // String!
   }
-  Bridge: { // root type
-    _id: string; // ID!
-    ipAddress: string; // String!
-    name?: string | null; // String
-    providerId: string; // ID!
-    token?: string | null; // String
-  }
-  BridgeStatus: { // root type
-    bridgeId?: string | null; // String
-    error?: string | null; // String
-    ok: boolean; // Boolean!
-  }
   Delete: { // root type
     id: number; // Int!
   }
@@ -86,6 +74,75 @@ export interface NexusGenRootTypes {
     _id: string; // ID!
     description: string; // String!
     title: string; // String!
+  }
+  PhilipsHueBridge: { // root type
+    _id: string; // ID!
+    config: NexusGenRootTypes['PhilipsHueBridgeDetailsType']; // PhilipsHueBridgeDetailsType!
+    ipAddress: string; // String!
+    providerId: string; // ID!
+    token?: string | null; // String
+  }
+  PhilipsHueBridgeDetailsType: { // root type
+    apiversion: string; // String!
+    bridgeid: string; // String!
+    datastoreversion: string; // String!
+    factorynew: boolean; // Boolean!
+    mac: string; // String!
+    modelid: string; // String!
+    name: string; // String!
+    replacesbridgeid?: string | null; // String
+    starterkitid: string; // String!
+    swversion: string; // String!
+  }
+  PhilipsHueBridgeStatus: { // root type
+    bridgeId?: string | null; // String
+    error?: string | null; // String
+    ok: boolean; // Boolean!
+  }
+  PhilipsHueGroups: { // root type
+    bridgeId: string; // ID!
+    class?: string | null; // String
+    name: string; // String!
+    recycle: boolean; // Boolean!
+    type: string; // String!
+  }
+  PhilipsHueLight: { // root type
+    bridgeId: string; // ID!
+    manufacturername: string; // String!
+    modelid: string; // String!
+    name: string; // String!
+    productid: string; // String!
+    productname: string; // String!
+    state: NexusGenRootTypes['PhilipsHueLightState']; // PhilipsHueLightState!
+    swconfigid: string; // String!
+    swversion: string; // String!
+    type: string; // String!
+    uniqueid: string; // String!
+  }
+  PhilipsHueLightState: { // root type
+    alert: string; // String!
+    bri: number; // Int!
+    colormode: string; // String!
+    ct: number; // Int!
+    effect?: string | null; // String
+    hue?: number | null; // Int
+    mode: string; // String!
+    on: boolean; // Boolean!
+    reachable: boolean; // Boolean!
+    sat?: number | null; // Int
+  }
+  PhilipsHueLightXY: { // root type
+    x?: number | null; // Float
+    y?: number | null; // Float
+  }
+  PhilipsHueSensor: { // root type
+    manufacturername: string; // String!
+    modelid: string; // String!
+    name: string; // String!
+    recycle: boolean; // Boolean!
+    swversion: string; // String!
+    type: string; // String!
+    uniqueid: string; // String!
   }
   Provider: { // root type
     _id: string; // ID!
@@ -100,6 +157,8 @@ export interface NexusGenRootTypes {
     color: string; // String!
     title: string; // String!
   }
+  Subscription: {};
+  SyncAll: {};
   Test: { // root type
     _id: string; // ID!
     description: string; // String!
@@ -133,18 +192,6 @@ export interface NexusGenFieldTypes {
     description: string; // String!
     title: string; // String!
   }
-  Bridge: { // field return type
-    _id: string; // ID!
-    ipAddress: string; // String!
-    name: string | null; // String
-    providerId: string; // ID!
-    token: string | null; // String
-  }
-  BridgeStatus: { // field return type
-    bridgeId: string | null; // String
-    error: string | null; // String
-    ok: boolean; // Boolean!
-  }
   Delete: { // field return type
     id: number; // Int!
   }
@@ -160,9 +207,82 @@ export interface NexusGenFieldTypes {
   }
   PhilipsHue: { // field return type
     _id: string; // ID!
-    bridges: NexusGenRootTypes['Bridge'][]; // [Bridge!]!
+    bridges: NexusGenRootTypes['PhilipsHueBridge'][]; // [PhilipsHueBridge!]!
     description: string; // String!
     title: string; // String!
+  }
+  PhilipsHueBridge: { // field return type
+    _id: string; // ID!
+    config: NexusGenRootTypes['PhilipsHueBridgeDetailsType']; // PhilipsHueBridgeDetailsType!
+    groups: NexusGenRootTypes['PhilipsHueGroups'][]; // [PhilipsHueGroups!]!
+    ipAddress: string; // String!
+    lights: NexusGenRootTypes['PhilipsHueLight'][]; // [PhilipsHueLight!]!
+    providerId: string; // ID!
+    token: string | null; // String
+  }
+  PhilipsHueBridgeDetailsType: { // field return type
+    apiversion: string; // String!
+    bridgeid: string; // String!
+    datastoreversion: string; // String!
+    factorynew: boolean; // Boolean!
+    mac: string; // String!
+    modelid: string; // String!
+    name: string; // String!
+    replacesbridgeid: string | null; // String
+    starterkitid: string; // String!
+    swversion: string; // String!
+  }
+  PhilipsHueBridgeStatus: { // field return type
+    bridgeId: string | null; // String
+    error: string | null; // String
+    ok: boolean; // Boolean!
+  }
+  PhilipsHueGroups: { // field return type
+    bridgeId: string; // ID!
+    class: string | null; // String
+    lights: NexusGenRootTypes['PhilipsHueLight'][]; // [PhilipsHueLight!]!
+    name: string; // String!
+    recycle: boolean; // Boolean!
+    type: string; // String!
+  }
+  PhilipsHueLight: { // field return type
+    bridgeId: string; // ID!
+    manufacturername: string; // String!
+    modelid: string; // String!
+    name: string; // String!
+    productid: string; // String!
+    productname: string; // String!
+    state: NexusGenRootTypes['PhilipsHueLightState']; // PhilipsHueLightState!
+    swconfigid: string; // String!
+    swversion: string; // String!
+    type: string; // String!
+    uniqueid: string; // String!
+  }
+  PhilipsHueLightState: { // field return type
+    alert: string; // String!
+    bri: number; // Int!
+    colormode: string; // String!
+    ct: number; // Int!
+    effect: string | null; // String
+    hue: number | null; // Int
+    mode: string; // String!
+    on: boolean; // Boolean!
+    reachable: boolean; // Boolean!
+    sat: number | null; // Int
+    xy: NexusGenRootTypes['PhilipsHueLightXY']; // PhilipsHueLightXY!
+  }
+  PhilipsHueLightXY: { // field return type
+    x: number | null; // Float
+    y: number | null; // Float
+  }
+  PhilipsHueSensor: { // field return type
+    manufacturername: string; // String!
+    modelid: string; // String!
+    name: string; // String!
+    recycle: boolean; // Boolean!
+    swversion: string; // String!
+    type: string; // String!
+    uniqueid: string; // String!
   }
   Provider: { // field return type
     _id: string; // ID!
@@ -178,13 +298,20 @@ export interface NexusGenFieldTypes {
     getAllProviders: NexusGenRootTypes['Provider'][] | null; // [Provider!]
     getAllTests: NexusGenRootTypes['Test'][] | null; // [Test!]
     getPhilipsHueDevices: NexusGenRootTypes['PhilipsHue'] | null; // PhilipsHue
-    hueBridgeConnection: NexusGenRootTypes['BridgeStatus'] | null; // BridgeStatus
-    hueBridgeRegister: NexusGenRootTypes['BridgeStatus'] | null; // BridgeStatus
+    hueBridgeConnection: NexusGenRootTypes['PhilipsHueBridgeStatus'] | null; // PhilipsHueBridgeStatus
+    hueBridgeRegister: NexusGenRootTypes['PhilipsHueBridgeStatus'] | null; // PhilipsHueBridgeStatus
+    syncAll: NexusGenRootTypes['SyncAll'] | null; // SyncAll
   }
   Status: { // field return type
     code: string; // String!
     color: string; // String!
     title: string; // String!
+  }
+  Subscription: { // field return type
+    syncAll: NexusGenRootTypes['SyncAll']; // SyncAll!
+  }
+  SyncAll: { // field return type
+    philipsHue: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
   }
   Test: { // field return type
     _id: string; // ID!
@@ -230,7 +357,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Application" | "Block" | "Bridge" | "BridgeStatus" | "Delete" | "Mutation" | "PhilipsHue" | "Provider" | "Query" | "Status" | "Test";
+export type NexusGenObjectNames = "Application" | "Block" | "Delete" | "Mutation" | "PhilipsHue" | "PhilipsHueBridge" | "PhilipsHueBridgeDetailsType" | "PhilipsHueBridgeStatus" | "PhilipsHueGroups" | "PhilipsHueLight" | "PhilipsHueLightState" | "PhilipsHueLightXY" | "PhilipsHueSensor" | "Provider" | "Query" | "Status" | "Subscription" | "SyncAll" | "Test";
 
 export type NexusGenInputNames = "createBlockInput" | "createProviderInput" | "editBlockInput" | "editProviderInput";
 

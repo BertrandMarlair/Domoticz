@@ -1,53 +1,27 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {IconButton, useTheme, withStyles} from "@material-ui/core";
 import style from "./PhilipsHueStyle";
-import gql from "graphql-tag";
 import Card from "../../../components/card/Card";
 import Icon from "../../../components/icon/Icon";
-import SmallTitle from "../../../components/typography/SmallTitle";
 import Text from "../../../components/typography/Text";
-import {useQuery} from "react-apollo";
-import Loading from "../../../components/loading/Loading";
-import Error from "../../../components/error/Error";
 import DeviceList from "./Components/DeviceList";
 import AddBridge from "./Components/AddBridge";
 import Title from "../../../components/typography/Title";
+import {useSelector} from "react-redux";
 
 const PhilipsHue = ({classes}) => {
     const theme = useTheme();
-    const [hue, setHue] = useState({});
     const [open, setOpen] = useState(false);
 
-    const {data, loading, error, fetchMore} = useQuery(GET_PHILIPS_HUE_DEVICES);
+    const philipsHue = useSelector((state) => state.devices.philipsHue);
 
-    useEffect(() => {
-        if (data?.getPhilipsHueDevices) {
-            setHue(data.getPhilipsHueDevices);
-        }
-    }, [data]);
+    console.log(philipsHue);
 
     return (
         <div className={classes.root}>
-            <Error errorMessage={error} />
-            <Card className={classes.addProvider}>
-                <div className={classes.addProviderHeader}>
-                    <Icon color={theme.palette.primary.main} className={classes.addProviderIcon}>
-                        Light
-                    </Icon>
-                    <div>
-                        <SmallTitle className={classes.addProviderTitle}>Philips Hue</SmallTitle>
-                        <Text className={classes.addProviderText} color="lightGrey">
-                            Le provider est le point central d'un produit domotique pour la maison.
-                        </Text>
-                    </div>
-                </div>
-            </Card>
-            {loading ? (
-                <Loading absolute />
-            ) : (
-                hue?._id &&
-                (hue?.bridges.length === 0 ? (
+            {philipsHue?._id &&
+                (philipsHue?.bridges.length === 0 ? (
                     <Card className={classes.addBridge}>
                         <Title bold center>
                             Vous n'avez pas encore de Pont Philips Hue
@@ -64,29 +38,11 @@ const PhilipsHue = ({classes}) => {
                         </IconButton>
                     </Card>
                 ) : (
-                    <DeviceList hue={hue} />
-                ))
-            )}
-            <AddBridge hue={hue} open={open} setOpen={setOpen} fetchMore={fetchMore} />
+                    <DeviceList hue={philipsHue} />
+                ))}
+            <AddBridge hue={philipsHue} open={open} setOpen={setOpen} />
         </div>
     );
 };
 
 export default withStyles(style)(PhilipsHue);
-
-const GET_PHILIPS_HUE_DEVICES = gql`
-    query getPhilipsHueDevices {
-        getPhilipsHueDevices {
-            _id
-            title
-            description
-            bridges {
-                _id
-                providerId
-                ipAddress
-                token
-                name
-            }
-        }
-    }
-`;

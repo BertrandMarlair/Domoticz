@@ -1,6 +1,6 @@
-import {displayCenter, displayFlex} from "../../../../core/style/constant";
+import {displayBetween, displayCenter, displayFlex, displayVerticalCenter} from "../../../../core/style/constant";
 
-const style = () => ({
+const style = (theme) => ({
     modalWrapper: {
         padding: 30,
     },
@@ -39,6 +39,38 @@ const style = () => ({
     errorMessage: {
         textAlign: "center",
         fontSize: 16,
+    },
+    device: {
+        ...displayBetween,
+        padding: "0 20px",
+        minHeight: 90,
+        cursor: "pointer",
+        "&:hover": {
+            background: theme.palette.background.light,
+        },
+    },
+    deviceHeader: {
+        ...displayVerticalCenter,
+        width: "100%",
+    },
+    deviceIcon: {
+        margin: 20,
+    },
+    deviceTitle: {
+        marginBottom: 2,
+    },
+    deviceText: {
+        marginBottom: 8,
+    },
+    deviceEnd: {
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        flex: 1,
+    },
+    title: {
+        margin: "30px 16px",
+        fontSize: "1.4rem",
     },
 });
 

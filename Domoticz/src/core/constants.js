@@ -35,5 +35,5 @@ export const NEEDED_ENV = [
 ];
 
 export const PUBSUB_TYPES = {
-    NOTIFY_CLIENT_LOG: "NOTIFY_CLIENT_LOG",
+    SYNC_PHILIPS_HUE: "SYNC_PHILIPS_HUE",
 };

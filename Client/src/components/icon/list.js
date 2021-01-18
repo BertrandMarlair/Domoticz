@@ -26,6 +26,10 @@ export default [
         url: `${url}/come-in.svg`,
     },
     {
+        name: "Door",
+        url: `${url}/door.svg`,
+    },
+    {
         name: "ExitDoor",
         url: `${url}/exit-door-symbol.svg`,
     },
@@ -140,5 +144,61 @@ export default [
     {
         name: "SmartHome",
         url: `${url}/smart-home.svg`,
+    },
+    {
+        name: "Bridge",
+        url: `${url}/bridge.svg`,
+    },
+    {
+        name: "Down",
+        url: `${url}/arrow_down.svg`,
+    },
+    {
+        name: "Up",
+        url: `${url}/arrow_up.svg`,
+    },
+    {
+        name: "Left",
+        url: `${url}/arrow_left.svg`,
+    },
+    {
+        name: "Right",
+        url: `${url}/arrow_right.svg`,
+    },
+    {
+        name: "Lamp",
+        url: `${url}/Philips_Hue_Lamp.svg`,
+    },
+    {
+        name: "Dimmer",
+        url: `${url}/Philips_Hue_Dimmer.svg`,
+    },
+    {
+        name: "Bedroom",
+        url: `${url}/bedroom.svg`,
+    },
+    {
+        name: "Office",
+        url: `${url}/office.svg`,
+    },
+    {
+        name: "TV",
+        url: `${url}/television.svg`,
+    },
+    {
+        name: "Color temperature light",
+        url: `${url}/lightbulb.svg`,
+    },
+    {
+        name: "Hue ambiance lamp",
+        url: `${url}/lightbulb.svg`,
+    },
+    {
+        name: "Hue color lamp",
+        url: `${url}/lightbulb.svg`,
+    },
+    {
+        name: "Hue lightstrip plus",
+        url: `${url}/lightstrip.svg`,
     },
 ];
