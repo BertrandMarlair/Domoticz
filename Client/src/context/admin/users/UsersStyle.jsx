@@ -13,7 +13,7 @@ const style = () => ({
             margin: "auto",
         },
     },
-    gridItem: {
+    tableContainer: {
         padding: 20,
     },
     card: {
