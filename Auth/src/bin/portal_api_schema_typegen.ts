@@ -147,6 +147,7 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     login: NexusGenRootTypes['Login']; // Login!
     signin: NexusGenRootTypes['UserAuth']; // UserAuth!
+    updateUser: NexusGenRootTypes['UserAuth']; // UserAuth!
   }
   Query: { // field return type
     checkAuthUser: NexusGenRootTypes['UserAuth']; // UserAuth!
@@ -181,6 +182,9 @@ export interface NexusGenArgTypes {
       password: string; // String!
     }
     signin: { // args
+      user?: NexusGenInputs['registerInput'] | null; // registerInput
+    }
+    updateUser: { // args
       name: string; // String!
       type: string; // String!
     }
