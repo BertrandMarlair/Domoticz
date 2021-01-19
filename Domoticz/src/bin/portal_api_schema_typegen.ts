@@ -198,6 +198,7 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     createBlock: NexusGenRootTypes['Block']; // Block!
     createProvider: NexusGenRootTypes['Provider']; // Provider!
+    deleteBlock: NexusGenRootTypes['Block']; // Block!
     deleteProvider: NexusGenRootTypes['Provider']; // Provider!
     editApplication: NexusGenRootTypes['Application']; // Application!
     editBlock: NexusGenRootTypes['Block']; // Block!
@@ -326,6 +327,9 @@ export interface NexusGenArgTypes {
     }
     createProvider: { // args
       provider: NexusGenInputs['createProviderInput']; // createProviderInput!
+    }
+    deleteBlock: { // args
+      _id: string; // ID!
     }
     deleteProvider: { // args
       _id: string; // ID!

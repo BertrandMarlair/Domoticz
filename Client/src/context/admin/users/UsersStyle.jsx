@@ -1,4 +1,4 @@
-import {mediaQuerySizeSm} from "../../../core/style/constant";
+import {displayBetween, displayVerticalCenter, mediaQuerySizeSm} from "../../../core/style/constant";
 
 const style = () => ({
     root: {
@@ -13,7 +13,7 @@ const style = () => ({
             margin: "auto",
         },
     },
-    gridItem: {
+    tableContainer: {
         padding: 20,
     },
     card: {
@@ -31,27 +31,25 @@ const style = () => ({
         marginBottom: 50,
         flexGrow: 1,
     },
-    wrapper: {
-        padding: 20,
+    addUser: {
+        ...displayBetween,
+        margin: 20,
     },
-    title: {
-        marginBottom: 20,
+    addUserHeader: {
+        ...displayVerticalCenter,
     },
-    label: {
-        margin: "5px 0",
+    addUserIcon: {
+        margin: 20,
     },
-    input: {
-        marginTop: 20,
-        marginBottom: 10,
-        width: "100%",
+    addUserTitle: {
+        marginBottom: 2,
     },
-    form: {
-        width: "100%",
-        padding: 30,
-        paddingTop: 0,
+    addUserText: {
+        marginBottom: 8,
     },
-    formFooter: {
-        marginTop: 30,
+    option: {
+        display: "flex",
+        flexDirection: "row-reverse",
     },
 });
 
