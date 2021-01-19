@@ -43,8 +43,6 @@ const SideBar = ({classes, match}) => {
             {icon: "SmartHome", link: "/provider/providers"},
             {icon: "Setting", link: "/settings/settings"},
             {icon: "Verified", link: "/admin/users"},
-            {icon: "Setting", link: "/settings/account"},
-            {icon: "Verified", link: "/admin/admin"},
         ],
     };
 
