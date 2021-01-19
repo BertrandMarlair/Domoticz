@@ -107,6 +107,7 @@ const LayoutProvider = ({location}) => {
                             <Redirect to={adminDefaultRoute} />
                         </Switch>
                     </AdminLayout>
+                );
             case "settings":
                 const SettingsLayout = lazy(() => import("../context/settings/config/Layout"));
                 const SettingsProvider = lazy(() => import("../context/settings/config/Provider"));
