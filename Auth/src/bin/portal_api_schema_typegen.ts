@@ -180,7 +180,8 @@ export interface NexusGenArgTypes {
       password: string; // String!
     }
     signin: { // args
-      user?: NexusGenInputs['registerInput'] | null; // registerInput
+      name: string; // String!
+      type: string; // String!
     }
   }
   Query: {

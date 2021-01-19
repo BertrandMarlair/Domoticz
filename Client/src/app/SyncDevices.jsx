@@ -72,6 +72,9 @@ const philipsHueFragment = gql`
                 bridgeId
                 productname
                 name
+                state {
+                    on
+                }
             }
         }
     }

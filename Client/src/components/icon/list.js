@@ -201,4 +201,12 @@ export default [
         name: "Hue lightstrip plus",
         url: `${url}/lightstrip.svg`,
     },
+    {
+        name: "Account",
+        url: `${url}/account.svg`,
+    },
+    {
+        name: "Weather",
+        url: `${url}/weather.svg`,
+    },
 ];
