@@ -2,7 +2,7 @@ import {query} from "../../../../core/mongo";
 import UserType from "../type/user";
 
 export default (t) => 
-    t.field("getAllUsers", {
+    t.list.field("getAllUsers", {
         type: UserType,
         nullable: true,
         async resolve(...params){
@@ -14,7 +14,5 @@ export default (t) =>
 const getAllUsers = async () => {
     const usersData = await query('users', {});
 
-    if(usersData){
-        return usersData;
-    }
+    return usersData;
 }

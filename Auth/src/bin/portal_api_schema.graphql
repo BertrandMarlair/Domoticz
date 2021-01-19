@@ -85,7 +85,7 @@ enum PermissionEnum {
 
 type Query {
   checkAuthUser: UserAuth!
-  getAllUsers: UserAuth
+  getAllUsers: [UserAuth!]
   getCurrentUser: UserAuth!
   keyRing(token: String!): KeyRing!
   refreshTokens: TokensType!

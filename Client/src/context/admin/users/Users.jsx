@@ -8,7 +8,6 @@ import Loading from "../../../components/loading/Loading";
 import Error from "../../../components/error/Error";
 import Card from "../../../components/card/Card";
 import Title from "../../../components/typography/Title";
-import Text from "../../../components/typography/Text";
 import Button from "../../../components/button/Button";
 import Icon from "../../../components/icon/Icon";
 import {useTheme} from "@material-ui/styles";
@@ -44,9 +43,6 @@ const User = ({classes}) => {
                     </Icon>
                     <div>
                         <SmallTitle className={classes.addUserTitle}>Créer un nouvel utilisateur</SmallTitle>
-                        <Text className={classes.addProviderText} color="lightGrey">
-                            text
-                        </Text>
                     </div>
                 </div>
                 <Button round size="sm" onClick={() => setOpen(true)}>
