@@ -6,7 +6,6 @@ import {useSelector} from "react-redux";
 const Style = () => {
     const layout = useSelector((state) => state.darkMode);
     const theme = useTheme();
-    const {zoom} = useSelector((state) => state.theme);
 
     return (
         <Helmet>
@@ -26,9 +25,6 @@ const Style = () => {
                 {`
                     .react-select__option.react-select__option--is-focused {
                         background: ${theme.palette.hover.select} !important;
-                    }
-                    html {
-                        zoom: ${zoom};
                     }
                     .MuiOutlinedInput-input:-webkit-autofill {
                         -webkit-box-shadow: 0 0 0 100px ${theme.palette.background.default} inset;

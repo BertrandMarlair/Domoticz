@@ -94,28 +94,8 @@ const style = (theme) => ({
         border: theme.palette.border.main,
         padding: 4,
     },
-    zoomContainer: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        width: "100%",
-        margin: "0px 16px",
-    },
-    zoom: {
-        width: 50,
-    },
     size: {
         width: 35,
-    },
-    zoomContainerRight: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    zoomContainerLeft: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
     },
     emptyDiv: {
         flex: 1,

@@ -6,7 +6,7 @@ import {withRouter} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 import Error from "../../../components/error/Error";
-import {MenuList, MenuItem, IconButton, Divider} from "@material-ui/core";
+import {MenuList, MenuItem, Divider} from "@material-ui/core";
 import Avatar from "../../../components/avatar/Avatar";
 import Icon from "../../../components/icon/Icon";
 import Popper from "../../../components/popper/Popper";
@@ -19,7 +19,6 @@ const ProfileOptions = ({classes, handleCloseAvatar, handleClickAvatar, anchorEl
     const [updated, setUpdated] = useState(false);
     const {data, error} = useQuery(GET_CURRENT_USER);
     const {isDarkMode} = useSelector((state) => state.darkMode);
-    const {zoom} = useSelector((state) => state.theme);
 
     const dispatch = useDispatch();
     const {t, i18n} = useTranslation();
@@ -40,28 +39,6 @@ const ProfileOptions = ({classes, handleCloseAvatar, handleClickAvatar, anchorEl
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
-    };
-
-    const handleZoom = () => {
-        const oldAnchorElAvatar = anchorElAvatar;
-
-        handleCloseAvatar();
-        dispatch({type: "TOGGLE_ZOOM"});
-
-        setTimeout(() => {
-            handleClickAvatar({currentTarget: oldAnchorElAvatar});
-        }, 300);
-    };
-
-    const handleUnZoom = () => {
-        const oldAnchorElAvatar = anchorElAvatar;
-
-        handleCloseAvatar();
-        dispatch({type: "TOGGLE_UN_ZOOM"});
-
-        setTimeout(() => {
-            handleClickAvatar({currentTarget: oldAnchorElAvatar});
-        }, 300);
     };
 
     useEffect(() => {
@@ -95,30 +72,6 @@ const ProfileOptions = ({classes, handleCloseAvatar, handleClickAvatar, anchorEl
                             {isDarkMode ? t("header.settings.enable") : t("header.settings.disable")}
                         </SmallTitle>
                     </MenuItem>
-                    <Divider />
-                    <div className={classes.optionMenuItem}>
-                        <div className={classes.zoomContainer}>
-                            <div className={classes.zoomContainerRight}>
-                                <Icon className={classes.iconRight}>Zoom</Icon>
-                                <div className={classes.zoom}>
-                                    <SmallTitle preWrap light>
-                                        {t("header.settings.zoom")}
-                                    </SmallTitle>
-                                </div>
-                            </div>
-                            <div className={classes.zoomContainerLeft}>
-                                <IconButton onClick={() => handleUnZoom()} className={classes.iconLeft}>
-                                    <Icon>ZoomOut</Icon>
-                                </IconButton>
-                                <SmallTitle className={classes.size} light>
-                                    {(zoom * 100).toFixed(0)}%
-                                </SmallTitle>
-                                <IconButton onClick={() => handleZoom()} className={classes.iconRight}>
-                                    <Icon>ZoomIn</Icon>
-                                </IconButton>
-                            </div>
-                        </div>
-                    </div>
                     <Divider />
                     <div>
                         <div className={classes.menuItemSubOptionsTitle}>

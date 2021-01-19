@@ -6,7 +6,7 @@ export const secondaryLight = "#39BE83";
 export const secondaryDark = "#39BE83";
 
 export const borderInput = "1px solid #cccccc";
-export const borderLight = "1px solid #EDEDED";
+export const borderLight = "1px solid #4e4e4e";
 export const borderMedium = "1px solid #e2e0e4";
 export const borderDark = "1px solid #2a3544";
 export const borderWhite = "1px solid #ffffff";
@@ -114,7 +114,7 @@ export const link = {
     dark: "#2476f2",
 };
 
-export const boxShadowLight = "0px 12px 28px rgba(0, 9, 128, 0.1)";
+export const boxShadowLight = "0px 0px 10px rgba(0, 0, 0, 0.35)";
 export const boxShadowDark = "0px 0px 20px rgb(43 46 66)";
 export const boxShadowLightWhite = "0px 12px 28px #bfc1d4";
 export const boxShadowDarkWhite = "0px 12px 28px #0f101f";

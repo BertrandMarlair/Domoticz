@@ -97,8 +97,8 @@
         "signin": {
             "title" : "Créer un nouveau compte",
             "description" : "Laissez-nous vous préparer pour que vous puissiez commencer à créer votre première expérience de rapport d'intégration.",
-            "nameInputTitle" : "Email",
-            "nameInputLabel" : "Entrer votre adresse nom",
+            "nameInputTitle" : "Name",
+            "nameInputLabel" : "Entrer votre nom",
             "typeInputTitle" : "Type d'utilisateur",
             "typeInputLabel" : "Selectionner un type d'utilisateur",
             "passwordInputTitle" : "Mot de passe",

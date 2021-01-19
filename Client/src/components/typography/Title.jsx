@@ -7,7 +7,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import typographyStyle from "./typographyStyle";
 
 const Title = ({...props}) => {
-    const {classes, children, center, className, color, bold, normal, style, small} = props;
+    const {classes, children, center, className, color, bold, normal, light, style, small} = props;
 
     const titleClasses = classNames({
         [classes.defaultFontStyle]: true,
@@ -17,6 +17,7 @@ const Title = ({...props}) => {
         [classes.center]: center,
         [classes.bold]: bold,
         [classes.normal]: normal,
+        [classes.light]: light,
         [classes.smaller]: small,
     });
 
@@ -32,6 +33,7 @@ Title.propTypes = {
     style: PropTypes.object,
     center: PropTypes.bool,
     bold: PropTypes.bool,
+    light: PropTypes.bool,
     normal: PropTypes.bool,
     small: PropTypes.bool,
     color: PropTypes.oneOf(["primary", "secondary", "white", "success", "error", "warning", "contrasted"]),

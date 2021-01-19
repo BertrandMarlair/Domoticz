@@ -7,6 +7,11 @@ export const globalMui = {
                 textTransform: "inherit",
             },
         },
+        MuiFormControlLabel: {
+            root: {
+                marginRight: 0,
+            },
+        },
         MuiInputBase: {
             input: {
                 fontFamily: "Lato",

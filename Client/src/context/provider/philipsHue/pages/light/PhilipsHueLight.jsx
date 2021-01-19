@@ -9,6 +9,8 @@ import SmallTitle from "../../../../../components/typography/SmallTitle";
 import GoBack from "../../../../../components/goBack/GoBack";
 import {useSelector} from "react-redux";
 import Button from "../../../../../components/button/Button";
+import Text from "../../../../../components/typography/Text";
+import calculateXY from "../../../../../core/philips/color";
 
 const PhilipsHueLight = ({classes}) => {
     const philipsHue = useSelector((state) => state.devices.philipsHue);
@@ -27,6 +29,10 @@ const PhilipsHueLight = ({classes}) => {
         return light;
     };
 
+    const test = calculateXY(183, 29, 170);
+
+    console.log(test);
+
     return (
         <div className={classes.root}>
             <GoBack />
@@ -41,6 +47,7 @@ const PhilipsHueLight = ({classes}) => {
                                 <Icon size={40} className={classes.lightIcon}>
                                     {light.productname}
                                 </Icon>
+                                <Text>{light?.state?.on ? "ON" : "OFF"}</Text>
                                 <SmallTitle className={classes.lightTitle}>{light.name}</SmallTitle>
                                 <Button fullWidth>Configurer</Button>
                             </Card>

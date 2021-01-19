@@ -1,35 +1,33 @@
-import {mediaQuerySizeSm} from "../../../core/style/constant";
+import {boxShadowLight} from "../../../core/style/constant";
 
-const style = () => ({
+const style = (theme) => ({
     root: {
-        maxWidth: mediaQuerySizeSm,
-        margin: "auto",
-        minHeight: "90vh",
-        padding: 10,
+        height: "100%",
+        display: "flex",
     },
-    [`@media (max-width: ${mediaQuerySizeSm}px)`]: {
-        container: {
-            width: "100%",
-            margin: "auto",
-        },
-    },
-    gridItem: {
-        padding: 20,
-    },
-    card: {
-        maxWidth: 400,
-        minWidth: 245,
-        padding: 30,
-        flexGrow: 1,
+    leftSidenav: {
+        width: "100%",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
-        margin: "10px auto",
-        height: "100%",
+        justifyContent: "space-around",
     },
-    description: {
-        marginTop: 20,
-        marginBottom: 50,
-        flexGrow: 1,
+    rightSidenav: {
+        width: 800,
+        height: "100%",
+        backgroundColor: theme.palette.background.light,
+        boxShadow: boxShadowLight,
+    },
+    wrapperMain: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    wrapperAction: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-around",
     },
 });
 

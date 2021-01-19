@@ -19,6 +19,9 @@ import {defaultRoute as disconnectedDefaultRoute} from "../context/disconnected/
 import adminRoute from "../context/admin/config/router";
 import {defaultRoute as adminDefaultRoute} from "../context/admin/config/router";
 
+import settingsRoute from "../context/settings/config/router";
+import {defaultRoute as settingsDefaultRoute} from "../context/settings/config/router";
+
 import contexttestRoute from "../context/contexttest/config/router";
 import {defaultRoute as contexttestDefaultRoute} from "../context/contexttest/config/router";
 
@@ -104,6 +107,19 @@ const LayoutProvider = ({location}) => {
                             <Redirect to={adminDefaultRoute} />
                         </Switch>
                     </AdminLayout>
+            case "settings":
+                const SettingsLayout = lazy(() => import("../context/settings/config/Layout"));
+                const SettingsProvider = lazy(() => import("../context/settings/config/Provider"));
+
+                return (
+                    <SettingsLayout>
+                        <Switch>
+                            {settingsRoute.map((params, index) => (
+                                <SettingsProvider {...params} key={`dynamicRoute${index}`} />
+                            ))}
+                            <Redirect to={settingsDefaultRoute} />
+                        </Switch>
+                    </SettingsLayout>
                 );
             case "contexttest":
                 const ContexttestLayout = lazy(() => import("../context/contexttest/config/Layout"));
