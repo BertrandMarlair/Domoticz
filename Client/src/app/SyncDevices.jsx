@@ -36,7 +36,7 @@ const SyncDevices = ({children}) => {
         }
         if (philipsHue?.error) {
             notify(philipsHue?.error?.message, {
-                variant: "false",
+                variant: "error",
             });
         }
     }, [philipsHue]);

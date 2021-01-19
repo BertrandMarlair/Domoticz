@@ -128,8 +128,9 @@ const LayoutProvider = ({location}) => {
         <main style={{height: "100%", display: "flex"}}>
             <Connected>
                 <SideBar />
+                <SyncDevices>{renderLayout}</SyncDevices>
             </Connected>
-            <SyncDevices>{renderLayout}</SyncDevices>
+            <Connected unConnected>{renderLayout}</Connected>
         </main>
     );
 };
