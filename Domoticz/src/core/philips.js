@@ -66,5 +66,6 @@ export const QueryAllHueBridge = async (method = "GET", api = "", data) => {
 
         return Promise.allSettled(promises).then((values) => values);
     }
-    throw new Error("Provider not found");
+    // throw new Error("Provider not found");
+    return null;
 };
