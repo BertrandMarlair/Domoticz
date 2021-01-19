@@ -150,6 +150,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     checkAuthUser: NexusGenRootTypes['UserAuth']; // UserAuth!
+    getAllUsers: NexusGenRootTypes['UserAuth'][] | null; // [UserAuth!]
     getCurrentUser: NexusGenRootTypes['UserAuth']; // UserAuth!
     keyRing: NexusGenRootTypes['KeyRing']; // KeyRing!
     refreshTokens: NexusGenRootTypes['TokensType']; // TokensType!

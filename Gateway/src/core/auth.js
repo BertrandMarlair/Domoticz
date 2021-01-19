@@ -1,9 +1,6 @@
 import { AuthenticationError } from "apollo-server-express";
 import { verify } from "jsonwebtoken";
 import getPublicKey from "./getPublicKey";
-import memoize from "memoizee";
-
-const memoized = memoize(getPublicKey);
 
 export const checkAuthAccessToken = async (accessToken) => {
     try {
@@ -13,7 +10,7 @@ export const checkAuthAccessToken = async (accessToken) => {
             );
         }
     
-        const publicKey = await memoized();
+        const publicKey = await getPublicKey();
 
         try {
             return verify(accessToken.replace("Bearer ", ""), publicKey, {algorithm: ["RS256"]});

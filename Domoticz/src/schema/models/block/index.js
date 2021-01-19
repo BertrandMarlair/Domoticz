@@ -3,6 +3,7 @@ import getAllBlocks from "./query/getAllBlocks";
 import createBlock from "./mutation/createBlock";
 import createBlockInput from "./input/createBlockInput";
 import editBlock from "./mutation/editBlock";
+import deleteBlock from "./mutation/deleteBlock";
 import editBlockInput from "./input/editBlockInput";
 
 export const DBBlocks = "Blocks";
@@ -16,7 +17,8 @@ export default {
     ],
     mutation: [
         createBlock,
-        editBlock
+        editBlock,
+        deleteBlock,
     ],
     input: [
         createBlockInput,
