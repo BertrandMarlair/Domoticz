@@ -13,8 +13,11 @@ const style = () => ({
             margin: "auto",
         },
     },
+    table: {
+        textTransform: "capitalize",
+    },
     tableContainer: {
-        padding: 20,
+        padding: 10,
     },
     card: {
         maxWidth: 400,
@@ -33,19 +36,23 @@ const style = () => ({
     },
     addUser: {
         ...displayBetween,
-        margin: 20,
+        margin: 10,
     },
     addUserHeader: {
         ...displayVerticalCenter,
     },
     addUserIcon: {
-        margin: 20,
+        marginLeft: 20,
+        marginRight: 20,
     },
     addUserTitle: {
         marginBottom: 2,
     },
     addUserText: {
         marginBottom: 8,
+    },
+    editUserButton: {
+        width: "10%",
     },
     option: {
         display: "flex",

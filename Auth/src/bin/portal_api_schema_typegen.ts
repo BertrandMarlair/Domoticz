@@ -73,6 +73,9 @@ export interface NexusGenRootTypes {
     type: string; // String!
     valid_operators: string[]; // [String!]!
   }
+  Basic: { // root type
+    verified: boolean; // Boolean!
+  }
   Delete: { // root type
     id: number; // Int!
   }
@@ -96,6 +99,8 @@ export interface NexusGenRootTypes {
   }
   UserAuth: { // root type
     _id: string; // ID!
+    active: boolean; // Boolean!
+    basic: NexusGenRootTypes['Basic']; // Basic!
     createdAt: any; // Timestamp!
     name: string; // String!
     permission: NexusGenEnums['PermissionEnum']; // PermissionEnum!
@@ -133,6 +138,9 @@ export interface NexusGenFieldTypes {
     type: string; // String!
     valid_operators: string[]; // [String!]!
   }
+  Basic: { // field return type
+    verified: boolean; // Boolean!
+  }
   Delete: { // field return type
     id: number; // Int!
   }
@@ -167,6 +175,8 @@ export interface NexusGenFieldTypes {
   }
   UserAuth: { // field return type
     _id: string; // ID!
+    active: boolean; // Boolean!
+    basic: NexusGenRootTypes['Basic']; // Basic!
     createdAt: any; // Timestamp!
     name: string; // String!
     permission: NexusGenEnums['PermissionEnum']; // PermissionEnum!
@@ -201,7 +211,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AvailableFilter" | "Delete" | "KeyRing" | "Login" | "Mutation" | "Query" | "Status" | "TokensType" | "UserAuth";
+export type NexusGenObjectNames = "AvailableFilter" | "Basic" | "Delete" | "KeyRing" | "Login" | "Mutation" | "Query" | "Status" | "TokensType" | "UserAuth";
 
 export type NexusGenInputNames = "Filter" | "FilterOperation" | "Pagination" | "PaginationParams" | "editUserInput" | "registerInput";
 

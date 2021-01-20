@@ -10,6 +10,10 @@ type AvailableFilter {
   valid_operators: [String!]!
 }
 
+type Basic {
+  verified: Boolean!
+}
+
 type Delete {
   id: Int!
 }
@@ -121,6 +125,8 @@ enum TypeEnum {
 
 type UserAuth {
   _id: ID!
+  active: Boolean!
+  basic: Basic!
   createdAt: Timestamp!
   name: String!
   permission: PermissionEnum!
