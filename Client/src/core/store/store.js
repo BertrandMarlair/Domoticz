@@ -4,6 +4,7 @@ import darkMode from "../reducers/darkModeConfig";
 import theme from "../reducers/themeConfig";
 import loading from "../reducers/loadingConfig";
 import devices from "../reducers/devicesConfig";
+import weather from "../reducers/weatherConfig";
 
 const rootReducer = combineReducers({
     connected,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     theme,
     loading,
     devices,
+    weather,
 });
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

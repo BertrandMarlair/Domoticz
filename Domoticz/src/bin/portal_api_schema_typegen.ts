@@ -26,6 +26,14 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  PhilipsHueStateInput: { // input type
+    bri?: number | null; // Int
+    hue?: number | null; // Int
+    on?: boolean | null; // Boolean
+    sat?: number | null; // Int
+    scene?: string | null; // String
+    xy?: number[] | null; // [Float!]
+  }
   createBlockInput: { // input type
     description?: string | null; // String
     title: string; // String!
@@ -102,12 +110,19 @@ export interface NexusGenRootTypes {
   PhilipsHueGroups: { // root type
     bridgeId: string; // ID!
     class?: string | null; // String
+    groupId: string; // ID!
     name: string; // String!
     recycle: boolean; // Boolean!
+    state: NexusGenRootTypes['PhilipsHueGroupsState']; // PhilipsHueGroupsState!
     type: string; // String!
+  }
+  PhilipsHueGroupsState: { // root type
+    all_on: boolean; // Boolean!
+    any_on: boolean; // Boolean!
   }
   PhilipsHueLight: { // root type
     bridgeId: string; // ID!
+    lightId: string; // ID!
     manufacturername: string; // String!
     modelid: string; // String!
     name: string; // String!
@@ -135,6 +150,13 @@ export interface NexusGenRootTypes {
     x?: number | null; // Float
     y?: number | null; // Float
   }
+  PhilipsHueSceneLightState: { // root type
+    bri: number; // Int!
+    bridgeId: string; // ID!
+    ct?: number | null; // Int
+    lightId: string; // ID!
+    on: boolean; // Boolean!
+  }
   PhilipsHueSensor: { // root type
     manufacturername: string; // String!
     modelid: string; // String!
@@ -153,6 +175,10 @@ export interface NexusGenRootTypes {
     title: string; // String!
   }
   Query: {};
+  Response: { // root type
+    error?: string | null; // String
+    ok: boolean; // Boolean!
+  }
   Status: { // root type
     color: string; // String!
     title: string; // String!
@@ -163,6 +189,20 @@ export interface NexusGenRootTypes {
     _id: string; // ID!
     description: string; // String!
     title: string; // String!
+  }
+  Weather: { // root type
+    _id: string; // ID!
+    city: string; // String!
+    country: string; // String!
+    dt: number; // Float!
+    visibility: number; // Float!
+  }
+  philipsHueScene: { // root type
+    bridgeId: string; // ID!
+    group: string; // String!
+    name: string; // String!
+    sceneId: string; // ID!
+    type: string; // String!
   }
   String: string;
   Int: number;
@@ -175,6 +215,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  PhilipsHueStateInput: NexusGenInputs['PhilipsHueStateInput'];
   createBlockInput: NexusGenInputs['createBlockInput'];
   createProviderInput: NexusGenInputs['createProviderInput'];
   editBlockInput: NexusGenInputs['editBlockInput'];
@@ -202,8 +243,13 @@ export interface NexusGenFieldTypes {
     deleteProvider: NexusGenRootTypes['Provider']; // Provider!
     editApplication: NexusGenRootTypes['Application']; // Application!
     editBlock: NexusGenRootTypes['Block']; // Block!
+    editGroupState: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
+    editGroupStateWhitoutSync: NexusGenRootTypes['Response']; // Response!
+    editLightState: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
+    editLightStateWhitoutSync: NexusGenRootTypes['Response']; // Response!
     editProvider: NexusGenRootTypes['Provider']; // Provider!
     editTest: NexusGenRootTypes['Test']; // Test!
+    updateWeatherLocation: NexusGenRootTypes['Weather']; // Weather!
   }
   PhilipsHue: { // field return type
     _id: string; // ID!
@@ -240,13 +286,21 @@ export interface NexusGenFieldTypes {
   PhilipsHueGroups: { // field return type
     bridgeId: string; // ID!
     class: string | null; // String
+    groupId: string; // ID!
     lights: NexusGenRootTypes['PhilipsHueLight'][]; // [PhilipsHueLight!]!
     name: string; // String!
     recycle: boolean; // Boolean!
+    scenes: NexusGenRootTypes['philipsHueScene'][]; // [philipsHueScene!]!
+    state: NexusGenRootTypes['PhilipsHueGroupsState']; // PhilipsHueGroupsState!
     type: string; // String!
+  }
+  PhilipsHueGroupsState: { // field return type
+    all_on: boolean; // Boolean!
+    any_on: boolean; // Boolean!
   }
   PhilipsHueLight: { // field return type
     bridgeId: string; // ID!
+    lightId: string; // ID!
     manufacturername: string; // String!
     modelid: string; // String!
     name: string; // String!
@@ -275,6 +329,14 @@ export interface NexusGenFieldTypes {
     x: number | null; // Float
     y: number | null; // Float
   }
+  PhilipsHueSceneLightState: { // field return type
+    bri: number; // Int!
+    bridgeId: string; // ID!
+    ct: number | null; // Int
+    lightId: string; // ID!
+    on: boolean; // Boolean!
+    xy: NexusGenRootTypes['PhilipsHueLightXY']; // PhilipsHueLightXY!
+  }
   PhilipsHueSensor: { // field return type
     manufacturername: string; // String!
     modelid: string; // String!
@@ -298,9 +360,15 @@ export interface NexusGenFieldTypes {
     getAllProviders: NexusGenRootTypes['Provider'][] | null; // [Provider!]
     getAllTests: NexusGenRootTypes['Test'][] | null; // [Test!]
     getPhilipsHueDevices: NexusGenRootTypes['PhilipsHue'] | null; // PhilipsHue
+    getScenesByGroup: NexusGenRootTypes['philipsHueScene'][] | null; // [philipsHueScene!]
+    getWeatherInfo: NexusGenRootTypes['Weather'] | null; // Weather
     hueBridgeConnection: NexusGenRootTypes['PhilipsHueBridgeStatus'] | null; // PhilipsHueBridgeStatus
     hueBridgeRegister: NexusGenRootTypes['PhilipsHueBridgeStatus'] | null; // PhilipsHueBridgeStatus
     syncAll: NexusGenRootTypes['SyncAll'] | null; // SyncAll
+  }
+  Response: { // field return type
+    error: string | null; // String
+    ok: boolean; // Boolean!
   }
   Status: { // field return type
     code: string; // String!
@@ -309,6 +377,7 @@ export interface NexusGenFieldTypes {
   }
   Subscription: { // field return type
     syncAll: NexusGenRootTypes['SyncAll']; // SyncAll!
+    syncWeather: NexusGenRootTypes['Weather']; // Weather!
   }
   SyncAll: { // field return type
     philipsHue: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
@@ -317,6 +386,33 @@ export interface NexusGenFieldTypes {
     _id: string; // ID!
     description: string; // String!
     title: string; // String!
+  }
+  Weather: { // field return type
+    _id: string; // ID!
+    city: string; // String!
+    clouds: number; // Float!
+    country: string; // String!
+    description: string; // String!
+    dt: number; // Float!
+    feels_like: number; // Float!
+    humidity: number; // Float!
+    icon: string; // String!
+    main: string; // String!
+    pressure: number; // Float!
+    temp: number; // Float!
+    temp_max: number; // Float!
+    temp_min: number; // Float!
+    visibility: number; // Float!
+    wind: number; // Float!
+  }
+  philipsHueScene: { // field return type
+    bridgeId: string; // ID!
+    group: string; // String!
+    lights: NexusGenRootTypes['PhilipsHueLight'][]; // [PhilipsHueLight!]!
+    lightstates: NexusGenRootTypes['PhilipsHueSceneLightState'][]; // [PhilipsHueSceneLightState!]!
+    name: string; // String!
+    sceneId: string; // ID!
+    type: string; // String!
   }
 }
 
@@ -337,11 +433,39 @@ export interface NexusGenArgTypes {
     editBlock: { // args
       block: NexusGenInputs['editBlockInput']; // editBlockInput!
     }
+    editGroupState: { // args
+      bridgeId: string; // ID!
+      groupId: string; // ID!
+      state: NexusGenInputs['PhilipsHueStateInput']; // PhilipsHueStateInput!
+    }
+    editGroupStateWhitoutSync: { // args
+      bridgeId: string; // ID!
+      groupId: string; // ID!
+      state: NexusGenInputs['PhilipsHueStateInput']; // PhilipsHueStateInput!
+    }
+    editLightState: { // args
+      bridgeId: string; // ID!
+      lightId: string; // ID!
+      state: NexusGenInputs['PhilipsHueStateInput']; // PhilipsHueStateInput!
+    }
+    editLightStateWhitoutSync: { // args
+      bridgeId: string; // ID!
+      lightId: string; // ID!
+      state: NexusGenInputs['PhilipsHueStateInput']; // PhilipsHueStateInput!
+    }
     editProvider: { // args
       provider: NexusGenInputs['editProviderInput']; // editProviderInput!
     }
+    updateWeatherLocation: { // args
+      city: string; // String!
+      country: string; // String!
+    }
   }
   Query: {
+    getScenesByGroup: { // args
+      bridgeId: string; // ID!
+      groupId: string; // ID!
+    }
     hueBridgeConnection: { // args
       ipAddress: string; // String!
     }
@@ -357,9 +481,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Application" | "Block" | "Delete" | "Mutation" | "PhilipsHue" | "PhilipsHueBridge" | "PhilipsHueBridgeDetailsType" | "PhilipsHueBridgeStatus" | "PhilipsHueGroups" | "PhilipsHueLight" | "PhilipsHueLightState" | "PhilipsHueLightXY" | "PhilipsHueSensor" | "Provider" | "Query" | "Status" | "Subscription" | "SyncAll" | "Test";
+export type NexusGenObjectNames = "Application" | "Block" | "Delete" | "Mutation" | "PhilipsHue" | "PhilipsHueBridge" | "PhilipsHueBridgeDetailsType" | "PhilipsHueBridgeStatus" | "PhilipsHueGroups" | "PhilipsHueGroupsState" | "PhilipsHueLight" | "PhilipsHueLightState" | "PhilipsHueLightXY" | "PhilipsHueSceneLightState" | "PhilipsHueSensor" | "Provider" | "Query" | "Response" | "Status" | "Subscription" | "SyncAll" | "Test" | "Weather" | "philipsHueScene";
 
-export type NexusGenInputNames = "createBlockInput" | "createProviderInput" | "editBlockInput" | "editProviderInput";
+export type NexusGenInputNames = "PhilipsHueStateInput" | "createBlockInput" | "createProviderInput" | "editBlockInput" | "editProviderInput";
 
 export type NexusGenEnumNames = never;
 

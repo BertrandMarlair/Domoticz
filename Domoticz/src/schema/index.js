@@ -6,6 +6,7 @@ import test from "./models/test";
 import block from "./models/block";
 import philipsHue from "./models/philipsHue";
 import sync from "./models/sync";
+import weather from "./models/weather";
 
 export default [
     commons,
@@ -14,5 +15,6 @@ export default [
     sync,
     provider,
     philipsHue,
+    weather,
     test,
 ]

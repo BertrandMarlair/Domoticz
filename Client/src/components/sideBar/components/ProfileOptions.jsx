@@ -107,6 +107,7 @@ const GET_CURRENT_USER = gql`
         getCurrentUser {
             _id
             name
+            type
         }
     }
 `;

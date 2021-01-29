@@ -68,3 +68,24 @@ export const QueryAllHueBridge = async (method = "GET", api = "", data) => {
     }
     throw new Error("Provider not found");
 };
+
+export const QueryHueBridge = async (method = "GET", api = "", bridge, data) => {
+    if (bridge?.ipAddress && bridge?.token) {
+        try {
+            const res = await axios({
+                method,
+                url: `http://${bridge.ipAddress}/api/${bridge.token}/${api}`,
+                data
+            })
+
+            if (res.data?.[0]?.error) {
+                throw new Error(res.data[0].error.description);
+            }
+    
+            return res;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+    throw new Error("parameters are missing");
+};

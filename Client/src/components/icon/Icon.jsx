@@ -39,9 +39,9 @@ const GetIcon = ({
             width: size ? size : 20,
             fill: color ? color : theme.palette.text.primary,
             background: background ? background : "unset",
-            "&:hover": {
-                fill: hover ? theme.palette.link.main : color ? color : theme.palette.link.main,
-            },
+            // "&:hover": {
+            //     fill: hover ? theme.palette.link.main : color ? color : theme.palette.link.main,
+            // },
         },
         " div": {
             display: "flex",

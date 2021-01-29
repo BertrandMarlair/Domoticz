@@ -8,25 +8,24 @@ import { DBProvider } from "../../schema/models/provider";
 //////////// RUN EVERY 5 SECONDS
 
 export const syncPhilipsHue = () => {
-    const syncPhilipsHueCronJob = new CronJob('*/5 * * * * *', async () => {
+    const syncPhilipsHueCronJob = new CronJob('*/3 * * * * *', async () => {
         const bridgesStatus = await QueryAllHueBridge();
 
-        let bridesIds = [];
+        if (bridgesStatus.length > 0) {
+            for (let bridge of bridgesStatus) {
+                if (bridge?.value?.data) {
+                    const {data, _id} = bridge.value;
 
-        for (let bridge of bridgesStatus) {
-            if (bridge?.value?.data) {
-                const details = bridge.value;
-                bridesIds.push(details._id);
-                await updateManyById(DBBridges, details._id, {
-                    $set: {...details.data}
-                });
+                    await updateManyById(DBBridges, _id, {
+                        $set: {...data}
+                    });
+
+                    const philipsHue = await queryOne(DBProvider, {slug: "philips_hue"});
+
+                    pubsub.publish(PUBSUB_TYPES.SYNC_PHILIPS_HUE, {philipsHue});
+                }
             }
         }
-
-        const philipsHue = await queryOne(DBProvider, {slug: "philips_hue"});
-
-        pubsub.publish(PUBSUB_TYPES.SYNC_PHILIPS_HUE, {philipsHue});
-
     }, null, true, "Europe/Brussels");
 
     syncPhilipsHueCronJob.start();

@@ -56,7 +56,7 @@ type Login {
 type Mutation {
   login(name: String!, password: String!): Login!
   signin(user: registerInput): UserAuth!
-  updateUser(name: String!, type: String!): UserAuth!
+  updateUser(name: String!, type: TypeEnum!): UserAuth!
 }
 
 """Order for filterate"""

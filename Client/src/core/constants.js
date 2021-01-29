@@ -33,3 +33,12 @@ export const languages = ["en", "fr"];
 export const SNACKBAR_EVENT = "new-snackbar";
 export const ADD_FITLER_EVENT = "add-filter";
 export const CONSOLE_EVENT = "console_item";
+
+export const touchSupported = "ontouchstart" in window;
+export const SLIDER_EVENT = {
+    DOWN: touchSupported ? "touchstart" : "mousedown",
+    UP: touchSupported ? "touchend" : "mouseup",
+    MOVE: touchSupported ? "touchmove" : "mousemove",
+};
+
+export const brightnessRatio = 254;

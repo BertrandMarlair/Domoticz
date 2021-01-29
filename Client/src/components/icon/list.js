@@ -19,7 +19,7 @@ export default [
     },
     {
         name: "Cloud",
-        url: `${url}/cloudy.svg`,
+        url: `${url}/cloud.svg`,
     },
     {
         name: "ComeIn",
@@ -130,6 +130,14 @@ export default [
         url: `${url}/more.svg`,
     },
     {
+        name: "Plus",
+        url: `${url}/plus.svg`,
+    },
+    {
+        name: "Minus",
+        url: `${url}/minus.svg`,
+    },
+    {
         name: "Plug",
         url: `${url}/plug.svg`,
     },
@@ -198,6 +206,10 @@ export default [
         url: `${url}/lightbulb.svg`,
     },
     {
+        name: "Extended color light",
+        url: `${url}/lightbulb.svg`,
+    },
+    {
         name: "Hue lightstrip plus",
         url: `${url}/lightstrip.svg`,
     },
@@ -208,5 +220,25 @@ export default [
     {
         name: "Weather",
         url: `${url}/weather.svg`,
+    },
+    {
+        name: "Power",
+        url: `${url}/power.svg`,
+    },
+    {
+        name: "Back",
+        url: `${url}/back.svg`,
+    },
+    {
+        name: "List",
+        url: `${url}/list-text.svg`,
+    },
+    {
+        name: "Palette",
+        url: `${url}/palette.svg`,
+    },
+    {
+        name: "Color",
+        url: `${url}/color-circle.svg`,
     },
 ];

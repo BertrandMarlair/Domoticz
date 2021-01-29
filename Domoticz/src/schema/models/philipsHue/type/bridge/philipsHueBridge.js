@@ -29,9 +29,9 @@ const PhilipsHueBridgeType = objectType({
 export default PhilipsHueBridgeType;
 
 const groupsResolver = async ({_id, groups}) => {
-    return Object.values(groups).filter((g) => g.class).map((g) => ({...g, bridgeId: _id}));
+    return Object.keys(groups).map((l) => ({...groups[l], bridgeId: _id, groupId: l})).filter((g) => g.type === "Room");
 }
 
 const lightsResolver = async ({_id, lights}) => {
-    return Object.values(lights).map((l) => ({...l, bridgeId: _id}));
+    return Object.keys(lights).map((l) => ({...lights[l], bridgeId: _id, lightId: l}));
 }

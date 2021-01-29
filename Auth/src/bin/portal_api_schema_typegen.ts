@@ -186,7 +186,7 @@ export interface NexusGenArgTypes {
     }
     updateUser: { // args
       name: string; // String!
-      type: string; // String!
+      type: NexusGenEnums['TypeEnum']; // TypeEnum!
     }
   }
   Query: {

@@ -12,31 +12,26 @@ const style = (theme) => ({
             "& + $track": {
                 backgroundColor: theme.palette.background.dark,
                 opacity: 1,
-                border: "none",
-                height: 22,
-                marginTop: 2,
-                width: "90%",
             },
-        },
-        "&$focusVisible $thumb": {
-            color: theme.palette.background.dark,
-            border: "6px solid #fff",
         },
     },
     thumb: {
         width: 24,
         height: 24,
         boxShadow: "0px 0px 3px rgb(0 0 0 / 53%)",
+        backgroundColor: theme.palette.common.white,
     },
     track: {
         borderRadius: 26 / 2,
-        border: `1px solid ${theme.palette.grey[400]}`,
-        backgroundColor: theme.palette.grey[50],
+        backgroundColor: theme.palette.background.dark,
         opacity: 1,
+        height: 22,
+        width: "90%",
+        marginTop: 2,
+        marginLeft: 2,
         transition: theme.transitions.create(["background-color", "border"]),
     },
     checked: {},
-    focusVisible: {},
 });
 
 export default style;

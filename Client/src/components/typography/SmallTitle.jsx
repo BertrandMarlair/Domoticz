@@ -27,6 +27,7 @@ const SmallTitle = ({...props}) => {
         minWidth,
         preWrap,
         noWrap,
+        style,
     } = props;
     const normalClasses = classNames({
         [className]: className,
@@ -49,7 +50,11 @@ const SmallTitle = ({...props}) => {
         [classes[color]]: color,
     });
 
-    return <div className={normalClasses}>{children}</div>;
+    return (
+        <div style={style} className={normalClasses}>
+            {children}
+        </div>
+    );
 };
 
 SmallTitle.propTypes = {
