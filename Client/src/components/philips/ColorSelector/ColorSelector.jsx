@@ -7,7 +7,7 @@ import {EventEmitter} from "../../../core/events/events";
 import {cieToRGB, colorTemperatureToHex, hexToRgb, rgbToCie} from "../../../core/philips/color";
 import Pointer from "./Pointer";
 import {useDispatch} from "react-redux";
-import {SYNC_DEVICE} from "../../../core/reducers/devicesConfig";
+import {EDIT_LIGHT_STATE, SYNC_DEVICE} from "../../../core/reducers/devicesConfig";
 import {useMutation} from "react-apollo";
 import gql from "graphql-tag";
 import {philipsHueFragment} from "../../../app/SyncDevices";
@@ -18,6 +18,7 @@ const ColorSelector = ({classes, hue, device}) => {
     const dispatch = useDispatch();
     const [activeColor, setActiveColor] = useState(null);
     const [update, setUpdate] = useState(new Date().getTime());
+    const syncLightPhilipsHue = (payload) => dispatch({type: EDIT_LIGHT_STATE, payload});
     const syncPhilipsHue = (payload) => dispatch({type: SYNC_DEVICE, payload});
 
     const [editLightState, editLightStateData] = useMutation(EDIT_LIGHT);
@@ -119,11 +120,9 @@ const ColorSelector = ({classes, hue, device}) => {
         };
     }, []);
 
-    // useEffect(() => {
-    //     if (!isChanging) {
-    //         picker.current.setColors(colors.map((color) => color.colorRGB));
-    //     }
-    // }, [group, hue]);
+    useEffect(() => {
+        picker.current.setColors(colors.map((color) => color.colorRGB));
+    }, [hue]);
 
     useEffect(() => {
         EventEmitter.subscribe("SET_COLORS", (newColors) => {
@@ -138,6 +137,16 @@ const ColorSelector = ({classes, hue, device}) => {
                     state: {xy: newXY, on: true},
                 },
             });
+
+            console.log("test");
+
+            syncLightPhilipsHue([
+                {
+                    bridgeId: light.bridgeId,
+                    lightId: light.lightId,
+                    state: {xy: {x: newXY[0], y: newXY[1]}, on: true},
+                },
+            ]);
         });
 
         EventEmitter.subscribe("SET_ACTIVE_COLORS", (color) => {

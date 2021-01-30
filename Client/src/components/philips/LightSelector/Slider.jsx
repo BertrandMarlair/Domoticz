@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useState, useEffect} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
-import useEventListener from "../../../core/hooks/useEventListener";
-import {SLIDER_EVENT} from "../../../core/constants";
 import classNames from "classnames";
 
 const height = "100%";
@@ -11,7 +9,44 @@ const width = 22;
 
 const iOSBoxShadow = "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)";
 
-const CustomizedSlider = ({opened, lightsColor, isChanging, setIsChanging, value, handleChange, handleEndChange}) => {
+const CustomizedSlider = ({opened, lightsColor, isChanging, setIsChanging, value, handleEndChange}) => {
+    const useStyles = makeStyles(() => ({
+        rootWrapper: {
+            width: "100%",
+            height: 22,
+            position: "absolute",
+            display: "flex",
+            alignItems: "flex-end",
+            bottom: 0,
+            transition: "0.2s",
+            backgroundImage: lightsColor,
+            borderRadius: 11,
+        },
+        spacer: {
+            transition: "0.2s",
+        },
+    }));
+
+    const classes = useStyles();
+
+    const [showSlider, setShowSlider] = useState(true);
+
+    const handleSlide = (event, newValue) => {
+        if (!isChanging) {
+            setIsChanging(true);
+        }
+    };
+
+    const handleSlideEnd = (event, newValue) => {
+        handleEndChange(newValue, value);
+        setIsChanging(false);
+    };
+
+    const containerClasses = classNames({
+        [classes.rootWrapper]: true,
+        [classes.rootAboslute]: isChanging,
+    });
+
     const useStylesSlider = makeStyles(() => ({
         root: {
             height: "100%",
@@ -29,7 +64,7 @@ const CustomizedSlider = ({opened, lightsColor, isChanging, setIsChanging, value
             boxShadow: iOSBoxShadow,
             marginTop: 0,
             marginLeft: `-${width}px`,
-            transition: !isChanging ? "1s" : "0",
+            transition: !isChanging ? "0.3s" : "0.05s",
             zIndex: 3,
             "&:focus, &:hover, &$active": {
                 boxShadow: "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.02)",
@@ -43,7 +78,7 @@ const CustomizedSlider = ({opened, lightsColor, isChanging, setIsChanging, value
             height,
             borderRadius: 11,
             marginLeft: `-${width}px`,
-            transition: !isChanging ? "1s" : "0",
+            transition: !isChanging ? "0.3s" : "0.05s",
             "&:before": {
                 width: `calc(100% + ${width}px)`,
                 backgroundImage: "linear-gradient(90deg, #5f5f5f1a 0%, #ffffff 95%)",
@@ -68,53 +103,6 @@ const CustomizedSlider = ({opened, lightsColor, isChanging, setIsChanging, value
         },
     }));
 
-    const useStyles = makeStyles(() => ({
-        rootWrapper: {
-            width: "100%",
-            height: 22,
-            position: "absolute",
-            display: "flex",
-            alignItems: "flex-end",
-            bottom: 0,
-            transition: "0.2s",
-            backgroundImage: lightsColor,
-            borderRadius: 11,
-        },
-        spacer: {
-            transition: "0.2s",
-        },
-    }));
-
-    const classesSlider = useStylesSlider();
-    const classes = useStyles();
-
-    const [startingValue, setStartingValue] = useState(value < 1 ? 1 : value);
-
-    const handleSlide = (event, newValue) => {
-        if (!isChanging) {
-            setIsChanging(true);
-            setStartingValue(value);
-            handleChange(newValue, value);
-        } else {
-            handleChange(newValue, startingValue);
-        }
-    };
-
-    const onMouseUp = () => {
-        if (isChanging) {
-            setIsChanging(false);
-            handleEndChange(value, startingValue);
-            setStartingValue(value);
-        }
-    };
-
-    useEventListener(SLIDER_EVENT.UP, onMouseUp);
-
-    const containerClasses = classNames({
-        [classes.rootWrapper]: true,
-        [classes.rootAboslute]: isChanging,
-    });
-
     const sliderHeight = isChanging ? "100%" : 22;
 
     return (
@@ -122,14 +110,11 @@ const CustomizedSlider = ({opened, lightsColor, isChanging, setIsChanging, value
             <div
                 className={containerClasses}
                 style={{height: sliderHeight, opacity: opened ? 1 : 0, pointerEvents: opened ? "all" : "none"}}>
-                <Slider
-                    classes={classesSlider}
-                    aria-label="ios slider"
-                    defaultValue={60}
-                    onChange={handleSlide}
-                    value={value}
-                    min={1}
-                    max={100}
+                <TestSlider
+                    handleSlide={handleSlide}
+                    defaultValue={value}
+                    handleSlideEnd={handleSlideEnd}
+                    useStylesSlider={useStylesSlider}
                 />
             </div>
             <div className={classes.spacer} style={{height: opened ? 22 : 0}} />
@@ -138,3 +123,27 @@ const CustomizedSlider = ({opened, lightsColor, isChanging, setIsChanging, value
 };
 
 export default CustomizedSlider;
+
+const TestSlider = ({handleSlide, defaultValue, handleSlideEnd, useStylesSlider}) => {
+    useEffect(() => {
+        setLocalValue(defaultValue);
+    }, [defaultValue]);
+
+    const classesSlider = useStylesSlider();
+
+    const [localValue, setLocalValue] = useState(defaultValue);
+
+    return (
+        <Slider
+            classes={classesSlider}
+            onChange={(e, newValue) => {
+                setLocalValue(newValue);
+                handleSlide(e);
+            }}
+            value={localValue}
+            onChangeCommitted={handleSlideEnd}
+            min={1}
+            max={100}
+        />
+    );
+};

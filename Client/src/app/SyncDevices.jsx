@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect} from "react";
-import {useLazyQuery, useQuery, useSubscription} from "react-apollo";
+import {useLazyQuery, useSubscription} from "react-apollo";
 import gql from "graphql-tag";
 import {useDispatch} from "react-redux";
 import {SYNC_DEVICE} from "../core/reducers/devicesConfig";
@@ -9,7 +9,7 @@ import {EventEmitter} from "../core/events/events";
 
 const SyncDevices = ({children}) => {
     const dispatch = useDispatch();
-    const philipsHue = useQuery(GET_DEVICE_DEVICES);
+    const [getPhilipsHue, philipsHue] = useLazyQuery(GET_DEVICE_DEVICES);
 
     const [getWeatherInfo, weatherInfo] = useLazyQuery(GET_WEATHER_INFO);
 
@@ -22,20 +22,6 @@ const SyncDevices = ({children}) => {
         },
     });
 
-    useEffect(() => {
-        if (philipsHue && philipsHue?.subscribeToMore) {
-            // philipsHue?.subscribeToMore({
-            //     document: GET_DEVICE_DEVICES,
-            //     updateQuery: (prev, {subscriptionData}) => {
-            //         if (!subscriptionData.data) {
-            //             return prev;
-            //         }
-            //         return {syncAll: subscriptionData.data.syncAll};
-            //     },
-            // });
-        }
-    }, [philipsHue]);
-
     useSubscription(SUBSCRIPTION_SYNC_WEATHER, {
         onSubscriptionData: ({subscriptionData}) => {
             updateWeatherInfo(subscriptionData.data.syncWeather);
@@ -44,11 +30,22 @@ const SyncDevices = ({children}) => {
     });
 
     useEffect(() => {
+        const interval = setInterval(() => {
+            getPhilipsHue();
+        }, 10000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
+
+    useEffect(() => {
         getWeatherInfo();
+        getPhilipsHue();
 
         EventEmitter.subscribe("syncAllDevice", () => {
             getWeatherInfo();
-            fetchMoreGQL(philipsHue.fetchMore);
+            getPhilipsHue();
         });
 
         return () => {

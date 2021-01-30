@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from "react";
+/* eslint-disable no-unused-vars */
+import React, {useState, useEffect, useCallback, useMemo} from "react";
 import {makeStyles, withStyles, IconButton} from "@material-ui/core";
 import style from "./LightSelectorStyle";
 import Switch from "../../switch/Switch";
@@ -34,6 +35,7 @@ const LightSelector = ({
     const syncPhilipsHue = (payload) => dispatch({type: SYNC_DEVICE, payload});
 
     const [isChanging, setIsChanging] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
     const [value, setValue] = useState(0);
     const [device, setDevice] = useState(defaultDevice);
 
@@ -41,14 +43,18 @@ const LightSelector = ({
     const [editLightState, editLightStateData] = useMutation(EDIT_LIGHT);
 
     useEffect(() => {
-        if (editGroupStateData?.data?.editGroupState) {
-            syncPhilipsHue({...editGroupStateData?.data?.editGroupState, force: true});
+        if (!isUpdating) {
+            if (editGroupStateData?.data?.editGroupState) {
+                syncPhilipsHue({...editGroupStateData?.data?.editGroupState, force: true});
+            }
         }
     }, [editGroupStateData]);
 
     useEffect(() => {
-        if (editLightStateData?.data?.editLightState) {
-            syncPhilipsHue({...editLightStateData?.data?.editLightState, force: true});
+        if (!isUpdating) {
+            if (editLightStateData?.data?.editLightState) {
+                syncPhilipsHue({...editLightStateData?.data?.editLightState, force: true});
+            }
         }
     }, [editLightStateData]);
 
@@ -57,52 +63,69 @@ const LightSelector = ({
     }, [update]);
 
     useEffect(() => {
-        if (!isChanging) {
-            if (editingGroup !== device?.groupId && device?.lights) {
-                const group = hue?.bridges
-                    .map((bridge) => bridge.groups)
-                    .flat()
-                    .find((g) => g?.groupId === device?.groupId);
-                const totalBri = group.lights.map((l) => l.state.bri).reduce((acc, cur) => acc + cur);
+        if (editingGroup !== device?.groupId && device?.lights) {
+            const group = hue?.bridges
+                .map((bridge) => bridge.groups)
+                .flat()
+                .find((g) => g?.groupId === device?.groupId);
 
-                setValue(Math.round(totalBri / group.lights.length / brightness));
-                setDevice(group);
-            } else if (editingLight !== device?.lightId) {
-                const light = hue?.bridges
-                    .map((bridge) => bridge.lights)
-                    .flat()
-                    .find((l) => l?.lightId === device?.lightId);
+            const lights = group.lights.filter((l) => l.state.on);
 
-                if (light) {
-                    setValue(Math.round(light.state.bri / brightness));
-                    setDevice(light);
-                }
+            if (lights.length) {
+                const average = lights.map((l) => l.state.bri).reduce((acc, cur) => acc + cur) / lights.length;
+
+                setValue((average / brightnessRatio) * 100);
+            } else {
+                setValue(0);
+            }
+            setDevice(group);
+        } else if (editingLight !== device?.lightId) {
+            const light = hue?.bridges
+                .map((bridge) => bridge.lights)
+                .flat()
+                .find((l) => l?.lightId === device?.lightId);
+
+            if (light) {
+                setValue(Math.round(light.state.bri / brightness));
+                setDevice(light);
             }
         }
-    }, [hue, device]);
+    }, [hue]);
 
     const getLightBri = (newValue, currentDevice) => {
-        if (currentDevice?.lights) {
+        setIsUpdating(true);
+        let lights = [];
+        const params = {bri: Math.round(newValue * brightness)};
+
+        if (device?.lights) {
+            for (let groupLight of device.lights) {
+                lights = [...lights, {state: params, bridgeId: groupLight.bridgeId, lightId: groupLight.lightId}];
+            }
+
             editGroupState({
                 variables: {
                     bridgeId: device.bridgeId,
                     groupId: device.groupId,
-                    state: {bri: Math.round(newValue * brightness)},
+                    state: params,
                 },
             });
         } else {
+            lights = [{state: params, bridgeId: device.bridgeId, lightId: device.lightId}];
+
             editLightState({
                 variables: {
                     bridgeId: device.bridgeId,
                     lightId: device.lightId,
-                    state: {bri: Math.round(newValue * brightness)},
+                    state: params,
                 },
             });
         }
-    };
 
-    const handleChange = (newValue) => {
-        setValue(newValue);
+        setTimeout(() => {
+            setIsUpdating(false);
+        }, 2000);
+
+        syncLightPhilipsHue(lights);
     };
 
     const handleEndChange = (newValue) => {
@@ -150,6 +173,7 @@ const LightSelector = ({
     };
 
     const handleChangeLightState = (params) => {
+        setIsUpdating(true);
         let lights = [];
 
         if (device?.groupId) {
@@ -175,6 +199,10 @@ const LightSelector = ({
                 },
             });
         }
+
+        setTimeout(() => {
+            setIsUpdating(false);
+        }, 2000);
 
         syncLightPhilipsHue(lights);
     };
@@ -239,11 +267,38 @@ const LightSelector = ({
         }
     };
 
-    const getState = !!(device.groupId ? device?.state?.any_on : device?.state?.on);
-    const lightsColor = getState && getColors();
-    const name = device?.name;
-    const icon = device?.class ?? device?.productname;
-    const description = isChanging ? `${value} %` : getDescription();
+    const getState = useMemo(() => {
+        return !!(device.groupId ? device?.state?.any_on : device?.state?.on);
+    }, [device, hue]);
+
+    const lightsColor = useMemo(() => {
+        return getState && getColors();
+    }, [device, getState]);
+
+    const name = useMemo(() => {
+        return device?.name;
+    }, [device, getState]);
+
+    const icon = useMemo(() => {
+        return device?.class ?? device?.productname;
+    }, [device, getState]);
+
+    const description = useMemo(() => {
+        return getDescription();
+    }, [device, getState]);
+
+    const SliderMemo = useMemo(() => {
+        return (
+            <Slider
+                opened={getState}
+                lightsColor={lightsColor?.background}
+                isChanging={isChanging}
+                setIsChanging={setIsChanging}
+                value={value}
+                handleEndChange={handleEndChange}
+            />
+        );
+    }, [value, getState, isChanging, lightsColor]);
 
     const useStyles = makeStyles({
         root: {
@@ -284,15 +339,7 @@ const LightSelector = ({
                         <Switch checked={getState} />
                     </div>
                 </div>
-                <Slider
-                    opened={getState}
-                    lightsColor={lightsColor?.background}
-                    isChanging={isChanging}
-                    setIsChanging={setIsChanging}
-                    value={value}
-                    handleChange={handleChange}
-                    handleEndChange={handleEndChange}
-                />
+                {SliderMemo}
             </Card>
         );
     }
@@ -325,15 +372,7 @@ const LightSelector = ({
                     <Switch checked={getState} />
                 </div>
             </div>
-            <Slider
-                opened={getState}
-                lightsColor={lightsColor?.background}
-                isChanging={isChanging}
-                setIsChanging={setIsChanging}
-                value={value}
-                handleChange={handleChange}
-                handleEndChange={handleEndChange}
-            />
+            {SliderMemo}
         </Card>
     );
 };
