@@ -64,7 +64,6 @@ const User = ({classes}) => {
 
     useEffect(() => {
         if (data?.getAllUsers) {
-            console.log(data);
             setUsers(data.getAllUsers);
         }
     }, [data]);
