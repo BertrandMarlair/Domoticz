@@ -19,7 +19,7 @@ const UserManage = ({...props}) => {
         },
         {
             icon: "Account",
-            title: "Scene",
+            title: "Permissions",
             path: `/admin/user/${userId}/permissions`,
         },
     ];

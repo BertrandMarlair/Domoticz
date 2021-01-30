@@ -4,6 +4,7 @@ const User = lazy(() => import("../users/Users"));
 const UserProfile = lazy(() => import("../userProfile/UserProfile"));
 const UserPermissions = lazy(() => import("../userPermissions/UserPermissions"));
 const DeviceProfile = lazy(() => import("../deviceProfile/DeviceProfile"));
+const DeviceScenes = lazy(() => import("../deviceScenes/DeviceScenes"));
 
 export const defaultRoute = "/admin/users";
 export const name = "User";
@@ -36,8 +37,8 @@ const dashboardRoutes = [
     },
     {
         path: "/admin/device/:userId/scenes",
-        name: "UserPermissions",
-        component: UserPermissions,
+        name: "DeviceScenes",
+        component: DeviceScenes,
         exact: true,
     },
 ];

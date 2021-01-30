@@ -19,7 +19,7 @@ const DeviceManage = ({...props}) => {
         },
         {
             icon: "Account",
-            title: "Scene",
+            title: "Scenes",
             path: `/admin/device/${userId}/scenes`,
         },
     ];
