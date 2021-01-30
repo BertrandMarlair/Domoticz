@@ -94,6 +94,10 @@ export default [
         url: `${url}/verified.svg`,
     },
     {
+        name: "Edition",
+        url: `${url}/edition.svg`,
+    },
+    {
         name: "Wind",
         url: `${url}/wind.svg`,
     },
