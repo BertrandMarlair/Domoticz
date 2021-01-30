@@ -15,6 +15,7 @@ const style = (theme) => ({
     },
     navItem: {
         display: "flex",
+        flexWrap: "wrap",
         justifyContent: "space-between",
         alignItems: "center",
         paddingLeft: 10,

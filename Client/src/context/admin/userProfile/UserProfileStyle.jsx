@@ -1,7 +1,12 @@
 const style = () => ({
     header: {
-        margin: 10,
-        padding: 10,
+        paddingLeft: 16,
+        paddingRight: 16,
+        paddingTop: 5,
+        paddingBottom: 5,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     date: {
         paddingLeft: 5,

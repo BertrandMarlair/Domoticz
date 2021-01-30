@@ -1,13 +1,13 @@
 const style = () => ({
-    profile: {
-        margin: 0,
-    },
     header: {
-        margin: 10,
-        padding: 10,
-    },
-    icon: {
-        marginRight: 20,
+        paddingLeft: 16,
+        paddingRight: 16,
+        paddingTop: 5,
+        paddingBottom: 5,
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     date: {
         paddingLeft: 5,
@@ -20,7 +20,9 @@ const style = () => ({
     item: {
         flexGrow: 1,
     },
-    contentMain: {},
+    editButton: {
+        margin: 0,
+    },
 });
 
 export default style;
