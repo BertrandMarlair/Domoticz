@@ -114,6 +114,24 @@ export const newUpdatedAt = async (collection_name, _id, updated_at) => {
         .update({_id: new ObjectId(_id)}, {$set: {updated_at}});
 };
 
+export const deleteOne = async (collection_name, rawQuery) => {
+    const db = await mongo();
+
+    return await db.collection(collection_name).deleteOne(rawQuery);
+};
+
+export const deleteById = async (collection_name, _id) => {
+    const db = await mongo();
+
+    return await db.collection(collection_name).deleteOne({_id: new ObjectId(_id)});
+};
+
+export const deleteMany = async (collection_name, rawQuery) => {
+    const db = await mongo();
+
+    return await db.collection(collection_name).deleteMany(rawQuery);
+};
+
 export const emptyPaginate = params => {
     const limit = (params && params.limit) || PAGINATION_DEFAULT_LIMIT;
     const page = (params && params.page) || 0;
