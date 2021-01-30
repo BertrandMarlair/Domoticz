@@ -155,6 +155,7 @@ export interface NexusGenFieldTypes {
     refreshToken: string | null; // String
   }
   Mutation: { // field return type
+    deleteUser: NexusGenRootTypes['UserAuth']; // UserAuth!
     login: NexusGenRootTypes['Login']; // Login!
     signin: NexusGenRootTypes['UserAuth']; // UserAuth!
     updateUser: NexusGenRootTypes['UserAuth']; // UserAuth!
@@ -190,6 +191,10 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    deleteUser: { // args
+      _id: string; // ID!
+      name: string; // String!
+    }
     login: { // args
       name: string; // String!
       password: string; // String!

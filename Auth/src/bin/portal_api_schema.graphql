@@ -59,6 +59,7 @@ type Login {
 }
 
 type Mutation {
+  deleteUser(_id: ID!, name: String!): UserAuth!
   login(name: String!, password: String!): Login!
   signin(user: registerInput): UserAuth!
   updateUser(name: String!, type: String!): UserAuth!
