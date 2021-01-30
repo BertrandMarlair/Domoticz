@@ -19,6 +19,7 @@ import UserEdit from "../userEdit/UserEdit";
 const DeviceProfile = ({classes, match}) => {
     const id = match.params.userId;
     const [loaded, setLoaded] = useState(false);
+    const [openResetPwdModal, setOpenResetPwdModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [user, setUser] = useState({});
@@ -44,6 +45,7 @@ const DeviceProfile = ({classes, match}) => {
     }, [data]);
 
     const handleCloseModal = () => {
+        setOpenResetPwdModal(false);
         setOpenEditModal(false);
         setOpenDeleteModal(false);
     };
@@ -67,14 +69,6 @@ const DeviceProfile = ({classes, match}) => {
                 <Fragment>
                     <div className={classes.header}>
                         <SmallTitle className={classes.usersTitle}>Profil du device {user.name}</SmallTitle>
-                        <div className={classes.wrapper}>
-                            <Button round size="sm" onClick={() => setOpenEditModal(true)}>
-                                Edit
-                            </Button>
-                            <Button round size="sm" onClick={() => setOpenDeleteModal(true)}>
-                                Delete
-                            </Button>
-                        </div>
                     </div>
                     <Card className={classes.item}>
                         <div className={classes.header}>
@@ -109,11 +103,25 @@ const DeviceProfile = ({classes, match}) => {
                             </Text>
                         </CardContent>
                     </Card>
+                    <div className={classes.wrapperBtn}>
+                        <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenResetPwdModal(true)}>
+                            Reset Password
+                        </Button>
+                        <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenEditModal(true)}>
+                            Edit
+                        </Button>
+                        <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenDeleteModal(true)}>
+                            Delete
+                        </Button>
+                    </div>
                 </Fragment>
             </DeviceManage>
             {loading && <Loading absolute />}
-            <Modal open={openEditModal} onClose={() => handleCloseModal()}>
+            <Modal open={openResetPwdModal} onClose={() => handleCloseModal()}>
                 <UserEdit user={user} />
+            </Modal>
+            <Modal open={openEditModal} onClose={() => handleCloseModal()}>
+                <UserEdit user={user} onClose={() => handleCloseModal()} setUser={setUser} />
             </Modal>
             <Modal open={openDeleteModal} onClose={() => handleCloseModal()}>
                 <UserDelete user={user} />
