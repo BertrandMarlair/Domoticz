@@ -109,6 +109,15 @@ const UPDATE_USER = gql`
         editUser(_id: $_id, name: $name) {
             _id
             name
+            type
+            active
+            permission
+            basic {
+                verified
+                lastLogin
+            }
+            createdAt
+            updatedAt
         }
     }
 `;
