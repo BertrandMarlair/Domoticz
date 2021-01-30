@@ -28,7 +28,6 @@ const style = () => ({
     itemBtn: {
         flexGrow: 1,
     },
-    contentMain: {},
 });
 
 export default style;

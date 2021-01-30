@@ -20,8 +20,14 @@ const style = () => ({
     item: {
         flexGrow: 1,
     },
-    editButton: {
-        margin: 0,
+    wrapperBtn: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "stretch",
+    },
+    itemBtn: {
+        flexGrow: 1,
     },
 });
 
