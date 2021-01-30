@@ -14,7 +14,7 @@ import SmallTitle from "../../../components/typography/SmallTitle";
 import Select from "../../../components/select/Select";
 import {useHistory} from "react-router-dom";
 
-const UserForm = ({classes, onClose}) => {
+const AddUser = ({classes}) => {
     const [name, setName] = useState("");
     const [errorName, setErrorName] = useState(null);
     const [type, setType] = useState("");
@@ -30,12 +30,11 @@ const UserForm = ({classes, onClose}) => {
     const [createUserMutation, {data, error, loading}] = useMutation(CREATE_USER);
 
     useEffect(() => {
-        if (data?.createUser?._id) {
+        if (data?.signin?._id) {
             notify("Success", {
                 variant: "success",
             });
-            onClose();
-            history.push(`/admin/user/${data.createUser._id}`);
+            history.push(`/admin/user/${data.signin._id}`);
         }
     }, [data, history, t]);
 
@@ -174,7 +173,7 @@ const UserForm = ({classes, onClose}) => {
     );
 };
 
-export default withStyles(style)(UserForm);
+export default withStyles(style)(AddUser);
 
 const CREATE_USER = gql`
     mutation signin($name: String!, $type: TypeEnum!, $password: String!, $passwordConfirmation: String!) {

@@ -1,7 +1,6 @@
 import {queryOne, queryOneById, updateOneById} from "../../../core/mongo";
 import {DBUsers} from "./index";
 
-
 export const getUserById = async _id => {
     return await queryOneById(DBUsers, _id);
 };
