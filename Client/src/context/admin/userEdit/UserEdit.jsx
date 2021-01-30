@@ -14,7 +14,7 @@ import SmallTitle from "../../../components/typography/SmallTitle";
 import {useHistory} from "react-router-dom";
 import Text from "../../../components/typography/Text";
 
-const UserEdit = ({classes, user}) => {
+const UserEdit = ({classes, user, onClose, setUser}) => {
     const [userTypeString, setUserTypeString] = useState("");
     const [id, setId] = useState();
     const [name, setName] = useState();
@@ -22,7 +22,7 @@ const UserEdit = ({classes, user}) => {
     const history = useHistory();
 
     const {t} = useTranslation();
-    const [deleteUserMutation, {data, loading, error}] = useMutation(DELETE_USER);
+    const [updateUserMutation, {data, loading, error}] = useMutation(UPDATE_USER);
 
     useEffect(() => {
         if (user.type === "user") {
@@ -36,27 +36,31 @@ const UserEdit = ({classes, user}) => {
     });
 
     useEffect(() => {
-        if (data?.deleteUser?._id) {
+        if (data?.editUser?._id) {
             notify("Success", {
                 variant: "success",
             });
-            history.push(`/admin/users`);
+            setUser(data.editUser);
+            onClose();
         }
     }, [data, history, t]);
 
-    const deleteUser = (e) => {
+    const updateUser = (e) => {
         e.preventDefault();
         let validation = true;
 
-        if (name !== user.name) {
-            setErrorName("Le nom de l'utilisateur est incorrect.");
+        if (name.length < 2) {
+            setErrorName("Le nom doit faire plus de deux caractères");
             validation = false;
         } else {
             setErrorName("");
         }
 
         if (validation) {
-            deleteUserMutation({variables: {_id: id, name: name}});
+            console.log("------edituser");
+            console.log(id);
+            console.log(name);
+            updateUserMutation({variables: {_id: id, name: name}});
         }
     };
 
@@ -64,7 +68,7 @@ const UserEdit = ({classes, user}) => {
         <div className={classes.wrapper}>
             <div className={classes.title}>
                 <Title normal centered>
-                    Suppression {userTypeString} {user.name}
+                    Modification {userTypeString} {user.name}
                 </Title>
             </div>
             <div className={classes.description}>
@@ -72,16 +76,17 @@ const UserEdit = ({classes, user}) => {
                     Attention ! Cette action est irréversible. Voulez-vous vraiment supprimer cet utilisateur ?
                 </Text>
             </div>
-            <form className={classes.form} onSubmit={(e) => deleteUser(e)}>
+            <form className={classes.form} onSubmit={(e) => updateUser(e)}>
                 <div className={classes.input}>
                     <SmallTitle color="label" className={classes.label}>
-                        Confirmer le nom de l'utilisateur à supprimer
+                        Nom
                     </SmallTitle>
                     <Input
-                        autoFocus
+                        autofocus
+                        value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Entrer le nom"
-                        type="text"
+                        placeholder={user.name}
+                        type={"text"}
                         helperText={t(errorName)}
                         error={!!errorName}
                     />
@@ -89,7 +94,7 @@ const UserEdit = ({classes, user}) => {
                 <Error errorMessage={error} />
                 <div className={classes.formFooter}>
                     <Button noMargin fullWidth size="lg" type="submit" loading={loading}>
-                        Supprimer l'utilisateur
+                        Modifier l'utilisateur
                     </Button>
                 </div>
             </form>
@@ -99,9 +104,9 @@ const UserEdit = ({classes, user}) => {
 
 export default withStyles(style)(UserEdit);
 
-const DELETE_USER = gql`
-    mutation deleteUser($_id: ID!, $name: String!) {
-        deleteUser(_id: $_id, name: $name) {
+const UPDATE_USER = gql`
+    mutation editUser($_id: ID!, $name: String!) {
+        editUser(_id: $_id, name: $name) {
             _id
             name
         }

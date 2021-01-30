@@ -19,11 +19,6 @@ type Delete {
   id: Int!
 }
 
-input editUserInput {
-  name: String!
-  type: TypeEnum!
-}
-
 """Email custom scalar type"""
 scalar Email
 
@@ -60,6 +55,7 @@ type Login {
 
 type Mutation {
   deleteUser(_id: ID!, name: String!): UserAuth!
+  editUser(_id: ID!, name: String!): UserAuth!
   login(name: String!, password: String!): Login!
   signin(user: registerInput): UserAuth!
   updateUser(name: String!, type: String!): UserAuth!

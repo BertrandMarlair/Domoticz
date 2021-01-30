@@ -14,11 +14,13 @@ import DeviceManage from "../deviceManage/DeviceManage";
 import UserDelete from "../userDelete/UserDelete";
 import Modal from "../../../components/modal/SimpleModal";
 import Button from "../../../components/button/Button";
+import UserEdit from "../userEdit/UserEdit";
 
 const DeviceProfile = ({classes, match}) => {
     const id = match.params.userId;
     const [loaded, setLoaded] = useState(false);
-    const [openModal, setOpenModal] = useState(false);
+    const [openEditModal, setOpenEditModal] = useState(false);
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [user, setUser] = useState({});
 
     const [queryGetUserById, {data, loading, error}] = useLazyQuery(GET_USER_BY_ID);
@@ -42,7 +44,8 @@ const DeviceProfile = ({classes, match}) => {
     }, [data]);
 
     const handleCloseModal = () => {
-        setOpenModal(false);
+        setOpenEditModal(false);
+        setOpenDeleteModal(false);
     };
 
     const getDate = (date, format) => {
@@ -65,10 +68,10 @@ const DeviceProfile = ({classes, match}) => {
                     <div className={classes.header}>
                         <SmallTitle className={classes.usersTitle}>Profil du device {user.name}</SmallTitle>
                         <div className={classes.wrapper}>
-                            <Button round size="sm" onClick={() => setOpenModal(true)}>
+                            <Button round size="sm" onClick={() => setOpenEditModal(true)}>
                                 Edit
                             </Button>
-                            <Button round size="sm" onClick={() => setOpenModal(true)}>
+                            <Button round size="sm" onClick={() => setOpenDeleteModal(true)}>
                                 Delete
                             </Button>
                         </div>
@@ -109,7 +112,10 @@ const DeviceProfile = ({classes, match}) => {
                 </Fragment>
             </DeviceManage>
             {loading && <Loading absolute />}
-            <Modal open={openModal} onClose={() => handleCloseModal()}>
+            <Modal open={openEditModal} onClose={() => handleCloseModal()}>
+                <UserEdit user={user} />
+            </Modal>
+            <Modal open={openDeleteModal} onClose={() => handleCloseModal()}>
                 <UserDelete user={user} />
             </Modal>
         </div>

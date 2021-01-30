@@ -19,6 +19,15 @@ const style = () => ({
     item: {
         flexGrow: 1,
     },
+    wrapperBtn: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "stretch",
+    },
+    itemBtn: {
+        flexGrow: 1,
+    },
     contentMain: {},
 });
 

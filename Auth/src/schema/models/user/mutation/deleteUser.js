@@ -9,7 +9,7 @@ export default (t) =>
         type: UserType,
         args: {
             _id: idArg({required: true}),
-            name: stringArg({required: true,}),
+            name: stringArg({required: true}),
         },
         async resolve(...params){
             return await deleteUser(...params);
