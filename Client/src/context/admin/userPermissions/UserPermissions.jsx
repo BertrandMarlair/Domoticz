@@ -24,17 +24,12 @@ const UserPermissions = ({classes, match}) => {
 
     useEffect(() => {
         if (id) {
-            console.log("getUserById");
-            console.log(id);
             queryGetUserById({variables: {_id: id}});
         }
     }, [id]);
 
     useEffect(() => {
-        console.log("data");
-        console.log(data);
         if (data?.getUserById) {
-            console.log(data);
             setId(data.getUserById.id);
             setName(data.getUserById.name);
         }
