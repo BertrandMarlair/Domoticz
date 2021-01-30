@@ -74,6 +74,7 @@ export interface NexusGenRootTypes {
     valid_operators: string[]; // [String!]!
   }
   Basic: { // root type
+    lastLogin?: any | null; // Timestamp
     verified: boolean; // Boolean!
   }
   Delete: { // root type
@@ -139,6 +140,7 @@ export interface NexusGenFieldTypes {
     valid_operators: string[]; // [String!]!
   }
   Basic: { // field return type
+    lastLogin: any | null; // Timestamp
     verified: boolean; // Boolean!
   }
   Delete: { // field return type
@@ -161,6 +163,7 @@ export interface NexusGenFieldTypes {
     checkAuthUser: NexusGenRootTypes['UserAuth']; // UserAuth!
     getAllUsers: NexusGenRootTypes['UserAuth'][] | null; // [UserAuth!]
     getCurrentUser: NexusGenRootTypes['UserAuth']; // UserAuth!
+    getUserById: NexusGenRootTypes['UserAuth']; // UserAuth!
     keyRing: NexusGenRootTypes['KeyRing']; // KeyRing!
     refreshTokens: NexusGenRootTypes['TokensType']; // TokensType!
   }
@@ -200,6 +203,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    getUserById: { // args
+      _id: string; // ID!
+    }
     keyRing: { // args
       token: string; // String!
     }

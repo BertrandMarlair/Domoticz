@@ -11,6 +11,7 @@ type AvailableFilter {
 }
 
 type Basic {
+  lastLogin: Timestamp
   verified: Boolean!
 }
 
@@ -92,6 +93,7 @@ type Query {
   checkAuthUser: UserAuth!
   getAllUsers: [UserAuth!]
   getCurrentUser: UserAuth!
+  getUserById(_id: ID!): UserAuth!
   keyRing(token: String!): KeyRing!
   refreshTokens: TokensType!
 }
