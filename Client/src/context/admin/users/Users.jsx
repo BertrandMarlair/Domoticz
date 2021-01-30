@@ -5,58 +5,37 @@ import style from "./UsersStyle";
 import gql from "graphql-tag";
 import {useQuery} from "react-apollo";
 
-import {
-    withStyles,
-    TableContainer,
-    Table,
-    TableHead,
-    TableBody,
-    TableRow,
-    TableCell,
-    MenuItem,
-    MenuList,
-    IconButton,
-} from "@material-ui/core";
+import {withStyles, TableContainer, Table, TableHead, TableBody, TableRow, TableCell} from "@material-ui/core";
 import {useTheme} from "@material-ui/styles";
 
 import Loading from "../../../components/loading/Loading";
 import Error from "../../../components/error/Error";
+import Modal from "../../../components/modal/SimpleModal";
 import Card from "../../../components/card/Card";
 import Button from "../../../components/button/Button";
 import Icon from "../../../components/icon/Icon";
 import SmallTitle from "../../../components/typography/SmallTitle";
 import GoBack from "../../../components/goBack/GoBack";
-import Popper from "../../../components/popper/Popper";
-import Modal from "../../../components/modal/SimpleModal";
+import Date from "../../../components/date/Date";
+import UserAdd from "../userAdd/UserAdd";
+import {useHistory} from "react-router-dom";
 
 const User = ({classes}) => {
     const [loaded, setLoaded] = useState(false);
     const [users, setUsers] = useState([]);
     const [open, setOpen] = useState(false);
-    const [anchorElOption, setAnchorElOption] = useState(false);
     const theme = useTheme();
+    const history = useHistory();
 
     // const {t} = useTranslation();
     const {data, loading, error} = useQuery(GET_USERS);
 
-    const handleEditUser = () => {
-        setOpen(true);
-    };
-
-    const handleActiveUser = () => {
-        setOpen(true);
-    };
-
-    const handleDeleteUser = () => {
-        setOpen(true);
-    };
-
-    const handleClickOption = (event, userId) => {
-        setAnchorElOption({event: event.currentTarget, userId});
-    };
-
-    const handleCloseOption = () => {
-        setAnchorElOption(null);
+    const handleManageUser = (user) => {
+        if (user.type === "user") {
+            history.push(`/admin/user/${user._id}`);
+        } else if (user.type === "device") {
+            history.push(`/admin/device/${user._id}`);
+        }
     };
 
     const handleCloseModal = () => {
@@ -68,7 +47,13 @@ const User = ({classes}) => {
     };
 
     const getActiveColor = (b) => {
-        return b === true ? theme.palette.primary.main : "white";
+        return b === true ? theme.palette.primary.main : theme.palette.text.default;
+    };
+
+    const getDate = (date) => {
+        if (date != null && date !== "") {
+            return <Date bold>{date}</Date>;
+        }
     };
 
     useEffect(() => {
@@ -90,7 +75,7 @@ const User = ({classes}) => {
             <Card className={classes.addUser}>
                 <div className={classes.addUserHeader}>
                     <Icon color={theme.palette.primary.main} className={classes.addUserIcon}>
-                        Verified
+                        Account
                     </Icon>
                     <SmallTitle className={classes.usersTitle}>Gestion des utilisateurs</SmallTitle>
                 </div>
@@ -102,11 +87,13 @@ const User = ({classes}) => {
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead className={classes.tableHead}>
                         <TableRow>
-                            <TableCell>Nom</TableCell>
-                            <TableCell>Type</TableCell>
-                            <TableCell>Permission</TableCell>
-                            <TableCell>Actif</TableCell>
-                            <TableCell>Vérifié</TableCell>
+                            <TableCell align="center">Nom</TableCell>
+                            <TableCell align="center">Type</TableCell>
+                            <TableCell align="center">Permission</TableCell>
+                            <TableCell align="center">Actif</TableCell>
+                            <TableCell align="center">Vérifié</TableCell>
+                            <TableCell align="center">Création</TableCell>
+                            <TableCell align="center">Dernière activité</TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -114,45 +101,28 @@ const User = ({classes}) => {
                         <Error errorMessage={error} />
                         {users.map((user) => (
                             <TableRow key={user._id}>
-                                <TableCell component="th" scope="row">
+                                <TableCell align="center" component="th" scope="row">
                                     {user.name}
                                 </TableCell>
-                                <TableCell>{user.type}</TableCell>
-                                <TableCell>{user.permission}</TableCell>
-                                <TableCell>
+                                <TableCell align="center">{user.type}</TableCell>
+                                <TableCell align="center">{user.permission}</TableCell>
+                                <TableCell align="center">
                                     <Icon color={getActiveColor(user.active)} className={classes.addUserIcon}>
                                         {getActiveIcon(user.active)}
                                     </Icon>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell align="center">
                                     <Icon color={getActiveColor(user.basic.verified)} className={classes.addUserIcon}>
                                         {getActiveIcon(user.basic.verified)}
                                     </Icon>
                                 </TableCell>
+                                <TableCell align="center">{getDate(user.createdAt)}</TableCell>
+                                <TableCell align="center">{getDate(user.basic.lastLogin)}</TableCell>
                                 <TableCell align="center" className={classes.editUserButton}>
-                                    <IconButton onClick={(e) => handleClickOption(e, user._id)}>
-                                        <Icon>More</Icon>
-                                    </IconButton>
+                                    <Button round size="sm" onClick={() => handleManageUser(user)}>
+                                        Manage
+                                    </Button>
                                 </TableCell>
-                                <Popper
-                                    placement={"bottom"}
-                                    anchorEl={anchorElOption?.userId === user._id && anchorElOption.event}
-                                    handleClose={handleCloseOption}>
-                                    <MenuList>
-                                        <MenuItem onClick={() => handleEditUser(user)}>
-                                            <SmallTitle normal>Voir</SmallTitle>
-                                        </MenuItem>
-                                        <MenuItem onClick={() => handleEditUser(user)}>
-                                            <SmallTitle normal>Modifier</SmallTitle>
-                                        </MenuItem>
-                                        <MenuItem onClick={() => handleActiveUser(user)}>
-                                            <SmallTitle normal>{user.active ? "Désactiver" : "Activer"}</SmallTitle>
-                                        </MenuItem>
-                                        <MenuItem onClick={() => handleDeleteUser(user)}>
-                                            <SmallTitle normal>Supprimer</SmallTitle>
-                                        </MenuItem>
-                                    </MenuList>
-                                </Popper>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -160,7 +130,7 @@ const User = ({classes}) => {
             </TableContainer>
             {loading && <Loading absolute />}
             <Modal open={open} onClose={() => handleCloseModal()}>
-                <SmallTitle normal>Edit user</SmallTitle>
+                <UserAdd onClose={() => handleCloseModal()} />
             </Modal>
         </div>
     );
@@ -178,6 +148,7 @@ const GET_USERS = gql`
             permission
             basic {
                 verified
+                lastLogin
             }
             createdAt
             updatedAt
