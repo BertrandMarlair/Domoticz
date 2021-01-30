@@ -1,13 +1,7 @@
 const style = () => ({
-    profile: {
-        margin: 0,
-    },
     header: {
         margin: 10,
         padding: 10,
-    },
-    icon: {
-        marginRight: 20,
     },
     date: {
         paddingLeft: 5,

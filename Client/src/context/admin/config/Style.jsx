@@ -1,3 +1,5 @@
+import {displayVerticalCenter} from "../../../core/style/constant";
+
 const style = () => {
     return {
         drawer: {
@@ -10,6 +12,25 @@ const style = () => {
         },
         logo: {
             height: "100%",
+        },
+        wrapper: {
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "stretch",
+        },
+        item: {
+            flexGrow: 1,
+        },
+        icon: {
+            marginRight: 20,
+        },
+        header: {
+            margin: 10,
+            padding: 10,
+            ...displayVerticalCenter,
+        },
+        profile: {
+            margin: 0,
         },
     };
 };

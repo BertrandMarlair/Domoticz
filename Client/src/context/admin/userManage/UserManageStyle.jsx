@@ -1,21 +1,8 @@
-import {displayVerticalCenter} from "../../../core/style/constant";
-
 const style = (theme) => ({
     root: {
         margin: "auto",
         minHeight: "90vh",
         padding: 10,
-    },
-    header: {
-        ...displayVerticalCenter,
-    },
-    manageUserIcon: {
-        marginLeft: 16,
-        marginRight: 20,
-    },
-    userContent: {
-        marginLeft: 16,
-        marginRight: 16,
     },
     wrapper: {
         display: "flex",

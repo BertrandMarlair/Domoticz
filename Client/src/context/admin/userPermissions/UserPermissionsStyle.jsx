@@ -1,46 +1,26 @@
-import {displayVerticalCenter, borderLight} from "../../../core/style/constant";
-
 const style = () => ({
-    root: {
-        margin: "auto",
-        minHeight: "90vh",
-        padding: 10,
+    profile: {
+        margin: 0,
     },
     header: {
-        ...displayVerticalCenter,
-    },
-    manageUserIcon: {
-        marginLeft: 16,
-        marginRight: 20,
-    },
-    userContent: {
-        marginLeft: 16,
-        marginRight: 16,
-    },
-    wrapper: {
-        display: "flex",
-        padding: 15,
-    },
-    navBar: {
-        width: 400,
-        height: "100%",
-        display: "flex",
-        alignItems: "flex-start",
-        flexDirection: "column",
-    },
-    navItem: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        margin: 5,
-        padding: 20,
-        borderBottom: borderLight,
-        width: "-webkit-fill-available",
-        height: "100px",
+        margin: 10,
+        padding: 10,
     },
     icon: {
         marginRight: 20,
     },
+    date: {
+        paddingLeft: 5,
+    },
+    wrapper: {
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "stretch",
+    },
+    item: {
+        flexGrow: 1,
+    },
+    contentMain: {},
 });
 
 export default style;
