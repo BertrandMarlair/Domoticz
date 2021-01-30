@@ -8,7 +8,10 @@ import TypeEnum from "./enum/typeEnum";
 import editUserInput from "./input/editUser";
 import checkAuthUser from "./query/checkAuthUser";
 import getAllUsers from "./query/getAllUsers";
+import getUserById from "./query/getUserById";
 import updateUser from "./mutation/updateUser";
+
+export const DBUsers = "users";
 
 export default {
     type: [
@@ -24,6 +27,7 @@ export default {
         getCurrentUser,
         checkAuthUser,
         getAllUsers,
+        getUserById,
     ],
     input: [
         registerInput,

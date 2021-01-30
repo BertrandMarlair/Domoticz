@@ -4,6 +4,7 @@ const Basic = objectType({
     name: "Basic",
     definition(t) {
         t.boolean("verified", { nullable: false });
+        t.timestamp("lastLogin", {nullable: true});
     }
 });
 
