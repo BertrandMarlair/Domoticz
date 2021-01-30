@@ -10,6 +10,7 @@ import checkAuthUser from "./query/checkAuthUser";
 import getAllUsers from "./query/getAllUsers";
 import getUserById from "./query/getUserById";
 import updateUser from "./mutation/updateUser";
+import deleteUser from "./mutation/deleteUser";
 
 export const DBUsers = "users";
 
@@ -22,6 +23,7 @@ export default {
         signin,
         login,
         updateUser,
+        deleteUser,
     ],
     query: [
         getCurrentUser,
