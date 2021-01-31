@@ -141,8 +141,7 @@ const AddAccount = ({classes}) => {
                     <Input
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder={t("connect.signin.passwordInputLabel")}
-                        autoComplete={"current-password"}
+                        placeholder="Votre mot de passe"
                         type={"password"}
                         helperText={t(errorPassword)}
                         error={!!errorPassword}
@@ -156,7 +155,6 @@ const AddAccount = ({classes}) => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder={t("connect.signin.confirmPasswordInputLabel")}
-                        autoComplete={"current-password"}
                         type={"password"}
                         helperText={t(errorConfirmPassword)}
                         error={!!errorConfirmPassword}

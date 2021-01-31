@@ -40,6 +40,7 @@ export default style;
 export const modalStyles = {
     wrapperModal: {
         padding: 40,
+        minWidth: 500,
     },
     title: {
         marginBottom: 20,
