@@ -61,7 +61,7 @@ const UserDelete = ({classes, user}) => {
     };
 
     return (
-        <div className={classes.wrapper}>
+        <div className={classes.wrapperModal}>
             <div className={classes.title}>
                 <Title normal centered>
                     Suppression {userTypeString} {user.name}

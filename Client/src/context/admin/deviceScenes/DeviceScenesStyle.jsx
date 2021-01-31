@@ -1,11 +1,7 @@
+import {mainContentStyles} from "../config/Style";
+
 const style = () => ({
-    profile: {
-        margin: 0,
-    },
-    date: {
-        paddingLeft: 5,
-    },
-    contentMain: {},
+    ...mainContentStyles,
 });
 
 export default style;

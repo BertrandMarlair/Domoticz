@@ -75,14 +75,14 @@ const UserEdit = ({classes, user, onClose, setUser}) => {
     };
 
     return (
-        <div className={classes.wrapper}>
+        <div className={classes.wrapperModal}>
             <div className={classes.title}>
                 <Title normal centered>
                     Modification {userTypeString} {user.name}
                 </Title>
             </div>
             <div className={classes.description}>
-                <Text noWrap centered>
+                <Text className={classes.text} noWrap centered>
                     Attention ! Cette action est irréversible. Voulez-vous vraiment supprimer cet utilisateur ?
                 </Text>
             </div>
@@ -105,7 +105,7 @@ const UserEdit = ({classes, user, onClose, setUser}) => {
                     <SmallTitle color="label" className={classes.label}>
                         Status
                     </SmallTitle>
-                    <FormGroup row>
+                    <FormGroup className={classes.wrapperStatus} row>
                         <FormControlLabel
                             control={<Switch checked={state.active} onChange={handleChange} name="active" />}
                             label="Active"

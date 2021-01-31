@@ -74,7 +74,7 @@ const UserPwdReset = ({classes, user, onClose}) => {
     };
 
     return (
-        <div className={classes.wrapper}>
+        <div className={classes.wrapperModal}>
             <div className={classes.title}>
                 <Title normal centered>
                     Reset du mot de passe de {user.name}

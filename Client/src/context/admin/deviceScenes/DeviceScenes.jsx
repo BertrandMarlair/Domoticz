@@ -1,5 +1,5 @@
 import React, {useState, useEffect, Fragment} from "react";
-import {withStyles} from "@material-ui/core";
+import {CardContent, withStyles} from "@material-ui/core";
 import style from "./DeviceScenesStyle";
 import gql from "graphql-tag";
 import {useLazyQuery} from "@apollo/react-hooks";
@@ -9,11 +9,12 @@ import SmallTitle from "../../../components/typography/SmallTitle";
 import Error from "../../../components/error/Error";
 import Text from "../../../components/typography/Text";
 import DeviceManage from "../deviceManage/DeviceManage";
+import Card from "../../../components/card/Card";
 
 const DeviceSchenes = ({classes, match}) => {
+    const id = match.params.userId;
     const [loaded, setLoaded] = useState(false);
-    const [id, setId] = useState(match.params.userId);
-    const [name, setName] = useState("");
+    const [user, setUser] = useState({});
 
     const [queryGetUserById, {data, loading, error}] = useLazyQuery(GET_USER_BY_ID);
 
@@ -31,8 +32,7 @@ const DeviceSchenes = ({classes, match}) => {
 
     useEffect(() => {
         if (data?.getUserById) {
-            setId(data.getUserById._id);
-            setName(data.getUserById.name);
+            setUser(data.getUserById);
         }
     }, [data]);
 
@@ -42,11 +42,20 @@ const DeviceSchenes = ({classes, match}) => {
             <DeviceManage userId={match.params.userId}>
                 <Fragment className={classes.profile}>
                     <div className={classes.header}>
-                        <SmallTitle className={classes.usersTitle}>Scènes du device {name}</SmallTitle>
+                        <SmallTitle className={classes.usersTitle}>Scènes du device {user.name}</SmallTitle>
                     </div>
-                    <div className={classes.content}>
-                        <Text>ID : {id}</Text>
-                    </div>
+                    <Card className={classes.item}>
+                        <div className={classes.header}>
+                            <SmallTitle className={classes.blockTitle}>Scènes</SmallTitle>
+                        </div>
+                        <CardContent>
+                            <div className={classes.wrapper}>
+                                <div className={classes.item}>
+                                    <Text bold>Id : {user._id}</Text>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
                 </Fragment>
             </DeviceManage>
             {loading && <Loading absolute />}

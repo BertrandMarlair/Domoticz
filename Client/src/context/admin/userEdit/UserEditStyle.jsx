@@ -1,29 +1,14 @@
+import {modalStyles} from "../config/Style";
+
 const style = () => ({
-    wrapper: {
-        padding: 20,
+    wrapperStatus: {
+        display: "flex",
+        "& Label": {
+            marginLeft: 0,
+            marginRight: 10,
+        },
     },
-    title: {
-        marginBottom: 20,
-    },
-    description: {
-        marginBottom: 30,
-    },
-    label: {
-        margin: "5px 0",
-    },
-    input: {
-        marginTop: 20,
-        marginBottom: 10,
-        width: "100%",
-    },
-    form: {
-        width: "100%",
-        padding: 30,
-        paddingTop: 0,
-    },
-    formFooter: {
-        marginTop: 30,
-    },
+    ...modalStyles,
 });
 
 export default style;

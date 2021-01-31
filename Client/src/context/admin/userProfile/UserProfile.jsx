@@ -69,7 +69,7 @@ const UserProfile = ({classes, match}) => {
             <UserManage userId={match.params.userId}>
                 <Fragment>
                     <div className={classes.header}>
-                        <SmallTitle className={classes.usersTitle}>Profil du device {user.name}</SmallTitle>
+                        <SmallTitle className={classes.usersTitle}>Profil de l&apos;utilisateur {user.name}</SmallTitle>
                     </div>
                     <Card className={classes.item}>
                         <div className={classes.header}>
