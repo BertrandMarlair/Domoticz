@@ -153,6 +153,7 @@ export interface NexusGenFieldTypes {
     deleteUser: NexusGenRootTypes['UserAuth']; // UserAuth!
     editUser: NexusGenRootTypes['UserAuth']; // UserAuth!
     login: NexusGenRootTypes['Login']; // Login!
+    resetUserPwd: NexusGenRootTypes['UserAuth']; // UserAuth!
     signin: NexusGenRootTypes['UserAuth']; // UserAuth!
     updateUser: NexusGenRootTypes['UserAuth']; // UserAuth!
   }
@@ -193,11 +194,18 @@ export interface NexusGenArgTypes {
     }
     editUser: { // args
       _id: string; // ID!
+      active: boolean; // Boolean!
       name: string; // String!
+      verified: boolean; // Boolean!
     }
     login: { // args
       name: string; // String!
       password: string; // String!
+    }
+    resetUserPwd: { // args
+      _id: string; // ID!
+      password: string; // String!
+      passwordConfirmation: string; // String!
     }
     signin: { // args
       user?: NexusGenInputs['registerInput'] | null; // registerInput

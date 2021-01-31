@@ -15,6 +15,7 @@ import Button from "../../../components/button/Button";
 import UserDelete from "../userDelete/UserDelete";
 import Modal from "../../../components/modal/SimpleModal";
 import UserEdit from "../userEdit/UserEdit";
+import UserPwdReset from "../userPwdReset/UserPwdReset";
 
 const UserProfile = ({classes, match}) => {
     const id = match.params.userId;
@@ -118,7 +119,7 @@ const UserProfile = ({classes, match}) => {
             </UserManage>
             {loading && <Loading absolute />}
             <Modal open={openResetPwdModal} onClose={() => handleCloseModal()}>
-                <UserEdit user={user} />
+                <UserPwdReset user={user} onClose={() => handleCloseModal()} />
             </Modal>
             <Modal open={openEditModal} onClose={() => handleCloseModal()}>
                 <UserEdit user={user} onClose={() => handleCloseModal()} setUser={setUser} />

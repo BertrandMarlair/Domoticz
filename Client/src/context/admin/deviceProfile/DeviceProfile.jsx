@@ -15,6 +15,7 @@ import UserDelete from "../userDelete/UserDelete";
 import Modal from "../../../components/modal/SimpleModal";
 import Button from "../../../components/button/Button";
 import UserEdit from "../userEdit/UserEdit";
+import UserPwdReset from "../userPwdReset/UserPwdReset";
 
 const DeviceProfile = ({classes, match}) => {
     const id = match.params.userId;
@@ -118,7 +119,7 @@ const DeviceProfile = ({classes, match}) => {
             </DeviceManage>
             {loading && <Loading absolute />}
             <Modal open={openResetPwdModal} onClose={() => handleCloseModal()}>
-                <UserEdit user={user} />
+                <UserPwdReset user={user} onClose={() => handleCloseModal()} />
             </Modal>
             <Modal open={openEditModal} onClose={() => handleCloseModal()}>
                 <UserEdit user={user} onClose={() => handleCloseModal()} setUser={setUser} />

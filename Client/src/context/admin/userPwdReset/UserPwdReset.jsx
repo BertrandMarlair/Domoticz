@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, {useState, useEffect} from "react";
 import gql from "graphql-tag";
-import style from "./UserEditStyle";
+import style from "./UserPwdResetStyle";
 import {useTranslation} from "react-i18next";
 import {withStyles} from "@material-ui/styles";
 import {useMutation} from "@apollo/react-hooks";
@@ -13,64 +13,63 @@ import Title from "../../../components/typography/Title";
 import SmallTitle from "../../../components/typography/SmallTitle";
 import {useHistory} from "react-router-dom";
 import Text from "../../../components/typography/Text";
-import {FormControlLabel, FormGroup, Switch} from "@material-ui/core";
 
-const UserEdit = ({classes, user, onClose, setUser}) => {
-    const [userTypeString, setUserTypeString] = useState("");
+const UserPwdReset = ({classes, user, onClose}) => {
     const [id, setId] = useState();
-    const [name, setName] = useState(user.name);
-    const [errorName, setErrorName] = useState(null);
+    const [password, setPassword] = useState("");
+    const [errorPassword, setErrorPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
+
     const history = useHistory();
-    const [state, setState] = useState({
-        active: user.active,
-        verified: user.basic.verified,
-    });
 
     const {t} = useTranslation();
-    const [updateUserMutation, {data, loading, error}] = useMutation(UPDATE_USER);
+    const [resetUserPwdMutation, {data, loading, error}] = useMutation(RESET_USER_PWD);
 
     useEffect(() => {
-        if (user.type === "user") {
-            setUserTypeString(`de l'utilisateur`);
-        } else if (user.type === "device") {
-            setUserTypeString(`du device`);
-        }
         if (user?._id) {
             setId(user._id);
         }
     });
 
     useEffect(() => {
-        if (data?.editUser?._id) {
+        console.log("---data");
+        console.log(data);
+        if (data?.resetUserPwd?._id) {
             notify("Success", {
                 variant: "success",
             });
-            setUser(data.editUser);
             onClose();
         }
     }, [data, history, t]);
-
-    const handleChange = (event) => {
-        setState({...state, [event.target.name]: event.target.checked});
-    };
 
     const updateUser = (e) => {
         e.preventDefault();
         let validation = true;
 
-        if (name.length < 2) {
-            setErrorName("Le nom doit faire plus de deux caractères");
+        if (password.length < 5) {
+            setErrorPassword("connect.register.errors.invalidPassword");
             validation = false;
         } else {
-            setErrorName("");
+            setErrorPassword("");
+        }
+        if (confirmPassword.length < 5) {
+            setErrorConfirmPassword("connect.register.errors.invalidConfirmPasswordShort");
+            validation = false;
+        } else {
+            setErrorConfirmPassword("");
+        }
+        if (confirmPassword !== password) {
+            setErrorConfirmPassword("connect.register.errors.invalidConfirmPassword");
+            validation = false;
+        } else {
+            setErrorConfirmPassword("");
         }
 
         if (validation) {
             console.log("------edituser");
-            console.log(id);
-            console.log(name);
-            console.log(state.active);
-            updateUserMutation({variables: {_id: id, name: name, active: state.active, verified: state.verified}});
+
+            resetUserPwdMutation({variables: {_id: id, password: password, passwordConfirmation: confirmPassword}});
         }
     };
 
@@ -78,43 +77,42 @@ const UserEdit = ({classes, user, onClose, setUser}) => {
         <div className={classes.wrapper}>
             <div className={classes.title}>
                 <Title normal centered>
-                    Modification {userTypeString} {user.name}
+                    Reset du mot de passe de {user.name}
                 </Title>
             </div>
             <div className={classes.description}>
                 <Text noWrap centered>
-                    Attention ! Cette action est irréversible. Voulez-vous vraiment supprimer cet utilisateur ?
+                    Voulez-vous vraiment modifier le mot de passe ?
                 </Text>
             </div>
             <form className={classes.form} onSubmit={(e) => updateUser(e)}>
                 <div className={classes.input}>
                     <SmallTitle color="label" className={classes.label}>
-                        Nom
+                        Nouveau mot de passe
                     </SmallTitle>
                     <Input
-                        autoFocus
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder={name}
-                        type={"text"}
-                        helperText={t(errorName)}
-                        error={!!errorName}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder={t("connect.signin.passwordInputLabel")}
+                        autoComplete={"current-password"}
+                        type={"password"}
+                        helperText={t(errorPassword)}
+                        error={!!errorPassword}
                     />
                 </div>
                 <div className={classes.input}>
                     <SmallTitle color="label" className={classes.label}>
-                        Status
+                        Confirmation du nouveau mot de passe
                     </SmallTitle>
-                    <FormGroup row>
-                        <FormControlLabel
-                            control={<Switch checked={state.active} onChange={handleChange} name="active" />}
-                            label="Active"
-                        />
-                        <FormControlLabel
-                            control={<Switch checked={state.verified} onChange={handleChange} name="verified" />}
-                            label="Verifié"
-                        />
-                    </FormGroup>
+                    <Input
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder={t("connect.signin.confirmPasswordInputLabel")}
+                        autoComplete={"current-password"}
+                        type={"password"}
+                        helperText={t(errorConfirmPassword)}
+                        error={!!errorConfirmPassword}
+                    />
                 </div>
                 <Error errorMessage={error} />
                 <div className={classes.formFooter}>
@@ -127,11 +125,11 @@ const UserEdit = ({classes, user, onClose, setUser}) => {
     );
 };
 
-export default withStyles(style)(UserEdit);
+export default withStyles(style)(UserPwdReset);
 
-const UPDATE_USER = gql`
-    mutation editUser($_id: ID!, $name: String!, $active: Boolean!, $verified: Boolean!) {
-        editUser(_id: $_id, name: $name, active: $active, verified: $verified) {
+const RESET_USER_PWD = gql`
+    mutation resetUserPwd($_id: ID!, $password: String!, $passwordConfirmation: String!) {
+        resetUserPwd(_id: $_id, password: $password, passwordConfirmation: $passwordConfirmation) {
             _id
             name
             type

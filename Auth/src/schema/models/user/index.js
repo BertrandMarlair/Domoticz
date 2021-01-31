@@ -11,6 +11,7 @@ import getUserById from "./query/getUserById";
 import updateUser from "./mutation/updateUser";
 import deleteUser from "./mutation/deleteUser";
 import editUser from "./mutation/editUser";
+import resetUserPwd from "./mutation/resetUserPwd";
 
 export const DBUsers = "users";
 
@@ -25,6 +26,7 @@ export default {
         updateUser,
         deleteUser,
         editUser,
+        resetUserPwd,
     ],
     query: [
         getCurrentUser,

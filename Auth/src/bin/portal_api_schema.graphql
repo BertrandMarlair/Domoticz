@@ -55,8 +55,9 @@ type Login {
 
 type Mutation {
   deleteUser(_id: ID!, name: String!): UserAuth!
-  editUser(_id: ID!, name: String!): UserAuth!
+  editUser(_id: ID!, active: Boolean!, name: String!, verified: Boolean!): UserAuth!
   login(name: String!, password: String!): Login!
+  resetUserPwd(_id: ID!, password: String!, passwordConfirmation: String!): UserAuth!
   signin(user: registerInput): UserAuth!
   updateUser(name: String!, type: String!): UserAuth!
 }
