@@ -13,7 +13,6 @@ const Switch = (props) => {
             <FormControlLabel
                 control={
                     <SwitchButton
-                        focusVisibleClassName={classes.focusVisible}
                         disableRipple
                         classes={{
                             root: classes.root,

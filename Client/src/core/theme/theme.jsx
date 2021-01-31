@@ -80,6 +80,7 @@ const useCustomTheme = () => {
                 colored: borderLight,
                 reaction: borderReactionLight,
                 medium: borderMedium,
+                dark: borderDark,
             },
             input: {
                 placeholder: "#c8cbca",
@@ -148,6 +149,7 @@ const useCustomTheme = () => {
                 colored: borderWhite,
                 reaction: borderReactionDark,
                 medium: `1px solid ${textColorLight}`,
+                dark: borderWhite,
             },
             input: {
                 placeholder: "#c8cbca",

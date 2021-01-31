@@ -1,12 +1,19 @@
 const style = () => ({
     root: {
         display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        flex: 1,
+        overflowY: "scroll",
     },
     action: {
         minWidth: 155,
+        minHeight: 180,
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
+        cursor: "pointer",
+        transition: "0.5s",
     },
     actionHeader: {
         display: "flex",

@@ -8,7 +8,7 @@ const filterLights = (key, bridgeId, bridges) => {
     for (const bridge of bridges) {
         if (bridge._id.toString() === bridgeId.toString()) {
             for (let lightId of key) {
-                light.push({...bridge?.lights?.[lightId], bridgeId} ?? {});
+                light.push({...bridge?.lights?.[lightId], bridgeId, lightId} ?? {});
             }
         }
     }

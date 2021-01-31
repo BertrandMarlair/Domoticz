@@ -2,16 +2,17 @@ import { ForbiddenError } from "apollo-server-express";
 
 import UserType from "../type/user";
 import {AuthenticationError} from "apollo-server-express";
-import {getUserByName} from "../utils";
+import {getUserById} from "../utils";
 import {updateOneById} from "../../../../core/mongo";
-import { stringArg } from "nexus";
+import { arg, stringArg } from "nexus";
+import TypeEnum from "../enum/typeEnum";
 
 export default (t) => 
     t.field("updateUser", {
         type: UserType,
         args: {
             name: stringArg({required: true}),
-            type: stringArg({required: true}),
+            type: arg({type: TypeEnum, required: true}),
         },
         async resolve(...params){
             return await updateUser(...params);
@@ -20,9 +21,9 @@ export default (t) =>
 
 const updateUser = async (_, {name, type}, {currentUser}) => {
     try {
-        const user = await getUserByName(currentUser.name)
+        const user = await getUserById(currentUser._id);
 
-        if (user?._id) {
+        if (!user?._id) {
             throw new AuthenticationError("connect.updateUser.errors.notFound");
         }
 

@@ -5,6 +5,7 @@ const PhilipsHueLightType = objectType({
     name: "PhilipsHueLight",
     definition(t) {
         t.id("bridgeId");
+        t.id("lightId");
         t.string("name");
         t.string("type");
         t.string("modelid");

@@ -28,6 +28,13 @@ const style = (theme) => ({
             backgroundColor: theme.palette.primary.light,
         },
     },
+    primaryDark: {
+        background: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
+        "&:hover": {
+            backgroundColor: theme.palette.primary.dark,
+        },
+    },
     lightPrimary: {
         border: `1px solid ${theme.palette.text.colored}`,
         background: theme.palette.background.paper,
@@ -99,10 +106,10 @@ const style = (theme) => ({
         },
     },
     white: {
-        background: theme.palette.background.paper,
+        background: theme.palette.white.main,
         color: `${theme.palette.text.contrasted} !important`,
         "&:hover": {
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: theme.palette.white.light,
             color: theme.palette.text.light,
         },
     },
@@ -135,6 +142,8 @@ const style = (theme) => ({
     sm: {
         fontSize: "0.8rem",
         padding: "5px 15px",
+        minWidth: 70,
+        height: 38,
     },
     big: {
         padding: "18px 40px",

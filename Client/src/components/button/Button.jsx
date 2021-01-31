@@ -94,6 +94,7 @@ CustomButton.propTypes = {
         "errorInverted",
         "transparent",
         "successLight",
+        "primaryDark",
     ]),
 };
 

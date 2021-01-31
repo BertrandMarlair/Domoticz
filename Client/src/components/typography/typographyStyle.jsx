@@ -82,6 +82,9 @@ const typographyStyle = (theme) => ({
     white: {
         color: theme.palette.white.main,
     },
+    inherit: {
+        color: "inherit",
+    },
     link: {
         color: theme.palette.link.main,
     },

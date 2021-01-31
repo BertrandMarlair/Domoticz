@@ -1,9 +1,9 @@
 import {syncPhilipsHue} from "../syncStatus/syncPhilipsHue";
-import {getWeather} from "../weather/getWeather";
+import {syncWeather} from "../weather/syncWeather";
 
 const cronJob = () => {
     syncPhilipsHue();
-    getWeather();
+    syncWeather();
 }
 
 export default cronJob;

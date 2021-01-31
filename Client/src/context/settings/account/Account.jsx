@@ -9,10 +9,11 @@ import Button from "../../../components/button/Button";
 import Title from "../../../components/typography/Title";
 import Text from "../../../components/typography/Text";
 import SmallTitle from "../../../components/typography/SmallTitle";
+import {UPDATE_USER_INFO} from "../../../core/reducers/connectConfig";
 import Select from "../../../components/select/Select";
 import {useTranslation} from "react-i18next";
 import {useMutation} from "@apollo/react-hooks";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const Account = ({classes}) => {
     const [name, setName] = useState("");
@@ -20,14 +21,21 @@ const Account = ({classes}) => {
     const [type, setType] = useState("");
     const [errorType, setErrorType] = useState(null);
 
+    const dispatch = useDispatch();
+
     const user = useSelector((state) => state.connected.user);
+
+    const updateUserInfo = (payload) => dispatch({type: UPDATE_USER_INFO, payload});
 
     useEffect(() => {
         setName(user.name);
         setType(user.type);
     }, [user]);
 
-    console.log(user);
+    const handleCancel = () => {
+        setName(user.name);
+        setType(user.type);
+    };
 
     const {t} = useTranslation();
 
@@ -61,11 +69,11 @@ const Account = ({classes}) => {
     };
 
     useEffect(() => {
-        if (data?.signin?._id) {
+        if (data?.updateUser?._id) {
             notify(t("connect.signin.success.signin"), {
                 variant: "success",
             });
-            setNameSended(true);
+            updateUserInfo(data.updateUser);
         }
     }, [data, history, t]);
 
@@ -90,7 +98,6 @@ const Account = ({classes}) => {
                         {t("connect.signin.nameInputTitle")}
                     </SmallTitle>
                     <Input
-                        autoFocus
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder={t("connect.signin.nameInputLabel")}
@@ -122,7 +129,7 @@ const Account = ({classes}) => {
                     <Button noMargin type="submit" loading={loading}>
                         Sauvegarder
                     </Button>
-                    <Button noMargin color="transparent">
+                    <Button noMargin color="transparent" onClick={() => handleCancel()}>
                         Annuler
                     </Button>
                 </div>
@@ -135,7 +142,7 @@ export default withStyles(style)(Account);
 
 const UPDATE_USER = gql`
     mutation updateUser($name: String!, $type: TypeEnum!) {
-        updateUser(user: {name: $name, type: $type}) {
+        updateUser(name: $name, type: $type) {
             _id
         }
     }

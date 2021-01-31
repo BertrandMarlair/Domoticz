@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* eslint-disable react/no-unescaped-entities */
 import React, {useState} from "react";
 import {IconButton, useTheme, withStyles} from "@material-ui/core";
@@ -20,26 +21,25 @@ const PhilipsHue = ({classes}) => {
 
     return (
         <div className={classes.root}>
-            {philipsHue?._id &&
-                (philipsHue?.bridges.length === 0 ? (
-                    <Card className={classes.addBridge}>
-                        <Title bold center>
-                            Vous n'avez pas encore de Pont Philips Hue
-                        </Title>
-                        <Text center className={classes.addBridgeDescription}>
-                            Avant de commencer à configurer votre installation, vous devez connecter un bridge philips
-                            hue
-                        </Text>
-                        <img className={classes.bridgeImage} src="/assets/images/bridge.png" alt="bridge" />
-                        <IconButton className={classes.addBridgeicon} onClick={() => setOpen(true)}>
-                            <Icon color={theme.palette.primary.main} size={50}>
-                                Add
-                            </Icon>
-                        </IconButton>
-                    </Card>
-                ) : (
-                    <DeviceList hue={philipsHue} />
-                ))}
+            {philipsHue && philipsHue?.bridges ? (
+                <DeviceList hue={philipsHue} />
+            ) : (
+                <Card className={classes.addBridge}>
+                    <Title bold center>
+                        Vous n'avez pas encore de Pont Philips Hue
+                    </Title>
+                    <Text center className={classes.addBridgeDescription}>
+                        Avant de commencer à configurer votre installation, vous devez connecter un bridge philips
+                        hue
+                    </Text>
+                    <img className={classes.bridgeImage} src="/assets/images/bridge.png" alt="bridge" />
+                    <IconButton className={classes.addBridgeicon} onClick={() => setOpen(true)}>
+                        <Icon color={theme.palette.primary.main} size={50}>
+                            Add
+                        </Icon>
+                    </IconButton>
+                </Card>
+            )}
             <AddBridge hue={philipsHue} open={open} setOpen={setOpen} />
         </div>
     );

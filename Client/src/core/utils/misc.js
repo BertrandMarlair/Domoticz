@@ -173,3 +173,7 @@ export const bytesToSize = (bytes) => {
 
     return `${Math.round(bytes / Math.pow(1024, i), 2)} ${sizes[i]}`;
 };
+
+export const kelvinToCelsius = (temp) => {
+    return Math.round((temp - 273.15) * 100) / 100;
+};

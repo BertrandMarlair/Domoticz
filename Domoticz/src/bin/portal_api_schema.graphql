@@ -59,8 +59,13 @@ type Mutation {
   deleteProvider(_id: ID!): Provider!
   editApplication: Application!
   editBlock(block: editBlockInput!): Block!
+  editGroupState(bridgeId: ID!, groupId: ID!, state: PhilipsHueStateInput!): PhilipsHue!
+  editGroupStateWhitoutSync(bridgeId: ID!, groupId: ID!, state: PhilipsHueStateInput!): Response!
+  editLightState(bridgeId: ID!, lightId: ID!, state: PhilipsHueStateInput!): PhilipsHue!
+  editLightStateWhitoutSync(bridgeId: ID!, lightId: ID!, state: PhilipsHueStateInput!): Response!
   editProvider(provider: editProviderInput!): Provider!
   editTest: Test!
+  updateWeatherLocation(city: String!, country: String!): Weather!
 }
 
 type PhilipsHue {
@@ -102,14 +107,23 @@ type PhilipsHueBridgeStatus {
 type PhilipsHueGroups {
   bridgeId: ID!
   class: String
+  groupId: ID!
   lights: [PhilipsHueLight!]!
   name: String!
   recycle: Boolean!
+  scenes: [philipsHueScene!]!
+  state: PhilipsHueGroupsState!
   type: String!
+}
+
+type PhilipsHueGroupsState {
+  all_on: Boolean!
+  any_on: Boolean!
 }
 
 type PhilipsHueLight {
   bridgeId: ID!
+  lightId: ID!
   manufacturername: String!
   modelid: String!
   name: String!
@@ -141,6 +155,25 @@ type PhilipsHueLightXY {
   y: Float
 }
 
+type philipsHueScene {
+  bridgeId: ID!
+  group: String!
+  lights: [PhilipsHueLight!]!
+  lightstates: [PhilipsHueSceneLightState!]!
+  name: String!
+  sceneId: ID!
+  type: String!
+}
+
+type PhilipsHueSceneLightState {
+  bri: Int!
+  bridgeId: ID!
+  ct: Int
+  lightId: ID!
+  on: Boolean!
+  xy: PhilipsHueLightXY!
+}
+
 type PhilipsHueSensor {
   manufacturername: String!
   modelid: String!
@@ -149,6 +182,15 @@ type PhilipsHueSensor {
   swversion: String!
   type: String!
   uniqueid: String!
+}
+
+input PhilipsHueStateInput {
+  bri: Int
+  hue: Int
+  on: Boolean
+  sat: Int
+  scene: String
+  xy: [Float!]
 }
 
 type Provider {
@@ -166,9 +208,16 @@ type Query {
   getAllProviders: [Provider!]
   getAllTests: [Test!]
   getPhilipsHueDevices: PhilipsHue
+  getScenesByGroup(bridgeId: ID!, groupId: ID!): [philipsHueScene!]
+  getWeatherInfo: Weather
   hueBridgeConnection(ipAddress: String!): PhilipsHueBridgeStatus
   hueBridgeRegister(ipAddress: String!, name: String!): PhilipsHueBridgeStatus
   syncAll: SyncAll
+}
+
+type Response {
+  error: String
+  ok: Boolean!
 }
 
 type Status {
@@ -179,6 +228,7 @@ type Status {
 
 type Subscription {
   syncAll: SyncAll!
+  syncWeather: Weather!
 }
 
 type SyncAll {
@@ -193,3 +243,22 @@ type Test {
 
 """Unix Milliseconds Timestamp"""
 scalar Timestamp
+
+type Weather {
+  _id: ID!
+  city: String!
+  clouds: Float!
+  country: String!
+  description: String!
+  dt: Float!
+  feels_like: Float!
+  humidity: Float!
+  icon: String!
+  main: String!
+  pressure: Float!
+  temp: Float!
+  temp_max: Float!
+  temp_min: Float!
+  visibility: Float!
+  wind: Float!
+}
