@@ -1,6 +1,7 @@
 import { objectType } from "nexus";
 import PermissionEnum from "../enum/permissionEnum";
 import TypeEnum from "../enum/typeEnum";
+import Basic from "./basic";
 
 const UserType = objectType({
     name: "UserAuth",
@@ -8,7 +9,9 @@ const UserType = objectType({
         t.field("_id", { type: "ID" });
         t.string("name", {nullable: false});
         t.string("type", {nullable: false, type: TypeEnum});
+        t.boolean("active", {nullable: false})
         t.string("permission", {nullable: false, type: PermissionEnum});
+        t.field('basic', { type: Basic });
         t.timestamp("updatedAt");
         t.timestamp("createdAt");
     }

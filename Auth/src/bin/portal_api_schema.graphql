@@ -10,13 +10,13 @@ type AvailableFilter {
   valid_operators: [String!]!
 }
 
-type Delete {
-  id: Int!
+type Basic {
+  lastLogin: Timestamp
+  verified: Boolean!
 }
 
-input editUserInput {
-  name: String!
-  type: TypeEnum!
+type Delete {
+  id: Int!
 }
 
 """Email custom scalar type"""
@@ -54,7 +54,11 @@ type Login {
 }
 
 type Mutation {
+  accountTypeUpdate(_id: ID!, type: TypeEnum!): UserAuth!
+  deleteUser(_id: ID!, name: String!): UserAuth!
+  editUser(_id: ID!, active: Boolean!, name: String!, verified: Boolean!): UserAuth!
   login(name: String!, password: String!): Login!
+  resetUserPwd(_id: ID!, password: String!, passwordConfirmation: String!): UserAuth!
   signin(user: registerInput): UserAuth!
   updateUser(name: String!, type: TypeEnum!): UserAuth!
 }
@@ -88,6 +92,7 @@ type Query {
   checkAuthUser: UserAuth!
   getAllUsers: [UserAuth!]
   getCurrentUser: UserAuth!
+  getUserById(_id: ID!): UserAuth!
   keyRing(token: String!): KeyRing!
   refreshTokens: TokensType!
 }
@@ -121,6 +126,8 @@ enum TypeEnum {
 
 type UserAuth {
   _id: ID!
+  active: Boolean!
+  basic: Basic!
   createdAt: Timestamp!
   name: String!
   permission: PermissionEnum!

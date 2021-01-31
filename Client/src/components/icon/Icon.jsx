@@ -45,7 +45,7 @@ const GetIcon = ({
         },
         " div": {
             display: "flex",
-            alignItems: "center",
+            justifyContent: "center",
             margin,
         },
     });

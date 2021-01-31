@@ -46,10 +46,6 @@ export interface NexusGenInputs {
     page?: number | null; // Int
     pageSize?: number | null; // Int
   }
-  editUserInput: { // input type
-    name: string; // String!
-    type: NexusGenEnums['TypeEnum']; // TypeEnum!
-  }
   registerInput: { // input type
     name: string; // String!
     password: string; // String!
@@ -72,6 +68,10 @@ export interface NexusGenRootTypes {
     label: string; // String!
     type: string; // String!
     valid_operators: string[]; // [String!]!
+  }
+  Basic: { // root type
+    lastLogin?: any | null; // Timestamp
+    verified: boolean; // Boolean!
   }
   Delete: { // root type
     id: number; // Int!
@@ -96,6 +96,8 @@ export interface NexusGenRootTypes {
   }
   UserAuth: { // root type
     _id: string; // ID!
+    active: boolean; // Boolean!
+    basic: NexusGenRootTypes['Basic']; // Basic!
     createdAt: any; // Timestamp!
     name: string; // String!
     permission: NexusGenEnums['PermissionEnum']; // PermissionEnum!
@@ -117,7 +119,6 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   FilterOperation: NexusGenInputs['FilterOperation'];
   Pagination: NexusGenInputs['Pagination'];
   PaginationParams: NexusGenInputs['PaginationParams'];
-  editUserInput: NexusGenInputs['editUserInput'];
   registerInput: NexusGenInputs['registerInput'];
   LogicalOperator: NexusGenEnums['LogicalOperator'];
   Order: NexusGenEnums['Order'];
@@ -133,6 +134,10 @@ export interface NexusGenFieldTypes {
     type: string; // String!
     valid_operators: string[]; // [String!]!
   }
+  Basic: { // field return type
+    lastLogin: any | null; // Timestamp
+    verified: boolean; // Boolean!
+  }
   Delete: { // field return type
     id: number; // Int!
   }
@@ -145,7 +150,11 @@ export interface NexusGenFieldTypes {
     refreshToken: string | null; // String
   }
   Mutation: { // field return type
+    accountTypeUpdate: NexusGenRootTypes['UserAuth']; // UserAuth!
+    deleteUser: NexusGenRootTypes['UserAuth']; // UserAuth!
+    editUser: NexusGenRootTypes['UserAuth']; // UserAuth!
     login: NexusGenRootTypes['Login']; // Login!
+    resetUserPwd: NexusGenRootTypes['UserAuth']; // UserAuth!
     signin: NexusGenRootTypes['UserAuth']; // UserAuth!
     updateUser: NexusGenRootTypes['UserAuth']; // UserAuth!
   }
@@ -153,6 +162,7 @@ export interface NexusGenFieldTypes {
     checkAuthUser: NexusGenRootTypes['UserAuth']; // UserAuth!
     getAllUsers: NexusGenRootTypes['UserAuth'][] | null; // [UserAuth!]
     getCurrentUser: NexusGenRootTypes['UserAuth']; // UserAuth!
+    getUserById: NexusGenRootTypes['UserAuth']; // UserAuth!
     keyRing: NexusGenRootTypes['KeyRing']; // KeyRing!
     refreshTokens: NexusGenRootTypes['TokensType']; // TokensType!
   }
@@ -167,6 +177,8 @@ export interface NexusGenFieldTypes {
   }
   UserAuth: { // field return type
     _id: string; // ID!
+    active: boolean; // Boolean!
+    basic: NexusGenRootTypes['Basic']; // Basic!
     createdAt: any; // Timestamp!
     name: string; // String!
     permission: NexusGenEnums['PermissionEnum']; // PermissionEnum!
@@ -177,9 +189,28 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    accountTypeUpdate: { // args
+      _id: string; // ID!
+      type: NexusGenEnums['TypeEnum']; // TypeEnum!
+    }
+    deleteUser: { // args
+      _id: string; // ID!
+      name: string; // String!
+    }
+    editUser: { // args
+      _id: string; // ID!
+      active: boolean; // Boolean!
+      name: string; // String!
+      verified: boolean; // Boolean!
+    }
     login: { // args
       name: string; // String!
       password: string; // String!
+    }
+    resetUserPwd: { // args
+      _id: string; // ID!
+      password: string; // String!
+      passwordConfirmation: string; // String!
     }
     signin: { // args
       user?: NexusGenInputs['registerInput'] | null; // registerInput
@@ -190,6 +221,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    getUserById: { // args
+      _id: string; // ID!
+    }
     keyRing: { // args
       token: string; // String!
     }
@@ -201,9 +235,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AvailableFilter" | "Delete" | "KeyRing" | "Login" | "Mutation" | "Query" | "Status" | "TokensType" | "UserAuth";
+export type NexusGenObjectNames = "AvailableFilter" | "Basic" | "Delete" | "KeyRing" | "Login" | "Mutation" | "Query" | "Status" | "TokensType" | "UserAuth";
 
-export type NexusGenInputNames = "Filter" | "FilterOperation" | "Pagination" | "PaginationParams" | "editUserInput" | "registerInput";
+export type NexusGenInputNames = "Filter" | "FilterOperation" | "Pagination" | "PaginationParams" | "registerInput";
 
 export type NexusGenEnumNames = "LogicalOperator" | "Order" | "PermissionEnum" | "TypeEnum";
 

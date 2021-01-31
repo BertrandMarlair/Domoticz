@@ -13,8 +13,16 @@ const style = () => ({
             margin: "auto",
         },
     },
+    [`@media (max-width: 1023px)`]: {
+        optionalDisplay: {
+            display: "none",
+        },
+    },
+    table: {
+        textTransform: "capitalize",
+    },
     tableContainer: {
-        padding: 20,
+        padding: 10,
     },
     card: {
         maxWidth: 400,
@@ -31,21 +39,25 @@ const style = () => ({
         marginBottom: 50,
         flexGrow: 1,
     },
-    addUser: {
+    addCard: {
         ...displayBetween,
-        margin: 20,
+        margin: 10,
     },
-    addUserHeader: {
+    addCardHeader: {
         ...displayVerticalCenter,
     },
-    addUserIcon: {
-        margin: 20,
+    addCardIcon: {
+        marginLeft: 20,
+        marginRight: 20,
     },
-    addUserTitle: {
+    addCardTitle: {
         marginBottom: 2,
     },
-    addUserText: {
+    addCardText: {
         marginBottom: 8,
+    },
+    editAccountButton: {
+        width: "10%",
     },
     option: {
         display: "flex",

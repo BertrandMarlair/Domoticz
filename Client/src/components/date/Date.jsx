@@ -1,11 +1,10 @@
-import React, {useState, useEffect, Fragment} from "react";
+import React, {useState, useEffect} from "react";
 import {withStyles, useTheme} from "@material-ui/core";
 import DateStyle from "./DateStyle";
 import moment from "moment";
 import classNames from "classnames";
 import {ONE_DAY, ONE_HOUR} from "../../core/constants";
 import Text from "../typography/Text";
-import Point from "../point/Point";
 import {useTranslation} from "react-i18next";
 
 const CustomDate = ({
@@ -79,12 +78,7 @@ const CustomDate = ({
 
     return (
         <span className={dateClasses}>
-            {condition === true || condition === false ? (
-                checkValidity() !== true && <Point color={checkValidity()} top={-5} left={-16} />
-            ) : (
-                <Fragment />
-            )}
-            <Text ligth={!bold} bold={!!bold} small={!!small} margin={!!margin} className={className}>
+            <Text bold={!!bold} small={!!small} margin={!!margin} className={className}>
                 {renderDate()}
             </Text>
         </span>
