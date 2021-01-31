@@ -150,6 +150,7 @@ export interface NexusGenFieldTypes {
     refreshToken: string | null; // String
   }
   Mutation: { // field return type
+    accountTypeUpdate: NexusGenRootTypes['UserAuth']; // UserAuth!
     deleteUser: NexusGenRootTypes['UserAuth']; // UserAuth!
     editUser: NexusGenRootTypes['UserAuth']; // UserAuth!
     login: NexusGenRootTypes['Login']; // Login!
@@ -188,6 +189,10 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    accountTypeUpdate: { // args
+      _id: string; // ID!
+      type: NexusGenEnums['TypeEnum']; // TypeEnum!
+    }
     deleteUser: { // args
       _id: string; // ID!
       name: string; // String!

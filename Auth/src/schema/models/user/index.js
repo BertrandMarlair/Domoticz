@@ -1,5 +1,4 @@
 import registerInput from "./input/register";
-import signin from "./mutation/signin";
 import UserType from "./type/user";
 import LoginType from "./type/loginType";
 import getCurrentUser from "./query/getCurrentUser";
@@ -8,10 +7,12 @@ import TypeEnum from "./enum/typeEnum";
 import checkAuthUser from "./query/checkAuthUser";
 import getAllUsers from "./query/getAllUsers";
 import getUserById from "./query/getUserById";
+import signin from "./mutation/signin";
 import updateUser from "./mutation/updateUser";
 import deleteUser from "./mutation/deleteUser";
 import editUser from "./mutation/editUser";
 import resetUserPwd from "./mutation/resetUserPwd";
+import accountEditType from "./mutation/accountEditType";
 
 export const DBUsers = "users";
 
@@ -27,6 +28,7 @@ export default {
         deleteUser,
         editUser,
         resetUserPwd,
+        accountEditType,
     ],
     query: [
         getCurrentUser,

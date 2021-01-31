@@ -16,11 +16,13 @@ import Modal from "../../../components/modal/SimpleModal";
 import Button from "../../../components/button/Button";
 import AccountPwdEdit from "../accountPwdEdit/AccountPwdEdit";
 import AccountEdit from "../accountEdit/AccountEdit";
+import AccountTypeEdit from "../accountTypeEdit/AccountTypeEdit";
 
 const DeviceProfile = ({classes, match}) => {
     const id = match.params.deviceId;
     const [loaded, setLoaded] = useState(false);
     const [openResetPwdModal, setOpenResetPwdModal] = useState(false);
+    const [openEditTypeModal, setOpenEditTypeModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [device, setDevice] = useState({});
@@ -42,11 +44,15 @@ const DeviceProfile = ({classes, match}) => {
     useEffect(() => {
         if (data?.getUserById) {
             setDevice(data.getUserById);
+            if (data.getUserById.type === "user") {
+                history.push(`/admin/user/${data.getUserById._id}`);
+            }
         }
     }, [data]);
 
     const handleCloseModal = () => {
         setOpenResetPwdModal(false);
+        setOpenEditTypeModal(false);
         setOpenEditModal(false);
         setOpenDeleteModal(false);
     };
@@ -108,6 +114,9 @@ const DeviceProfile = ({classes, match}) => {
                         <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenResetPwdModal(true)}>
                             Reset Password
                         </Button>
+                        <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenEditTypeModal(true)}>
+                            Change Type
+                        </Button>
                         <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenEditModal(true)}>
                             Edit
                         </Button>
@@ -120,6 +129,9 @@ const DeviceProfile = ({classes, match}) => {
             {loading && <Loading absolute />}
             <Modal open={openResetPwdModal} onClose={() => handleCloseModal()}>
                 <AccountPwdEdit account={device} onClose={() => handleCloseModal()} />
+            </Modal>
+            <Modal open={openEditTypeModal} onClose={() => handleCloseModal()}>
+                <AccountTypeEdit account={device} onClose={() => handleCloseModal()} />
             </Modal>
             <Modal open={openEditModal} onClose={() => handleCloseModal()}>
                 <AccountEdit account={device} onClose={() => handleCloseModal()} setAccount={setDevice} />

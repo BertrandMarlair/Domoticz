@@ -3,6 +3,7 @@ import {CardContent, withStyles} from "@material-ui/core";
 import style from "./UserProfileStyle";
 import gql from "graphql-tag";
 import {useLazyQuery} from "@apollo/react-hooks";
+import {useHistory} from "react-router-dom";
 
 import Loading from "../../../components/loading/Loading";
 import SmallTitle from "../../../components/typography/SmallTitle";
@@ -16,14 +17,18 @@ import AccountDelete from "../accountDelete/AccountDelete";
 import Modal from "../../../components/modal/SimpleModal";
 import AccountPwdEdit from "../accountPwdEdit/AccountPwdEdit";
 import AccountEdit from "../accountEdit/AccountEdit";
+import AccountTypeEdit from "../accountTypeEdit/AccountTypeEdit";
 
 const UserProfile = ({classes, match}) => {
     const id = match.params.userId;
     const [loaded, setLoaded] = useState(false);
     const [openResetPwdModal, setOpenResetPwdModal] = useState(false);
+    const [openEditTypeModal, setOpenEditTypeModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [user, setUser] = useState({});
+
+    const history = useHistory();
 
     const [queryGetUserById, {data, loading, error}] = useLazyQuery(GET_USER_BY_ID);
 
@@ -42,11 +47,15 @@ const UserProfile = ({classes, match}) => {
     useEffect(() => {
         if (data?.getUserById) {
             setUser(data.getUserById);
+            if (data.getUserById.type === "device") {
+                history.push(`/admin/device/${data.getUserById._id}`);
+            }
         }
     }, [data]);
 
     const handleCloseModal = () => {
         setOpenResetPwdModal(false);
+        setOpenEditTypeModal(false);
         setOpenEditModal(false);
         setOpenDeleteModal(false);
     };
@@ -108,6 +117,9 @@ const UserProfile = ({classes, match}) => {
                         <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenResetPwdModal(true)}>
                             Reset Password
                         </Button>
+                        <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenEditTypeModal(true)}>
+                            Change Type
+                        </Button>
                         <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenEditModal(true)}>
                             Edit
                         </Button>
@@ -120,6 +132,9 @@ const UserProfile = ({classes, match}) => {
             {loading && <Loading absolute />}
             <Modal open={openResetPwdModal} onClose={() => handleCloseModal()}>
                 <AccountPwdEdit account={user} onClose={() => handleCloseModal()} />
+            </Modal>
+            <Modal open={openEditTypeModal} onClose={() => handleCloseModal()}>
+                <AccountTypeEdit account={user} onClose={() => handleCloseModal()} />
             </Modal>
             <Modal open={openEditModal} onClose={() => handleCloseModal()}>
                 <AccountEdit account={user} onClose={() => handleCloseModal()} setAccount={setUser} />

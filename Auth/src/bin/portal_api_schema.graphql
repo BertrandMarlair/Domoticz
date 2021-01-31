@@ -54,6 +54,7 @@ type Login {
 }
 
 type Mutation {
+  accountTypeUpdate(_id: ID!, type: TypeEnum!): UserAuth!
   deleteUser(_id: ID!, name: String!): UserAuth!
   editUser(_id: ID!, active: Boolean!, name: String!, verified: Boolean!): UserAuth!
   login(name: String!, password: String!): Login!
