@@ -9,18 +9,18 @@ import {NavLink} from "react-router-dom";
 import classNames from "classnames";
 
 const DeviceManage = ({...props}) => {
-    const {classes, children, userId} = props;
+    const {classes, children, deviceId} = props;
 
-    const userConfig = [
+    const config = [
         {
             icon: "Account",
             title: "Profile",
-            path: `/admin/device/${userId}`,
+            path: `/admin/device/${deviceId}`,
         },
         {
             icon: "Account",
             title: "Scenes",
-            path: `/admin/device/${userId}/scenes`,
+            path: `/admin/device/${deviceId}/scenes`,
         },
     ];
 
@@ -29,7 +29,7 @@ const DeviceManage = ({...props}) => {
             <GoBack />
             <div className={classes.wrapper}>
                 <div className={classes.navBar}>
-                    {userConfig.map((item, index) => {
+                    {config.map((item, index) => {
                         return (
                             <NavLink
                                 key={`setting/${index}`}

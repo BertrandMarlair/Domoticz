@@ -11,21 +11,21 @@ import Card from "../../../components/card/Card";
 import Error from "../../../components/error/Error";
 import Date from "../../../components/date/Date";
 import DeviceManage from "../deviceManage/DeviceManage";
-import UserDelete from "../userDelete/UserDelete";
+import AccountDelete from "../accountDelete/AccountDelete";
 import Modal from "../../../components/modal/SimpleModal";
 import Button from "../../../components/button/Button";
-import UserEdit from "../userEdit/UserEdit";
-import UserPwdReset from "../userPwdReset/UserPwdReset";
+import AccountPwdEdit from "../accountPwdEdit/AccountPwdEdit";
+import AccountEdit from "../accountEdit/AccountEdit";
 
 const DeviceProfile = ({classes, match}) => {
-    const id = match.params.userId;
+    const id = match.params.deviceId;
     const [loaded, setLoaded] = useState(false);
     const [openResetPwdModal, setOpenResetPwdModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
-    const [user, setUser] = useState({});
+    const [device, setDevice] = useState({});
 
-    const [queryGetUserById, {data, loading, error}] = useLazyQuery(GET_USER_BY_ID);
+    const [queryGetDeviceById, {data, loading, error}] = useLazyQuery(GET_USER_BY_ID);
 
     useEffect(() => {
         if (!loading && loaded === false) {
@@ -35,13 +35,13 @@ const DeviceProfile = ({classes, match}) => {
 
     useEffect(() => {
         if (id) {
-            queryGetUserById({variables: {_id: id}});
+            queryGetDeviceById({variables: {_id: id}});
         }
     }, [id]);
 
     useEffect(() => {
         if (data?.getUserById) {
-            setUser(data.getUserById);
+            setDevice(data.getUserById);
         }
     }, [data]);
 
@@ -66,10 +66,10 @@ const DeviceProfile = ({classes, match}) => {
     return (
         <div className={classes.root}>
             <Error errorMessage={error} />
-            <DeviceManage userId={match.params.userId}>
+            <DeviceManage deviceId={match.params.deviceId}>
                 <Fragment>
                     <div className={classes.header}>
-                        <SmallTitle className={classes.usersTitle}>Profil du device {user.name}</SmallTitle>
+                        <SmallTitle className={classes.usersTitle}>Profil du device {device.name}</SmallTitle>
                     </div>
                     <Card className={classes.item}>
                         <div className={classes.header}>
@@ -78,12 +78,12 @@ const DeviceProfile = ({classes, match}) => {
                         <CardContent>
                             <div className={classes.wrapper}>
                                 <div className={classes.item}>
-                                    <Text bold>Name : {user.name}</Text>
-                                    <Text bold>Type : {user.type}</Text>
+                                    <Text bold>Name : {device.name}</Text>
+                                    <Text bold>Type : {device.type}</Text>
                                 </div>
                                 <div className={classes.item}>
-                                    <Text bold>Actif : {user.active ? `yes` : `no`}</Text>
-                                    <Text bold>Vérifié : {user.basic?.verified ? `yes` : `no`}</Text>
+                                    <Text bold>Actif : {device.active ? `yes` : `no`}</Text>
+                                    <Text bold>Vérifié : {device.basic?.verified ? `yes` : `no`}</Text>
                                 </div>
                             </div>
                         </CardContent>
@@ -94,13 +94,13 @@ const DeviceProfile = ({classes, match}) => {
                         </div>
                         <CardContent>
                             <Text className={classes.wrapper} bold>
-                                Création : {getDate(user.createdAt, "LLL")}
+                                Création : {getDate(device.createdAt, "LLL")}
                             </Text>
                             <Text className={classes.wrapper} bold>
-                                Modifié : {getDate(user.updatedAt, "LLL")}
+                                Modifié : {getDate(device.updatedAt, "LLL")}
                             </Text>
                             <Text className={classes.wrapper} bold>
-                                Dernière connexion : {getDate(user.lastLogin, "LLL")}
+                                Dernière connexion : {getDate(device.lastLogin, "LLL")}
                             </Text>
                         </CardContent>
                     </Card>
@@ -119,13 +119,13 @@ const DeviceProfile = ({classes, match}) => {
             </DeviceManage>
             {loading && <Loading absolute />}
             <Modal open={openResetPwdModal} onClose={() => handleCloseModal()}>
-                <UserPwdReset user={user} onClose={() => handleCloseModal()} />
+                <AccountPwdEdit account={device} onClose={() => handleCloseModal()} />
             </Modal>
             <Modal open={openEditModal} onClose={() => handleCloseModal()}>
-                <UserEdit user={user} onClose={() => handleCloseModal()} setUser={setUser} />
+                <AccountEdit account={device} onClose={() => handleCloseModal()} setAccount={setDevice} />
             </Modal>
             <Modal open={openDeleteModal} onClose={() => handleCloseModal()}>
-                <UserDelete user={user} />
+                <AccountDelete account={device} />
             </Modal>
         </div>
     );

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, {useState, useEffect} from "react";
 import gql from "graphql-tag";
-import style from "./UserDeleteStyle";
+import style from "./AccountDeleteStyle";
 import {useTranslation} from "react-i18next";
 import {withStyles} from "@material-ui/styles";
 import {useMutation} from "@apollo/react-hooks";
@@ -14,24 +14,24 @@ import SmallTitle from "../../../components/typography/SmallTitle";
 import {useHistory} from "react-router-dom";
 import Text from "../../../components/typography/Text";
 
-const UserDelete = ({classes, user}) => {
-    const [userTypeString, setUserTypeString] = useState("");
+const AccountDelete = ({classes, account}) => {
+    const [accountTypeString, setAccountTypeString] = useState("");
     const [id, setId] = useState();
     const [name, setName] = useState();
     const [errorName, setErrorName] = useState(null);
     const history = useHistory();
 
     const {t} = useTranslation();
-    const [deleteUserMutation, {data, loading, error}] = useMutation(DELETE_USER);
+    const [deleteAccountMutation, {data, loading, error}] = useMutation(DELETE_USER);
 
     useEffect(() => {
-        if (user.type === "user") {
-            setUserTypeString(`de l'utilisateur`);
-        } else if (user.type === "device") {
-            setUserTypeString(`du device`);
+        if (account.type === "user") {
+            setAccountTypeString(`de l'utilisateur`);
+        } else if (account.type === "device") {
+            setAccountTypeString(`du device`);
         }
-        if (user?._id) {
-            setId(user._id);
+        if (account?._id) {
+            setId(account._id);
         }
     });
 
@@ -40,15 +40,15 @@ const UserDelete = ({classes, user}) => {
             notify("Success", {
                 variant: "success",
             });
-            history.push(`/admin/users`);
+            history.push(`/admin/accounts`);
         }
     }, [data, history, t]);
 
-    const deleteUser = (e) => {
+    const deleteAccount = (e) => {
         e.preventDefault();
         let validation = true;
 
-        if (name !== user.name) {
+        if (name !== account.name) {
             setErrorName("Le nom de l'utilisateur est incorrect.");
             validation = false;
         } else {
@@ -56,7 +56,7 @@ const UserDelete = ({classes, user}) => {
         }
 
         if (validation) {
-            deleteUserMutation({variables: {_id: id, name: name}});
+            deleteAccountMutation({variables: {_id: id, name: name}});
         }
     };
 
@@ -64,7 +64,7 @@ const UserDelete = ({classes, user}) => {
         <div className={classes.wrapperModal}>
             <div className={classes.title}>
                 <Title normal centered>
-                    Suppression {userTypeString} {user.name}
+                    Suppression {accountTypeString} {account.name}
                 </Title>
             </div>
             <div className={classes.description}>
@@ -72,7 +72,7 @@ const UserDelete = ({classes, user}) => {
                     Attention ! Cette action est irréversible. Voulez-vous vraiment supprimer cet utilisateur ?
                 </Text>
             </div>
-            <form className={classes.form} onSubmit={(e) => deleteUser(e)}>
+            <form className={classes.form} onSubmit={(e) => deleteAccount(e)}>
                 <div className={classes.input}>
                     <SmallTitle color="label" className={classes.label}>
                         Confirmer le nom de l'utilisateur à supprimer
@@ -97,7 +97,7 @@ const UserDelete = ({classes, user}) => {
     );
 };
 
-export default withStyles(style)(UserDelete);
+export default withStyles(style)(AccountDelete);
 
 const DELETE_USER = gql`
     mutation deleteUser($_id: ID!, $name: String!) {

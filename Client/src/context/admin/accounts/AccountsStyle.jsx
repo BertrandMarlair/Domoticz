@@ -34,24 +34,24 @@ const style = () => ({
         marginBottom: 50,
         flexGrow: 1,
     },
-    addUser: {
+    addCard: {
         ...displayBetween,
         margin: 10,
     },
-    addUserHeader: {
+    addCardHeader: {
         ...displayVerticalCenter,
     },
-    addUserIcon: {
+    addCardIcon: {
         marginLeft: 20,
         marginRight: 20,
     },
-    addUserTitle: {
+    addCardTitle: {
         marginBottom: 2,
     },
-    addUserText: {
+    addCardText: {
         marginBottom: 8,
     },
-    editUserButton: {
+    editAccountButton: {
         width: "10%",
     },
     option: {

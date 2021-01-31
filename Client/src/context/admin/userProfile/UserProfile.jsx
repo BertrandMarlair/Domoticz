@@ -12,10 +12,10 @@ import Error from "../../../components/error/Error";
 import Date from "../../../components/date/Date";
 import UserManage from "../userManage/UserManage";
 import Button from "../../../components/button/Button";
-import UserDelete from "../userDelete/UserDelete";
+import AccountDelete from "../accountDelete/AccountDelete";
 import Modal from "../../../components/modal/SimpleModal";
-import UserEdit from "../userEdit/UserEdit";
-import UserPwdReset from "../userPwdReset/UserPwdReset";
+import AccountPwdEdit from "../accountPwdEdit/AccountPwdEdit";
+import AccountEdit from "../accountEdit/AccountEdit";
 
 const UserProfile = ({classes, match}) => {
     const id = match.params.userId;
@@ -119,13 +119,13 @@ const UserProfile = ({classes, match}) => {
             </UserManage>
             {loading && <Loading absolute />}
             <Modal open={openResetPwdModal} onClose={() => handleCloseModal()}>
-                <UserPwdReset user={user} onClose={() => handleCloseModal()} />
+                <AccountPwdEdit account={user} onClose={() => handleCloseModal()} />
             </Modal>
             <Modal open={openEditModal} onClose={() => handleCloseModal()}>
-                <UserEdit user={user} onClose={() => handleCloseModal()} setUser={setUser} />
+                <AccountEdit account={user} onClose={() => handleCloseModal()} setAccount={setUser} />
             </Modal>
             <Modal open={openDeleteModal} onClose={() => handleCloseModal()}>
-                <UserDelete user={user} />
+                <AccountDelete account={user} />
             </Modal>
         </div>
     );

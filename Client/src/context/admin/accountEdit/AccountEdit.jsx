@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, {useState, useEffect} from "react";
 import gql from "graphql-tag";
-import style from "./UserEditStyle";
+import style from "./AccountEditStyle";
 import {useTranslation} from "react-i18next";
 import {withStyles} from "@material-ui/styles";
 import {useMutation} from "@apollo/react-hooks";
@@ -15,28 +15,28 @@ import {useHistory} from "react-router-dom";
 import Text from "../../../components/typography/Text";
 import {FormControlLabel, FormGroup, Switch} from "@material-ui/core";
 
-const UserEdit = ({classes, user, onClose, setUser}) => {
-    const [userTypeString, setUserTypeString] = useState("");
+const AccountEdit = ({classes, account, onClose, setAccount}) => {
+    const [accountTypeString, setAccountTypeString] = useState("");
     const [id, setId] = useState();
-    const [name, setName] = useState(user.name);
+    const [name, setName] = useState(account.name);
     const [errorName, setErrorName] = useState(null);
     const history = useHistory();
     const [state, setState] = useState({
-        active: user.active,
-        verified: user.basic.verified,
+        active: account.active,
+        verified: account.basic.verified,
     });
 
     const {t} = useTranslation();
-    const [updateUserMutation, {data, loading, error}] = useMutation(UPDATE_USER);
+    const [updateAccountMutation, {data, loading, error}] = useMutation(UPDATE_USER);
 
     useEffect(() => {
-        if (user.type === "user") {
-            setUserTypeString(`de l'utilisateur`);
-        } else if (user.type === "device") {
-            setUserTypeString(`du device`);
+        if (account.type === "user") {
+            setAccountTypeString(`de l'utilisateur`);
+        } else if (account.type === "device") {
+            setAccountTypeString(`du device`);
         }
-        if (user?._id) {
-            setId(user._id);
+        if (account?._id) {
+            setId(account._id);
         }
     });
 
@@ -45,7 +45,7 @@ const UserEdit = ({classes, user, onClose, setUser}) => {
             notify("Success", {
                 variant: "success",
             });
-            setUser(data.editUser);
+            setAccount(data.editUser);
             onClose();
         }
     }, [data, history, t]);
@@ -54,7 +54,7 @@ const UserEdit = ({classes, user, onClose, setUser}) => {
         setState({...state, [event.target.name]: event.target.checked});
     };
 
-    const updateUser = (e) => {
+    const updateAccount = (e) => {
         e.preventDefault();
         let validation = true;
 
@@ -66,11 +66,7 @@ const UserEdit = ({classes, user, onClose, setUser}) => {
         }
 
         if (validation) {
-            console.log("------edituser");
-            console.log(id);
-            console.log(name);
-            console.log(state.active);
-            updateUserMutation({variables: {_id: id, name: name, active: state.active, verified: state.verified}});
+            updateAccountMutation({variables: {_id: id, name: name, active: state.active, verified: state.verified}});
         }
     };
 
@@ -78,7 +74,7 @@ const UserEdit = ({classes, user, onClose, setUser}) => {
         <div className={classes.wrapperModal}>
             <div className={classes.title}>
                 <Title normal centered>
-                    Modification {userTypeString} {user.name}
+                    Modification {accountTypeString} {account.name}
                 </Title>
             </div>
             <div className={classes.description}>
@@ -86,7 +82,7 @@ const UserEdit = ({classes, user, onClose, setUser}) => {
                     Attention ! Cette action est irréversible. Voulez-vous vraiment supprimer cet utilisateur ?
                 </Text>
             </div>
-            <form className={classes.form} onSubmit={(e) => updateUser(e)}>
+            <form className={classes.form} onSubmit={(e) => updateAccount(e)}>
                 <div className={classes.input}>
                     <SmallTitle color="label" className={classes.label}>
                         Nom
@@ -119,7 +115,7 @@ const UserEdit = ({classes, user, onClose, setUser}) => {
                 <Error errorMessage={error} />
                 <div className={classes.formFooter}>
                     <Button noMargin fullWidth size="lg" type="submit" loading={loading}>
-                        Modifier l'utilisateur
+                        Modifier
                     </Button>
                 </div>
             </form>
@@ -127,7 +123,7 @@ const UserEdit = ({classes, user, onClose, setUser}) => {
     );
 };
 
-export default withStyles(style)(UserEdit);
+export default withStyles(style)(AccountEdit);
 
 const UPDATE_USER = gql`
     mutation editUser($_id: ID!, $name: String!, $active: Boolean!, $verified: Boolean!) {

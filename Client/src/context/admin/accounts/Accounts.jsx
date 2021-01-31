@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, {useState, useEffect} from "react";
 // import {useTranslation} from "react-i18next";
-import style from "./UsersStyle";
+import style from "./AccountsStyle";
 import gql from "graphql-tag";
 import {useQuery} from "react-apollo";
 
@@ -17,12 +17,12 @@ import Icon from "../../../components/icon/Icon";
 import SmallTitle from "../../../components/typography/SmallTitle";
 import GoBack from "../../../components/goBack/GoBack";
 import Date from "../../../components/date/Date";
-import UserAdd from "../userAdd/UserAdd";
+import AccountAdd from "../accountAdd/AccountAdd";
 import {useHistory} from "react-router-dom";
 
-const User = ({classes}) => {
+const Account = ({classes}) => {
     const [loaded, setLoaded] = useState(false);
-    const [users, setUsers] = useState([]);
+    const [accounts, setAccounts] = useState([]);
     const [open, setOpen] = useState(false);
     const theme = useTheme();
     const history = useHistory();
@@ -30,11 +30,11 @@ const User = ({classes}) => {
     // const {t} = useTranslation();
     const {data, loading, error} = useQuery(GET_USERS);
 
-    const handleManageUser = (user) => {
-        if (user.type === "user") {
-            history.push(`/admin/user/${user._id}`);
-        } else if (user.type === "device") {
-            history.push(`/admin/device/${user._id}`);
+    const handleManageAccount = (account) => {
+        if (account.type === "user") {
+            history.push(`/admin/user/${account._id}`);
+        } else if (account.type === "device") {
+            history.push(`/admin/device/${account._id}`);
         }
     };
 
@@ -64,22 +64,22 @@ const User = ({classes}) => {
 
     useEffect(() => {
         if (data?.getAllUsers) {
-            setUsers(data.getAllUsers);
+            setAccounts(data.getAllUsers);
         }
     }, [data]);
 
     return (
         <div className={classes.root}>
             <GoBack />
-            <Card className={classes.addUser}>
-                <div className={classes.addUserHeader}>
-                    <Icon color={theme.palette.primary.main} className={classes.addUserIcon}>
+            <Card className={classes.addCard}>
+                <div className={classes.addCardHeader}>
+                    <Icon color={theme.palette.primary.main} className={classes.addCardIcon}>
                         Account
                     </Icon>
-                    <SmallTitle className={classes.usersTitle}>Gestion des utilisateurs</SmallTitle>
+                    <SmallTitle className={classes.addCardTitle}>Gestion des utilisateurs</SmallTitle>
                 </div>
                 <Button round size="sm" onClick={() => setOpen(true)}>
-                    Add new user
+                    Add new account
                 </Button>
             </Card>
             <TableContainer className={classes.tableContainer}>
@@ -98,27 +98,29 @@ const User = ({classes}) => {
                     </TableHead>
                     <TableBody>
                         <Error errorMessage={error} />
-                        {users.map((user) => (
-                            <TableRow key={user._id}>
+                        {accounts.map((account) => (
+                            <TableRow key={account._id}>
                                 <TableCell align="center" component="th" scope="row">
-                                    {user.name}
+                                    {account.name}
                                 </TableCell>
-                                <TableCell align="center">{user.type}</TableCell>
-                                <TableCell align="center">{user.permission}</TableCell>
+                                <TableCell align="center">{account.type}</TableCell>
+                                <TableCell align="center">{account.permission}</TableCell>
                                 <TableCell align="center">
-                                    <Icon color={getActiveColor(user.active)} className={classes.addUserIcon}>
-                                        {getActiveIcon(user.active)}
+                                    <Icon color={getActiveColor(account.active)} className={classes.addAccountIcon}>
+                                        {getActiveIcon(account.active)}
                                     </Icon>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <Icon color={getActiveColor(user.basic.verified)} className={classes.addUserIcon}>
-                                        {getActiveIcon(user.basic.verified)}
+                                    <Icon
+                                        color={getActiveColor(account.basic.verified)}
+                                        className={classes.addAccountIcon}>
+                                        {getActiveIcon(account.basic.verified)}
                                     </Icon>
                                 </TableCell>
-                                <TableCell align="center">{getDate(user.createdAt)}</TableCell>
-                                <TableCell align="center">{getDate(user.basic.lastLogin)}</TableCell>
-                                <TableCell align="center" className={classes.editUserButton}>
-                                    <Button round size="sm" onClick={() => handleManageUser(user)}>
+                                <TableCell align="center">{getDate(account.createdAt)}</TableCell>
+                                <TableCell align="center">{getDate(account.basic.lastLogin)}</TableCell>
+                                <TableCell align="center" className={classes.editAccountButton}>
+                                    <Button round size="sm" onClick={() => handleManageAccount(account)}>
                                         Manage
                                     </Button>
                                 </TableCell>
@@ -129,13 +131,13 @@ const User = ({classes}) => {
             </TableContainer>
             {loading && <Loading absolute />}
             <Modal open={open} onClose={() => handleCloseModal()}>
-                <UserAdd onClose={() => handleCloseModal()} />
+                <AccountAdd onClose={() => handleCloseModal()} />
             </Modal>
         </div>
     );
 };
 
-export default withStyles(style)(User);
+export default withStyles(style)(Account);
 
 const GET_USERS = gql`
     query getAllusers {

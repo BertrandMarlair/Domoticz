@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, {useState, useEffect} from "react";
 import gql from "graphql-tag";
-import style from "./UserAddStyle";
+import style from "./AccountAddStyle";
 import {useTranslation} from "react-i18next";
 import {withStyles} from "@material-ui/styles";
 import {useMutation} from "@apollo/react-hooks";
@@ -14,7 +14,7 @@ import SmallTitle from "../../../components/typography/SmallTitle";
 import Select from "../../../components/select/Select";
 import {useHistory} from "react-router-dom";
 
-const AddUser = ({classes}) => {
+const AddAccount = ({classes}) => {
     const [name, setName] = useState("");
     const [errorName, setErrorName] = useState(null);
     const [type, setType] = useState("");
@@ -27,18 +27,18 @@ const AddUser = ({classes}) => {
 
     const {t} = useTranslation();
 
-    const [createUserMutation, {data, error, loading}] = useMutation(CREATE_USER);
+    const [createAccountMutation, {data, error, loading}] = useMutation(CREATE_USER);
 
     useEffect(() => {
         if (data?.signin?._id) {
             notify("Success", {
                 variant: "success",
             });
-            history.push(`/admin/user/${data.signin._id}`);
+            history.push(`/admin/account/${data.signin._id}`);
         }
     }, [data, history, t]);
 
-    const createUser = (e) => {
+    const createAccount = (e) => {
         e.preventDefault();
         let validation = true;
 
@@ -81,7 +81,7 @@ const AddUser = ({classes}) => {
                 passwordConfirmation: confirmPassword,
             };
 
-            createUserMutation({variables: {...input}});
+            createAccountMutation({variables: {...input}});
         }
     };
 
@@ -97,13 +97,13 @@ const AddUser = ({classes}) => {
     ];
 
     return (
-        <div className={classes.wrapper}>
+        <div className={classes.wrapperModal}>
             <div className={classes.title}>
                 <Title normal centered>
-                    Creation d'un utilisateur
+                    Creation d'un compte
                 </Title>
             </div>
-            <form className={classes.form} onSubmit={(e) => createUser(e)}>
+            <form className={classes.form} onSubmit={(e) => createAccount(e)}>
                 <div className={classes.input}>
                     <SmallTitle color="label" className={classes.label}>
                         Nom
@@ -124,7 +124,7 @@ const AddUser = ({classes}) => {
                             {t("connect.signin.typeInputTitle")}
                         </SmallTitle>
                         <Select
-                            placeholder={t("connect.signin.typeInputLabel")}
+                            placeholder="Sélectionner un type"
                             options={options}
                             error={!!errorType}
                             isClearable={false}
@@ -165,7 +165,7 @@ const AddUser = ({classes}) => {
                 <Error errorMessage={error} />
                 <div className={classes.formFooter}>
                     <Button noMargin fullWidth size="lg" type="submit" loading={loading}>
-                        Créer l'utilisateur
+                        Créer le compte
                     </Button>
                 </div>
             </form>
@@ -173,7 +173,7 @@ const AddUser = ({classes}) => {
     );
 };
 
-export default withStyles(style)(AddUser);
+export default withStyles(style)(AddAccount);
 
 const CREATE_USER = gql`
     mutation signin($name: String!, $type: TypeEnum!, $password: String!, $passwordConfirmation: String!) {

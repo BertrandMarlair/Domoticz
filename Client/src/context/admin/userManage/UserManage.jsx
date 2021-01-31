@@ -11,7 +11,7 @@ import classNames from "classnames";
 const UserManage = ({...props}) => {
     const {classes, children, userId} = props;
 
-    const userConfig = [
+    const config = [
         {
             icon: "Account",
             title: "Profile",
@@ -29,7 +29,7 @@ const UserManage = ({...props}) => {
             <GoBack />
             <div className={classes.wrapper}>
                 <div className={classes.navBar}>
-                    {userConfig.map((item, index) => {
+                    {config.map((item, index) => {
                         return (
                             <NavLink
                                 key={`setting/${index}`}

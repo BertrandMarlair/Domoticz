@@ -11,12 +11,12 @@ import Text from "../../../components/typography/Text";
 import DeviceManage from "../deviceManage/DeviceManage";
 import Card from "../../../components/card/Card";
 
-const DeviceSchenes = ({classes, match}) => {
-    const id = match.params.userId;
+const DeviceScenes = ({classes, match}) => {
+    const id = match.params.deviceId;
     const [loaded, setLoaded] = useState(false);
-    const [user, setUser] = useState({});
+    const [device, setDevice] = useState({});
 
-    const [queryGetUserById, {data, loading, error}] = useLazyQuery(GET_USER_BY_ID);
+    const [queryGetDeviceById, {data, loading, error}] = useLazyQuery(GET_USER_BY_ID);
 
     useEffect(() => {
         if (!loading && loaded === false) {
@@ -26,23 +26,23 @@ const DeviceSchenes = ({classes, match}) => {
 
     useEffect(() => {
         if (id) {
-            queryGetUserById({variables: {_id: id}});
+            queryGetDeviceById({variables: {_id: id}});
         }
     }, [id]);
 
     useEffect(() => {
         if (data?.getUserById) {
-            setUser(data.getUserById);
+            setDevice(data.getUserById);
         }
     }, [data]);
 
     return (
         <div className={classes.root}>
             <Error errorMessage={error} />
-            <DeviceManage userId={match.params.userId}>
+            <DeviceManage deviceId={match.params.deviceId}>
                 <Fragment className={classes.profile}>
                     <div className={classes.header}>
-                        <SmallTitle className={classes.usersTitle}>Scènes du device {user.name}</SmallTitle>
+                        <SmallTitle className={classes.usersTitle}>Scènes du device {device.name}</SmallTitle>
                     </div>
                     <Card className={classes.item}>
                         <div className={classes.header}>
@@ -51,7 +51,7 @@ const DeviceSchenes = ({classes, match}) => {
                         <CardContent>
                             <div className={classes.wrapper}>
                                 <div className={classes.item}>
-                                    <Text bold>Id : {user._id}</Text>
+                                    <Text bold>Id : {device._id}</Text>
                                 </div>
                             </div>
                         </CardContent>
@@ -63,7 +63,7 @@ const DeviceSchenes = ({classes, match}) => {
     );
 };
 
-export default withStyles(style)(DeviceSchenes);
+export default withStyles(style)(DeviceScenes);
 
 const GET_USER_BY_ID = gql`
     query getUserById($_id: ID!) {

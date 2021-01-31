@@ -1,20 +1,20 @@
 import {lazy} from "react";
 
-const User = lazy(() => import("../users/Users"));
+const Account = lazy(() => import("../accounts/Accounts"));
 const UserProfile = lazy(() => import("../userProfile/UserProfile"));
 const UserPermissions = lazy(() => import("../userPermissions/UserPermissions"));
 const DeviceProfile = lazy(() => import("../deviceProfile/DeviceProfile"));
 const DeviceScenes = lazy(() => import("../deviceScenes/DeviceScenes"));
 
-export const defaultRoute = "/admin/users";
+export const defaultRoute = "/admin/accounts";
 export const name = "User";
 export const slug = "user";
 
 const dashboardRoutes = [
     {
-        path: "/admin/users",
-        name: "Users",
-        component: User,
+        path: "/admin/accounts",
+        name: "Account",
+        component: Account,
         exact: true,
     },
     {
@@ -30,13 +30,13 @@ const dashboardRoutes = [
         exact: true,
     },
     {
-        path: "/admin/device/:userId",
+        path: "/admin/device/:deviceId",
         name: "DeviceProfile",
         component: DeviceProfile,
         exact: true,
     },
     {
-        path: "/admin/device/:userId/scenes",
+        path: "/admin/device/:deviceId/scenes",
         name: "DeviceScenes",
         component: DeviceScenes,
         exact: true,

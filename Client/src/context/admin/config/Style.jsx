@@ -41,15 +41,15 @@ export const modalStyles = {
     wrapperModal: {
         padding: 40,
     },
-    form: {
-        width: "100%",
-        paddingTop: 0,
-    },
     title: {
         marginBottom: 20,
     },
     description: {
         marginBottom: 30,
+    },
+    form: {
+        width: "100%",
+        paddingTop: 0,
     },
     label: {
         margin: "5px 0",

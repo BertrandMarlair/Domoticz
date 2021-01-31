@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, {useState, useEffect} from "react";
 import gql from "graphql-tag";
-import style from "./UserPwdResetStyle";
+import style from "./AccountPwdEditStyle";
 import {useTranslation} from "react-i18next";
 import {withStyles} from "@material-ui/styles";
 import {useMutation} from "@apollo/react-hooks";
@@ -14,7 +14,7 @@ import SmallTitle from "../../../components/typography/SmallTitle";
 import {useHistory} from "react-router-dom";
 import Text from "../../../components/typography/Text";
 
-const UserPwdReset = ({classes, user, onClose}) => {
+const AccountPwdEdit = ({classes, account, onClose}) => {
     const [id, setId] = useState();
     const [password, setPassword] = useState("");
     const [errorPassword, setErrorPassword] = useState(null);
@@ -24,11 +24,11 @@ const UserPwdReset = ({classes, user, onClose}) => {
     const history = useHistory();
 
     const {t} = useTranslation();
-    const [resetUserPwdMutation, {data, loading, error}] = useMutation(RESET_USER_PWD);
+    const [accountPwdEditMutation, {data, loading, error}] = useMutation(RESET_USER_PWD);
 
     useEffect(() => {
-        if (user?._id) {
-            setId(user._id);
+        if (account?._id) {
+            setId(account._id);
         }
     });
 
@@ -43,7 +43,7 @@ const UserPwdReset = ({classes, user, onClose}) => {
         }
     }, [data, history, t]);
 
-    const updateUser = (e) => {
+    const accountPwdEdit = (e) => {
         e.preventDefault();
         let validation = true;
 
@@ -67,9 +67,7 @@ const UserPwdReset = ({classes, user, onClose}) => {
         }
 
         if (validation) {
-            console.log("------edituser");
-
-            resetUserPwdMutation({variables: {_id: id, password: password, passwordConfirmation: confirmPassword}});
+            accountPwdEditMutation({variables: {_id: id, password: password, passwordConfirmation: confirmPassword}});
         }
     };
 
@@ -77,7 +75,7 @@ const UserPwdReset = ({classes, user, onClose}) => {
         <div className={classes.wrapperModal}>
             <div className={classes.title}>
                 <Title normal centered>
-                    Reset du mot de passe de {user.name}
+                    Modification du mot de passe de {account.name}
                 </Title>
             </div>
             <div className={classes.description}>
@@ -85,7 +83,7 @@ const UserPwdReset = ({classes, user, onClose}) => {
                     Voulez-vous vraiment modifier le mot de passe ?
                 </Text>
             </div>
-            <form className={classes.form} onSubmit={(e) => updateUser(e)}>
+            <form className={classes.form} onSubmit={(e) => accountPwdEdit(e)}>
                 <div className={classes.input}>
                     <SmallTitle color="label" className={classes.label}>
                         Nouveau mot de passe
@@ -125,7 +123,7 @@ const UserPwdReset = ({classes, user, onClose}) => {
     );
 };
 
-export default withStyles(style)(UserPwdReset);
+export default withStyles(style)(AccountPwdEdit);
 
 const RESET_USER_PWD = gql`
     mutation resetUserPwd($_id: ID!, $password: String!, $passwordConfirmation: String!) {
