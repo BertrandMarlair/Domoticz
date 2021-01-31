@@ -111,16 +111,16 @@ const DeviceProfile = ({classes, match}) => {
                         </CardContent>
                     </Card>
                     <div className={classes.wrapperBtn}>
-                        <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenResetPwdModal(true)}>
+                        <Button container={classes.itemBtn} size="sm" onClick={() => setOpenResetPwdModal(true)}>
                             Reset Password
                         </Button>
-                        <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenEditTypeModal(true)}>
+                        <Button container={classes.itemBtn} size="sm" onClick={() => setOpenEditTypeModal(true)}>
                             Change Type
                         </Button>
-                        <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenEditModal(true)}>
+                        <Button container={classes.itemBtn} size="sm" onClick={() => setOpenEditModal(true)}>
                             Edit
                         </Button>
-                        <Button container={classes.itemBtn} round size="sm" onClick={() => setOpenDeleteModal(true)}>
+                        <Button container={classes.itemBtn} size="sm" onClick={() => setOpenDeleteModal(true)}>
                             Delete
                         </Button>
                     </div>
