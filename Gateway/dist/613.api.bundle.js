@@ -1,0 +1,1 @@
+exports.id=613,exports.ids=[613],exports.modules={2613:(o,t,s)=>{"use strict";s.r(t),s.d(t,{default:()=>n});const{DOMOTICZ_HOST:e,DOMOTICZ_PORT:i,AUTH_PORT:p,AUTH_HOST:r}=process.env,n=[{domain:`${e}:${i}`,subscription:!0,httpLocation:"explore",wsLocation:"graphql"},{domain:`${r}:${p}`,subscription:!1,httpLocation:"explore"}]}};

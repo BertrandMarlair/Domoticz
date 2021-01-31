@@ -14,36 +14,8 @@ type Block {
   title: String!
 }
 
-input createBlockInput {
-  description: String
-  title: String!
-}
-
-input createProviderInput {
-  button: String!
-  description: String!
-  icon: String!
-  slug: String!
-  title: String!
-}
-
 type Delete {
   id: Int!
-}
-
-input editBlockInput {
-  description: String
-  id: String!
-  title: String!
-}
-
-input editProviderInput {
-  _id: ID!
-  button: String!
-  description: String!
-  icon: String!
-  slug: String!
-  title: String!
 }
 
 """Email custom scalar type"""
@@ -155,16 +127,6 @@ type PhilipsHueLightXY {
   y: Float
 }
 
-type philipsHueScene {
-  bridgeId: ID!
-  group: String!
-  lights: [PhilipsHueLight!]!
-  lightstates: [PhilipsHueSceneLightState!]!
-  name: String!
-  sceneId: ID!
-  type: String!
-}
-
 type PhilipsHueSceneLightState {
   bri: Int!
   bridgeId: ID!
@@ -261,4 +223,42 @@ type Weather {
   temp_min: Float!
   visibility: Float!
   wind: Float!
+}
+
+input createBlockInput {
+  description: String
+  title: String!
+}
+
+input createProviderInput {
+  button: String!
+  description: String!
+  icon: String!
+  slug: String!
+  title: String!
+}
+
+input editBlockInput {
+  description: String
+  id: String!
+  title: String!
+}
+
+input editProviderInput {
+  _id: ID!
+  button: String!
+  description: String!
+  icon: String!
+  slug: String!
+  title: String!
+}
+
+type philipsHueScene {
+  bridgeId: ID!
+  group: String!
+  lights: [PhilipsHueLight!]!
+  lightstates: [PhilipsHueSceneLightState!]!
+  name: String!
+  sceneId: ID!
+  type: String!
 }

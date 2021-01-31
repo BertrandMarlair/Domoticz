@@ -92,8 +92,6 @@ services:
       dockerfile: ./Dockerfile
     volumes: 
       - ./MongoAuth/db:/data/db
-    env_file:
-      - ./Config/.env
     ports:
       - "27018:27017"
     networks:
@@ -112,8 +110,6 @@ services:
       dockerfile: ./Dockerfile
     volumes: 
       - ./MongoDomoticz/db:/data/db
-    env_file:
-      - ./Config/.env
     ports:
       - "27017:27017"
     networks:

@@ -17,14 +17,12 @@ const {
     MONGO_DOMOTICZ_HOSTNAME,
     MONGO_DOMOTICZ_NAME,
     MONGO_DOMOTICZ_PORT,
-    MONGO_INITDB_ROOT_USERNAME,
-    MONGO_INITDB_ROOT_PASSWORD,
 } = process.env;
 
 const mongoConnection = async () => {
     try {
         const mongoClientPromise = MongoClient.connect(
-            `mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_DOMOTICZ_HOSTNAME}:${MONGO_DOMOTICZ_PORT}`,
+            `mongodb://${MONGO_DOMOTICZ_HOSTNAME}:${MONGO_DOMOTICZ_PORT}`,
             options,
         );
         const mongoDbPromise = await mongoClientPromise

@@ -16,14 +16,12 @@ const {
     MONGO_AUTH_HOSTNAME,
     MONGO_AUTH_NAME,
     MONGO_AUTH_PORT,
-    MONGO_INITDB_ROOT_USERNAME,
-    MONGO_INITDB_ROOT_PASSWORD,
 } = process.env;
 
 const mongo = async () => {
     try {
         const mongoClientPromise = MongoClient.connect(
-            `mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_AUTH_HOSTNAME}:${MONGO_AUTH_PORT}`,
+            `mongodb://${MONGO_AUTH_HOSTNAME}:${MONGO_AUTH_PORT}`,
             options,
         );
         const mongoDbPromise = await mongoClientPromise
