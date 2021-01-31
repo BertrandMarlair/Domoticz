@@ -97,6 +97,22 @@ export const managePageStyles = {
         paddingBottom: 5,
         height: 60,
     },
+    [`@media (max-width: 1023px)`]: {
+        navBar: {
+            width: 300,
+            margin: 5,
+            paddingRight: 0,
+        },
+        icon: {
+            marginRight: 10,
+        },
+        navItem: {
+            paddingRight: 0,
+            paddingTop: 5,
+            paddingBottom: 5,
+            height: 60,
+        },
+    },
 };
 
 export const mainContentStyles = {

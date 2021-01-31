@@ -91,8 +91,12 @@ const Account = ({classes}) => {
                             <TableCell align="center">Permission</TableCell>
                             <TableCell align="center">Actif</TableCell>
                             <TableCell align="center">Vérifié</TableCell>
-                            <TableCell align="center">Création</TableCell>
-                            <TableCell align="center">Dernière activité</TableCell>
+                            <TableCell className={classes.optionalDisplay} align="center">
+                                Création
+                            </TableCell>
+                            <TableCell className={classes.optionalDisplay} align="center">
+                                Dernière activité
+                            </TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -117,8 +121,12 @@ const Account = ({classes}) => {
                                         {getActiveIcon(account.basic.verified)}
                                     </Icon>
                                 </TableCell>
-                                <TableCell align="center">{getDate(account.createdAt)}</TableCell>
-                                <TableCell align="center">{getDate(account.basic.lastLogin)}</TableCell>
+                                <TableCell className={classes.optionalDisplay} align="center">
+                                    {getDate(account.createdAt)}
+                                </TableCell>
+                                <TableCell className={classes.optionalDisplay} align="center">
+                                    {getDate(account.basic.lastLogin)}
+                                </TableCell>
                                 <TableCell align="center" className={classes.editAccountButton}>
                                     <Button round size="sm" onClick={() => handleManageAccount(account)}>
                                         Manage

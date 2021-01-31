@@ -13,6 +13,11 @@ const style = () => ({
             margin: "auto",
         },
     },
+    [`@media (max-width: 1023px)`]: {
+        optionalDisplay: {
+            display: "none",
+        },
+    },
     table: {
         textTransform: "capitalize",
     },

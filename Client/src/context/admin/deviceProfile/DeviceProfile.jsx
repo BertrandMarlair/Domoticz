@@ -77,7 +77,7 @@ const DeviceProfile = ({classes, match}) => {
                     <div className={classes.header}>
                         <SmallTitle className={classes.usersTitle}>Profil du device {device.name}</SmallTitle>
                     </div>
-                    <Card className={classes.item}>
+                    <Card>
                         <div className={classes.header}>
                             <SmallTitle className={classes.blockTitle}>Account</SmallTitle>
                         </div>

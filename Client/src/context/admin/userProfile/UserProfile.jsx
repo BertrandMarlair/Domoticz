@@ -80,7 +80,7 @@ const UserProfile = ({classes, match}) => {
                     <div className={classes.header}>
                         <SmallTitle className={classes.usersTitle}>Profil de l&apos;utilisateur {user.name}</SmallTitle>
                     </div>
-                    <Card className={classes.item}>
+                    <Card>
                         <div className={classes.header}>
                             <SmallTitle className={classes.blockTitle}>Account</SmallTitle>
                         </div>
