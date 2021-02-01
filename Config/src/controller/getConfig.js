@@ -1,8 +1,8 @@
 const getConfig = async (req, res) => {
     try {
         console.log("Get config");
-        console.log(process.env);
         const neededEnd = JSON.parse(req.body).env
+        console.log(neededEnd);
         let response = []
         if(neededEnd.length > 0){
             for(let i in neededEnd){
@@ -26,6 +26,7 @@ const getConfig = async (req, res) => {
                 }
             });
 
+            console.log(response);
     
             return res.status(200).send(response);
         }

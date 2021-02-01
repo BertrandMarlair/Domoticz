@@ -45,7 +45,7 @@ export default async () => {
     });
 
     const keyPair = await rsaGeneration(process.env.SECRET_REGISTER);
-
+    
     process.env.PUBLIC_KEY = keyPair.publicKey
     process.env.PRIVATE_KEY = keyPair.privateKey
 

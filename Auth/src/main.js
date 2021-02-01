@@ -30,6 +30,8 @@ routes.forEach(route => {
     });
 });
 
+console.log("init");
+
 const init = async () => {
     try {
         const endpoint = createServer(NODE_ENV === "development" && true);
