@@ -17,6 +17,8 @@ export default async () => {
             throw new Error("Fail to get config env, stop server")
         }
         try {
+            console.log(`http://${CONFIG_HOST}:${CONFIG_PORT}/config`);
+
             envVariables = await fetch(
                 `http://${CONFIG_HOST}:${CONFIG_PORT}/config`, 
                 {  
