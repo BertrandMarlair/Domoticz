@@ -3,7 +3,6 @@ const getConfig = async (req, res) => {
         console.log("Get config");
         const neededEnd = JSON.parse(req.body).env
         console.log(neededEnd);
-        console.log("process.env", process.env);
         let response = []
         if(neededEnd.length > 0){
             for(let i in neededEnd){

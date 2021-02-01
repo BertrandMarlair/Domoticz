@@ -5,9 +5,11 @@ import ora from "ora";
 import chalk from "chalk";
 import cors from "cors";
 import routes from "./core/routes";
+import dotenv from "dotenv";
 
 console.log('------CONFIGURATION------');
 
+dotenv.config();
 const spinner = ora();
 const app = express();
 const httpServer = http.createServer(app);
@@ -16,6 +18,8 @@ const corsOptions = {
     origin: "*",
     credentials: true,
 };
+
+console.log("process.env", process.env);
 
 app.use(cors(corsOptions));
 
