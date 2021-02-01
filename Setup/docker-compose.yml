@@ -2,7 +2,7 @@ version: '3.8'
 services:
   redis:
     container_name: redis
-    image: "bitnami/redis:5.0.10"
+    image: "arm64v8/redis:alpine3.12"
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     networks:
