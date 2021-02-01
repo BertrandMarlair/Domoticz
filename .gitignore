@@ -8,5 +8,3 @@ db
 .eslintcache
 .env
 Client/public/env.js
-Domoticz/src/bin/portal_api_schema_typegen.ts
-Domoticz/src/bin/portal_api_schema.graphql
