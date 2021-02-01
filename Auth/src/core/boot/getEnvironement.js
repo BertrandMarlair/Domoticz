@@ -29,9 +29,13 @@ export default async () => {
             )  
             .then((res) => {
                 connected = true
+                console.log("res", res);
                 return res
             })
-            .then((res) => res.json())
+            .then((res) => {
+                console.log("err", res);
+                return res.json()
+            });
         } catch (err) {
             console.error(`${err.message}: reconnecting in 5 seconds`);
             maxReconnect--;
