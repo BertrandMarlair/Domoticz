@@ -4,7 +4,7 @@ set -e
 
 cd ../
 cd MongoAuth && pm2 start "mongod -dbpath ./db --port 27018" && cd ..
-cd MongoDomoticz && pm2 start "mongod -dbpath ./db --port 27017" && cd ..
+cd MongoDomoticz && pm2 start "mongod -dbpath ./db --port 27019" && cd ..
 pm2 start "redis-server start"
 cd Auth/dist && pm2 start api.bundle.js && cd ../..
 cd Config/dist && pm2 start api.bundle.js && cd ../..
