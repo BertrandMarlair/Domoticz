@@ -24,9 +24,5 @@ const deleteBlock = async (_, {_id}) => {
 
     await deleteById(DBBlocks, _id);
 
-    console.log("------blockToDelete-------")
-
-    console.log(blockToDelete);
-
     return blockToDelete;
 }

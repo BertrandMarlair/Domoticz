@@ -6,6 +6,5 @@ export const getBlockById = async _id => {
 };
 
 export const getBlockByTitle = async title => {
-    console.log(DBBlocks)
     return await queryOne(DBBlocks, {title});
 };

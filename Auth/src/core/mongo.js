@@ -4,8 +4,6 @@ import {
 import {MongoClient, ObjectId} from "mongodb";
 
 const options = {
-    reconnectTries: 30,
-    reconnectInterval: 500,
     poolSize: 10,
     bufferMaxEntries: 0,
     useNewUrlParser: true,
@@ -16,12 +14,14 @@ const {
     MONGO_AUTH_HOSTNAME,
     MONGO_AUTH_NAME,
     MONGO_AUTH_PORT,
+    MONGO_INITDB_ROOT_USERNAME,
+    MONGO_INITDB_ROOT_PASSWORD,
 } = process.env;
 
 const mongo = async () => {
     try {
         const mongoClientPromise = MongoClient.connect(
-            `mongodb://${MONGO_AUTH_HOSTNAME}:${MONGO_AUTH_PORT}`,
+            `mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_AUTH_HOSTNAME}:${MONGO_AUTH_PORT}`,
             options,
         );
         const mongoDbPromise = await mongoClientPromise

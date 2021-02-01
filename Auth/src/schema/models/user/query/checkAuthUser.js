@@ -20,7 +20,6 @@ export default (t) =>
             
             const authUser = await getUserById(currentUser._id)
             
-            console.log("authUser", authUser);
             if (!authUser) {
                 throw new AuthenticationError("fail to found user");
             }

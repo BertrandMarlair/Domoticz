@@ -1,0 +1,68 @@
+version: '3.8'
+services:
+  redis:
+    container_name: redis
+    image: "bitnami/redis:5.0.10"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - webnet
+    ports:
+      - "6379:6379"
+    expose: 
+      - "6379"
+    logging:
+      options:
+        max-size: 1m
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 60s
+      timeout: 10s
+      retries: 30
+  mongo_auth: 
+    container_name: mongo_auth
+    restart: always
+    build:
+      context: ../MongoAuth
+      dockerfile: ./Dockerfile
+    volumes: 
+      - ../MongoAuth/db:/data/db
+    expose:
+      - "27018"
+    ports:
+      - "27018:27017"
+    env_file:
+      - ../Config/.env
+    networks:
+      - webnet
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+  mongo_domoticz: 
+    container_name: mongo_domoticz
+    restart: always
+    build:
+      context: ../MongoDomoticz
+      dockerfile: ./Dockerfile
+    volumes: 
+      - ../MongoDomoticz/db:/data/db
+    expose:
+      - "27019"
+    ports:
+      - "27019:27017"
+    env_file:
+      - ../Config/.env
+    networks:
+      - webnet
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+networks:
+  webnet:
+    driver: bridge

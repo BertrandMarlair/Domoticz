@@ -27,8 +27,6 @@ const createBlock = async (_, {block: createBlockInput}) => {
         
         const block = await getBlockByTitle(createBlockInput.title);
 
-        console.log(block);
-
         if (block) {
             throw new Error("contexttest.createBlock.errors.alreadyCreated");
         }

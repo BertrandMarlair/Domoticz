@@ -10,7 +10,6 @@ export default (t) =>
             _id: idArg({required: true}),
         },
         async resolve(_, args) {
-            console.log(args);
             return await getUserById(args._id)
         },
     });

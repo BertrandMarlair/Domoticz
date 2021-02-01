@@ -60,6 +60,8 @@ services:
       - ./Config:/src/app:delegated
     networks:
       - webnet
+    expose:
+      - "3002"
     ports:
       - "3002:3002"
     env_file:
@@ -92,8 +94,12 @@ services:
       dockerfile: ./Dockerfile
     volumes: 
       - ./MongoAuth/db:/data/db
+    expose:
+      - "27018"
     ports:
       - "27018:27017"
+    env_file:
+      - ./Config/.env
     networks:
       - webnet
     healthcheck:
@@ -110,8 +116,12 @@ services:
       dockerfile: ./Dockerfile
     volumes: 
       - ./MongoDomoticz/db:/data/db
+    expose:
+      - "27017"
     ports:
-      - "27019:27017"
+      - "27017:27017"
+    env_file:
+      - ./Config/.env
     networks:
       - webnet
     healthcheck:

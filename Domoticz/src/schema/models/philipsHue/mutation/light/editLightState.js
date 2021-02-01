@@ -29,11 +29,7 @@ const editLightState = async (_, {bridgeId, lightId, state}) => {
         throw new Error("bridge not found");
     }
 
-    console.log(state);
-
-    const res = await QueryHueBridge("PUT", `lights/${lightId}/state`, bridge, state);
-
-    console.log(res.data);
+    await QueryHueBridge("PUT", `lights/${lightId}/state`, bridge, state);
 
     await syncHueToDB();
 

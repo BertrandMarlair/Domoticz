@@ -40,10 +40,5 @@ const lightStatesResolver = async ({sceneId, bridgeId}) => {
 
     const res = await QueryHueBridge("GET", `scenes/${sceneId}`, bridge);
 
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-    console.log(sceneId)
-    console.log(Object.keys(res.data.lightstates).map((s) => ({...res.data.lightstates[s], bridgeId, lightId: s})));
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-
     return Object.keys(res.data.lightstates).map((s) => ({...res.data.lightstates[s], bridgeId, lightId: s}));
 }

@@ -23,7 +23,5 @@ const deleteProvider = async (_, {_id}) => {
 
     await deleteById(DBProvider, _id);
 
-    console.log(oldProvider);
-
     return oldProvider;
 }

@@ -5,8 +5,6 @@ import {MongoClient, ObjectId} from "mongodb";
 import memoize from "memoizee";
 
 const options = {
-    reconnectTries: 30,
-    reconnectInterval: 500,
     poolSize: 10,
     bufferMaxEntries: 0,
     useNewUrlParser: true,
@@ -14,19 +12,21 @@ const options = {
 };
 
 const {
-    MONGO_AUTH_HOSTNAME,
-    MONGO_AUTH_NAME,
-    MONGO_AUTH_PORT,
+    MONGO_DOMOTICZ_HOSTNAME,
+    MONGO_DOMOTICZ_NAME,
+    MONGO_DOMOTICZ_PORT,
+    MONGO_INITDB_ROOT_USERNAME,
+    MONGO_INITDB_ROOT_PASSWORD,
 } = process.env;
 
 const mongoConnection = async () => {
     try {
         const mongoClientPromise = MongoClient.connect(
-            `mongodb://${MONGO_AUTH_HOSTNAME}:${MONGO_AUTH_PORT}`,
+            `mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_DOMOTICZ_HOSTNAME}:${MONGO_DOMOTICZ_PORT}`,
             options,
         );
         const mongoDbPromise = await mongoClientPromise
-            .then(client => client.db(MONGO_AUTH_NAME))
+            .then(client => client.db(MONGO_DOMOTICZ_NAME))
             .catch(err => {
                 console.log(err);
             });

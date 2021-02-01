@@ -30,7 +30,6 @@ const hueBridgeRegister = async (_, {ipAddress, name}) => {
     
     if (res?.data?.[0]) {
         const data = res?.data?.[0];
-        console.log(data);
         if (data?.error?.description === "link button not pressed") {
             return {
                 ok: false,

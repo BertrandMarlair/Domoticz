@@ -17,8 +17,6 @@ const PhilipsHue = ({classes}) => {
 
     const philipsHue = useSelector((state) => state.devices.philipsHue);
 
-    console.log(philipsHue);
-
     return (
         <div className={classes.root}>
             {philipsHue && philipsHue?.bridges ? (

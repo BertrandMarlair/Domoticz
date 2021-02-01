@@ -25,7 +25,6 @@ const SideBar = ({classes, match}) => {
     const [anchorElAvatar, setAnchorElAvatar] = useState(null);
 
     const handleClickAvatar = (event) => {
-        console.log(event);
         setAnchorElAvatar(event.currentTarget);
     };
 

@@ -24,7 +24,5 @@ const createProvider = async (_, {provider}) => {
 
     const newProvider = await insertOne(DBProvider, {...provider});
 
-    console.log(newProvider);
-
     return newProvider;
 }

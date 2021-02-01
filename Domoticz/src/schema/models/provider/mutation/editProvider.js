@@ -32,7 +32,5 @@ const editProvider = async (_, {provider}) => {
         }
     });
 
-    console.log(newProvider);
-
     return newProvider;
 }

@@ -21,8 +21,6 @@ const updateWeatherLocation = async (_, {city, country}) => {
 
     const weatherInfo = await getWeather(country, city);
 
-    console.log(weatherInfo);
-
     if (weatherInfo.status !== 200) {
         throw new Error("City not found");
     }

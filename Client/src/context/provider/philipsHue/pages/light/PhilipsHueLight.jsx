@@ -10,7 +10,6 @@ import GoBack from "../../../../../components/goBack/GoBack";
 import {useSelector} from "react-redux";
 import Button from "../../../../../components/button/Button";
 import Text from "../../../../../components/typography/Text";
-import {calculateXY} from "../../../../../core/philips/color";
 
 const PhilipsHueLight = ({classes}) => {
     const philipsHue = useSelector((state) => state.devices.philipsHue);
@@ -28,10 +27,6 @@ const PhilipsHueLight = ({classes}) => {
 
         return light;
     };
-
-    const test = calculateXY(183, 29, 170);
-
-    console.log(test);
 
     return (
         <div className={classes.root}>

@@ -31,9 +31,6 @@ const editBlock = async (_, {block: editBlockInput}) => {
             throw new Error("contexttest.editBlock.errors.noBlockFound");
         }
 
-        console.log("---idblock to edit");
-        console.log(editBlockInput);
-
         const blockData = await updateOneById(DBBlocks, editBlockInput.id, {
             $set: {
                 title: editBlockInput.title,

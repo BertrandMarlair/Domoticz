@@ -138,8 +138,6 @@ const ColorSelector = ({classes, hue, device}) => {
                 },
             });
 
-            console.log("test");
-
             syncLightPhilipsHue([
                 {
                     bridgeId: light.bridgeId,
@@ -152,7 +150,6 @@ const ColorSelector = ({classes, hue, device}) => {
         EventEmitter.subscribe("SET_ACTIVE_COLORS", (color) => {
             const light = colors[color.index];
 
-            console.log(color.index);
             setActiveColor(light);
             setUpdate(new Date().getTime());
         });
