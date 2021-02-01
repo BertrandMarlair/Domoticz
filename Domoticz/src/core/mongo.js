@@ -14,19 +14,19 @@ const options = {
 };
 
 const {
-    MONGO_DOMOTICZ_HOSTNAME,
-    MONGO_DOMOTICZ_NAME,
-    MONGO_DOMOTICZ_PORT,
+    MONGO_AUTH_HOSTNAME,
+    MONGO_AUTH_NAME,
+    MONGO_AUTH_PORT,
 } = process.env;
 
 const mongoConnection = async () => {
     try {
         const mongoClientPromise = MongoClient.connect(
-            `mongodb://${MONGO_DOMOTICZ_HOSTNAME}:${MONGO_DOMOTICZ_PORT}`,
+            `mongodb://${MONGO_AUTH_HOSTNAME}:${MONGO_AUTH_PORT}`,
             options,
         );
         const mongoDbPromise = await mongoClientPromise
-            .then(client => client.db(MONGO_DOMOTICZ_NAME))
+            .then(client => client.db(MONGO_AUTH_NAME))
             .catch(err => {
                 console.log(err);
             });
