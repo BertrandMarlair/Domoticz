@@ -7,10 +7,10 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
     networks:
       - webnet
-    ports:
-      - "6379:6379"
     expose: 
-      - "6379"
+      - "6380"
+    ports:
+      - "6380:6379"
     logging:
       options:
         max-size: 1m
@@ -28,9 +28,9 @@ services:
     volumes: 
       - ../MongoAuth/db:/data/db
     expose:
-      - "27018"
+      - "27021"
     ports:
-      - "27018:27017"
+      - "27021:27017"
     env_file:
       - ../Config/.env
     networks:
@@ -50,9 +50,9 @@ services:
     volumes: 
       - ../MongoDomoticz/db:/data/db
     expose:
-      - "27019"
+      - "27020"
     ports:
-      - "27019:27017"
+      - "27020:27017"
     env_file:
       - ../Config/.env
     networks:
