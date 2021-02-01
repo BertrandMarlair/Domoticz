@@ -44,6 +44,9 @@ export default async () => {
         process.env[params.name] = params.value
     });
 
+    console.log("envVariables", envVariables);
+    console.log("process.env.SECRET_REGISTER", process.env.SECRET_REGISTER);
+
     const keyPair = await rsaGeneration(process.env.SECRET_REGISTER);
     
     process.env.PUBLIC_KEY = keyPair.publicKey
