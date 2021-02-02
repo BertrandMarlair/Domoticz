@@ -29,11 +29,9 @@ export default async () => {
             )  
             .then((res) => {
                 connected = true
-                console.log("res", res);
                 return res
             })
             .then((res) => {
-                console.log("err", res);
                 return res.json()
             });
         } catch (err) {
