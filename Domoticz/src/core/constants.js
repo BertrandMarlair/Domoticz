@@ -1,5 +1,5 @@
 export const CONFIG_PORT = 3002;
-export const CONFIG_HOST = 'localhost';
+export const CONFIG_HOST = process.env.DOCKER ? 'config' : 'localhost';
 
 export const ONE_MINUTE = 60000;
 export const FIVE_MINUTES = 300000;

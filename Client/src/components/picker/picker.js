@@ -440,6 +440,16 @@ function () {
       };
     }
   }, {
+    key: "temp",
+    get: function get() {
+      return this.$.v;
+    },
+    set: function set(value) {
+      this.hsv = {
+        temp: value
+      };
+    }
+  }, {
     key: "alpha",
     get: function get() {
       return this.$.a;
@@ -747,42 +757,52 @@ function getSliderDimensions(props) {
  */
 
 function getCurrentSliderValue(props, color) {
-  var hsva = color.hsva;
-  var rgb = color.rgb;
+ 
+  var minTemperature = 2200,
+      maxTemperature = 11000;
+  var temperatureRange = maxTemperature - minTemperature;
+  var percent = (color.kelvin - minTemperature) / temperatureRange * 100; // clmap percentage
 
-  switch (props.sliderType) {
-    case 'red':
-      return rgb.r / 2.55;
-
-    case 'green':
-      return rgb.g / 2.55;
-
-    case 'blue':
-      return rgb.b / 2.55;
-
-    case 'alpha':
-      return hsva.a * 100;
-
-    case 'kelvin':
-      var minTemperature = props.minTemperature,
-          maxTemperature = props.maxTemperature;
-      var temperatureRange = maxTemperature - minTemperature;
-      var percent = (color.kelvin - minTemperature) / temperatureRange * 100; // clmap percentage
-
-      return Math.max(0, Math.min(percent, 100));
-
-    case 'hue':
-      return hsva.h /= 3.6;
-
-    case 'saturation':
-      return hsva.s;
-
-    case 'value':
-    default:
-      return hsva.v;
-  }
+  return Math.max(0, Math.min(percent, 100));
 }
 /**
+// function getCurrentSliderValue(props, color) {
+//   var hsva = color.hsva;
+//   var rgb = color.rgb;
+
+//   switch (props.sliderType) {
+//     case 'red':
+//       return rgb.r / 2.55;
+
+//     case 'green':
+//       return rgb.g / 2.55;
+
+//     case 'blue':
+//       return rgb.b / 2.55;
+
+//     case 'alpha':
+//       return hsva.a * 100;
+
+//     case 'kelvin':
+//       var minTemperature = props.minTemperature,
+//           maxTemperature = props.maxTemperature;
+//       var temperatureRange = maxTemperature - minTemperature;
+//       var percent = (color.kelvin - minTemperature) / temperatureRange * 100; // clmap percentage
+
+//       return Math.max(0, Math.min(percent, 100));
+
+//     case 'hue':
+//       return hsva.h /= 3.6;
+
+//     case 'saturation':
+//       return hsva.s;
+
+//     case 'value':
+//     default:
+//       return hsva.v;
+//   }
+// }
+// /**
  * @desc Get the current slider value from user input
  * @param props - slider props
  * @param x - global input x position
@@ -943,11 +963,13 @@ function getSliderGradientCoords(props) {
  */
 function getWheelDimensions(props) {
   var rad = props.width / 2;
+  var istemp = props.istemp;
   return {
     width: props.width,
     radius: rad - props.borderWidth,
     cx: rad,
-    cy: rad
+    cy: rad,
+    istemp,
   };
 }
 /**
@@ -976,21 +998,43 @@ function translateWheelAngle(props, angle, invert) {
  * @param color
  */
 
-function getWheelHandlePosition(props, color) {
-  var hsv = color.hsv;
+function getWheelHandlePosition(props, color, activeColorMode) {
+  if (activeColorMode === "xy") {
+    var hsv = color.hsv;
+  
+    var _getWheelDimensions = getWheelDimensions(props),
+        cx = _getWheelDimensions.cx,
+        cy = _getWheelDimensions.cy;
+  
+    var handleRange = props.width / 2 - props.padding - props.handleRadius - props.borderWidth;
+    var handleAngle = (180 + translateWheelAngle(props, hsv.h, true)) * (Math.PI / 180);
+    var handleDist = hsv.s / 100 * handleRange;
+    var direction = props.wheelDirection === 'clockwise' ? -1 : 1;
+    return {
+      x: cx + handleDist * Math.cos(handleAngle) * direction,
+      y: cy + handleDist * Math.sin(handleAngle) * direction
+    };
+  } else {
+    var _getSliderDimensions2 = getSliderDimensions(props),
+      width = _getSliderDimensions2.width,
+      height = _getSliderDimensions2.height,
+      handleRange = _getSliderDimensions2.handleRange,
+      handleStart = _getSliderDimensions2.handleStart;
 
-  var _getWheelDimensions = getWheelDimensions(props),
-      cx = _getWheelDimensions.cx,
-      cy = _getWheelDimensions.cy;
+    var ishorizontal = props.layoutDirection === 'horizontal';
+    var sliderValue = getCurrentSliderValue(props, color);
+    var midPoint = ishorizontal ? width / 2 : height / 2;
+    var handlePos = handleStart + sliderValue / 100 * handleRange;
 
-  var handleRange = props.width / 2 - props.padding - props.handleRadius - props.borderWidth;
-  var handleAngle = (180 + translateWheelAngle(props, hsv.h, true)) * (Math.PI / 180);
-  var handleDist = hsv.s / 100 * handleRange;
-  var direction = props.wheelDirection === 'clockwise' ? -1 : 1;
-  return {
-    x: cx + handleDist * Math.cos(handleAngle) * direction,
-    y: cy + handleDist * Math.sin(handleAngle) * direction
-  };
+    if (ishorizontal) {
+      handlePos = -1 * handlePos + handleRange + handleStart * 2;
+    }
+
+    return {
+      x: midPoint,
+      y: handlePos,
+    };
+  }
 }
 /**
  * @desc Get the current wheel value from user input
@@ -999,23 +1043,28 @@ function getWheelHandlePosition(props, color) {
  * @param y - global input y position
  */
 
-function getWheelValueFromInput(props, x, y) {
+function getWheelValueFromInput(props, x, y, colored) {
   var _getWheelDimensions2 = getWheelDimensions(props),
       cx = _getWheelDimensions2.cx,
       cy = _getWheelDimensions2.cy;
-
+  
   var handleRange = props.width / 2 - props.padding - props.handleRadius - props.borderWidth;
   x = cx - x;
   y = cy - y; // Calculate the hue by converting the angle to radians
-
-  var hue = translateWheelAngle(props, Math.atan2(-y, -x) * (180 / Math.PI)); // Find the point's distance from the center of the wheel
-  // This is used to show the saturation level
-
-  var handleDist = Math.min(Math.sqrt(x * x + y * y), handleRange);
-  return {
-    h: Math.round(hue),
-    s: Math.round(100 / handleRange * handleDist)
-  };
+  if (colored) {
+  
+    var hue = translateWheelAngle(props, Math.atan2(-y, -x) * (180 / Math.PI)); // Find the point's distance from the center of the wheel
+    // This is used to show the saturation level
+  
+    var handleDist = Math.min(Math.sqrt(x * x + y * y), handleRange);
+    return {
+      h: Math.round(hue),
+      s: Math.round(100 / handleRange * handleDist)
+    };
+  } else {
+    const temp = (y + handleRange) / (handleRange * 2);
+    return Math.max(Math.min((temp * 8800) + 2200, 11000), 2200);
+  }
 }
 /**
  * @desc Get the bounding dimensions of the box
@@ -1162,8 +1211,10 @@ var iroColorPickerOptionDefaults = {
   height: 300,
   color: '#fff',
   colors: [],
+  colorsMode: [],
   padding: 6,
   layoutDirection: 'vertical',
+  istemp: false,
   borderColor: '#fff',
   borderWidth: 0,
   handleRadius: 8,
@@ -1172,6 +1223,7 @@ var iroColorPickerOptionDefaults = {
     x: 0,
     y: 0
   },
+  handlesSvg: [],
   wheelLightness: true,
   wheelAngle: 0,
   wheelDirection: 'anticlockwise',
@@ -1256,14 +1308,25 @@ var IroComponentWrapper = /*@__PURE__*/(function (Component) {
 }(m));
 
 function IroHandle(props) {
-    var radius = props.r;
-    var url = props.url;
-    return (h("svg", { className: ("IroHandle IroHandle--" + (props.index) + " " + (props.isActive ? 'IroHandle--isActive' : '')), x: props.x, y: props.y, style: {
-            overflow: 'visible'
-        } },
-        url && (h("use", Object.assign({ xlinkHref: resolveSvgUrl(url) }, props.props))),
-        !url && (h("circle", { r: radius, fill: "none", "stroke-width": 2, stroke: "#000" })),
-        !url && (h("circle", { r: radius - 2, fill: props.fill, "stroke-width": 2, stroke: "#fff" }))));
+    return (
+      h(
+        "svg", 
+        { 
+          className: ("IroHandle IroHandle--" + (props.index) + " " + (props.isActive ? 'IroHandle--isActive' : '')), 
+          x: props.x, 
+          y: props.y, 
+          style: {
+              overflow: 'visible'
+          } 
+        },
+        (h("path", { 
+          fill: props.fill, 
+          "stroke-width": 3, 
+          stroke: props.isActive ? "#4a4a4a" : "#fff",
+          transform: `translate(-20.000000, -17.000000) ${props.isActive ? "scale(1.2)" : ""}`,
+          d: "M21 1c-18.367.496-21.456 24.648-.461 35.76.284.15.638.15.922 0C42.456 25.648 39.367 1.496 21 1z",
+        })),
+      ));
 }
 IroHandle.defaultProps = {
     fill: 'none',
@@ -1310,62 +1373,6 @@ function IroSlider(props) {
 }
 IroSlider.defaultProps = Object.assign({}, sliderDefaultOptions);
 
-function IroBox(props) {
-    var ref = getBoxDimensions(props);
-    var width = ref.width;
-    var height = ref.height;
-    var radius = ref.radius;
-    var colors = props.colors;
-    var colorPicker = props.parent;
-    var activeIndex = props.activeIndex;
-    var activeColor = (activeIndex !== undefined && activeIndex < props.colors.length) ? props.colors[activeIndex] : props.color;
-    var gradients = getBoxGradients(props, activeColor);
-    var handlePositions = colors.map(function (color) { return getBoxHandlePosition(props, color); });
-    function handleInput(x, y, inputType) {
-        if (inputType === 0 /* Start */) {
-            // getHandleAtPoint() returns the index for the handle if the point 'hits' it, or null otherwise
-            var activeHandle = getHandleAtPoint(props, x, y, handlePositions);
-            // If the input hit a handle, set it as the active handle, but don't update the color
-            if (activeHandle !== null) {
-                colorPicker.setActiveColor(activeHandle);
-            }
-            // If the input didn't hit a handle, set the currently active handle to that position
-            else {
-                colorPicker.inputActive = true;
-                activeColor.hsv = getBoxValueFromInput(props, x, y);
-                props.onInput(inputType, props.id);
-            }
-        }
-        // move is fired when the user has started dragging
-        else if (inputType === 1 /* Move */) {
-            colorPicker.inputActive = true;
-            activeColor.hsv = getBoxValueFromInput(props, x, y);
-        }
-        // let the color picker fire input:start, input:move or input:end events
-        props.onInput(inputType, props.id);
-    }
-    return (h(IroComponentWrapper, Object.assign({}, props, { onInput: handleInput }), function (uid, rootProps, rootStyles) { return (h("svg", Object.assign({}, rootProps, { className: "IroBox", width: width, height: height, style: rootStyles }),
-        h("defs", null,
-            h("linearGradient", { id: 's' + uid, x1: "0%", y1: "0%", x2: "100%", y2: "0%" }, gradients[0].map(function (ref) {
-                var offset = ref[0];
-                var color = ref[1];
-
-                return (h("stop", { offset: (offset + "%"), "stop-color": color }));
-        })),
-            h("linearGradient", { id: 'l' + uid, x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, gradients[1].map(function (ref) {
-                var offset = ref[0];
-                var color = ref[1];
-
-                return (h("stop", { offset: (offset + "%"), "stop-color": color }));
-        })),
-            h("pattern", { id: 'f' + uid, width: "100%", height: "100%" },
-                h("rect", { x: "0", y: "0", width: "100%", height: "100%", fill: ("url(" + (resolveSvgUrl('#s' + uid)) + ")") }),
-                h("rect", { x: "0", y: "0", width: "100%", height: "100%", fill: ("url(" + (resolveSvgUrl('#l' + uid)) + ")") }))),
-        h("rect", { className: "IroBoxBg", rx: radius, ry: radius, x: props.borderWidth / 2, y: props.borderWidth / 2, width: width - props.borderWidth, height: height - props.borderWidth, "stroke-width": props.borderWidth, stroke: props.borderColor, fill: ("url(" + (resolveSvgUrl('#f' + uid)) + ")") }),
-        colors.filter(function (color) { return color !== activeColor; }).map(function (color) { return (h(IroHandle, { isActive: false, index: color.index, fill: color.hslString, r: props.handleRadius, url: props.handleSvg, props: props.handleProps, x: handlePositions[color.index].x, y: handlePositions[color.index].y })); }),
-        h(IroHandle, { isActive: true, index: activeColor.index, fill: activeColor.hslString, r: props.handleRadius, url: props.handleSvg, props: props.handleProps, x: handlePositions[activeColor.index].x, y: handlePositions[activeColor.index].y }))); }));
-}
-
 var HUE_STEPS = Array.apply(null, { length: 360 }).map(function (_, index) { return index; });
 function IroWheel(props) {
     var ref = getWheelDimensions(props);
@@ -1375,44 +1382,68 @@ function IroWheel(props) {
     var cy = ref.cy;
     var colors = props.colors;
     var borderWidth = props.borderWidth;
+    var handlesSvg = props.handlesSvg;
     var colorPicker = props.parent;
     var activeColor = props.color;
     var hsv = activeColor.hsv;
-    var handlePositions = colors.map(function (color) { return getWheelHandlePosition(props, color); });
+    var gradient = getSliderGradient({sliderType: "kelvin", minTemperature: 2200, maxTemperature: 11000 }, activeColor);
+    var isAlpha = true;
+    var colorMode = props.type;
+    var colorsMode = props.colorsMode;
+    var activeColorMode = colorsMode[activeColor.index];
+    var handlePositions = colors.map(function (color) { return getWheelHandlePosition(props, color, colorsMode[color.index]); });
     function handleInput(x, y, inputType) {
-        if (inputType === 0 /* Start */) {
-            // getHandleAtPoint() returns the index for the handle if the point 'hits' it, or null otherwise
+        if (inputType === 0) {
             var activeHandle = getHandleAtPoint(props, x, y, handlePositions);
-            // If the input hit a handle, set it as the active handle, but don't update the color
             if (activeHandle !== null) {
                 colorPicker.setActiveColor(activeHandle);
             }
-            // If the input didn't hit a handle, set the currently active handle to that position
             else {
                 colorPicker.inputActive = true;
-                activeColor.hsv = getWheelValueFromInput(props, x, y);
+                if (activeColorMode === "xy") {
+                  activeColor.hsv = getWheelValueFromInput(props, x, y, activeColorMode === "xy");
+                } else {
+                  activeColor.kelvin = getWheelValueFromInput(props, x, y, activeColorMode === "xy");
+                }
                 props.onInput(inputType, props.id);
             }
         }
-        // move is fired when the user has started dragging
-        else if (inputType === 1 /* Move */) {
+        else if (inputType === 1) {
             colorPicker.inputActive = true;
-            activeColor.hsv = getWheelValueFromInput(props, x, y);
+            if (activeColorMode === "xy") {
+              activeColor.hsv = getWheelValueFromInput(props, x, y, activeColorMode === "xy");
+            } else {
+              activeColor.kelvin = getWheelValueFromInput(props, x, y, activeColorMode === "xy");
+            }
         }
-        // let the color picker fire input:start, input:move or input:end events
         props.onInput(inputType, props.id);
     }
     return (h(IroComponentWrapper, Object.assign({}, props, { onInput: handleInput }), function (uid, rootProps, rootStyles) { return (h("svg", Object.assign({}, rootProps, { className: "IroWheel", width: width, height: width, style: rootStyles }),
-        h("defs", null,
-            h("radialGradient", { id: uid },
-                h("stop", { offset: "0%", "stop-color": "#fff" }),
-                h("stop", { offset: "100%", "stop-color": "#fff", "stop-opacity": "0" }))),
-        h("g", { className: "IroWheelHue", "stroke-width": radius, fill: "none" }, HUE_STEPS.map(function (angle) { return (h("path", { key: angle, d: getSvgArcPath(cx, cy, radius / 2, angle, angle + 1.5), stroke: ("hsl(" + (translateWheelAngle(props, angle)) + ", 100%, 50%)") })); })),
+      colorMode === "xy" && h("defs", null,
+          h("radialGradient", { id: uid },
+              h("stop", { offset: "0%", "stop-color": "#fff" }),
+              h("stop", { offset: "100%", "stop-color": "#fff", "stop-opacity": "0" }))),
+      colorMode === "xy" && h("g", { className: "IroWheelHue", "stroke-width": radius, fill: "none" }, HUE_STEPS.map(function (angle) { return (h("path", { key: angle, d: getSvgArcPath(cx, cy, radius / 2, angle, angle + 1.5), stroke: ("hsl(" + (translateWheelAngle(props, angle)) + ", 100%, 55%)") })); })),
+      colorMode === "ct" && h("defs", null,
+          h("linearGradient", Object.assign({ id: 'g' + uid }, getSliderGradientCoords(props)), gradient.map(function (ref) {
+              var offset = ref[0];
+              var color = ref[1];
+
+              return (h("stop", { offset: (offset + "%"), "stop-color": color }));
+            })),
+            isAlpha && (h("pattern", { id: 'b' + uid, width: "8", height: "8", patternUnits: "userSpaceOnUse" },
+                h("rect", { x: "0", y: "0", width: "8", height: "8", fill: "#fff" }),
+                h("rect", { x: "0", y: "0", width: "4", height: "4", fill: "#ccc" }),
+                h("rect", { x: "4", y: "4", width: "4", height: "4", fill: "#ccc" }))),
+            isAlpha && (h("pattern", { id: 'f' + uid, width: "100%", height: "100%" },
+                h("rect", { x: "0", y: "0", width: "100%", height: "100%", fill: ("url(" + (resolveSvgUrl('#b' + uid)) + ")") }),
+                h("rect", { x: "0", y: "0", width: "100%", height: "100%", fill: ("url(" + (resolveSvgUrl('#g' + uid)) + ")") })))),
+        colorMode === "ct" && h("rect", { className: "IroSliderBg", rx: radius, ry: radius, x: props.borderWidth / 2, y: props.borderWidth / 2, width: width - props.borderWidth, height: width - props.borderWidth, "stroke-width": props.borderWidth, stroke: props.borderColor, fill: ("url(" + (resolveSvgUrl((isAlpha ? '#f' : '#g') + uid)) + ")") }),
         h("circle", { className: "IroWheelSaturation", cx: cx, cy: cy, r: radius, fill: ("url(" + (resolveSvgUrl('#' + uid)) + ")") }),
         props.wheelLightness && (h("circle", { className: "IroWheelLightness", cx: cx, cy: cy, r: radius, fill: "#000", opacity: 1 - hsv.v / 100 })),
         h("circle", { className: "IroWheelBorder", cx: cx, cy: cy, r: radius, fill: "none", stroke: props.borderColor, "stroke-width": borderWidth }),
         colors.filter(function (color) { return color !== activeColor; }).map(function (color) { return (h(IroHandle, { isActive: false, index: color.index, fill: color.hslString, r: props.handleRadius, url: props.handleSvg, props: props.handleProps, x: handlePositions[color.index].x, y: handlePositions[color.index].y })); }),
-        h(IroHandle, { isActive: true, index: activeColor.index, fill: activeColor.hslString, r: props.handleRadius, url: props.handleSvg, props: props.handleProps, x: handlePositions[activeColor.index].x, y: handlePositions[activeColor.index].y }))); }));
+        h(IroHandle, { isActive: true, index: activeColor.index, fill: activeColor.hslString, r: props.handleRadius, url: props.handleSvg, url2: handlesSvg[0], props: props.handleProps, x: handlePositions[activeColor.index].x, y: handlePositions[activeColor.index].y }))); }));
 }
 
 function createWidget(WidgetComponent) {
@@ -1525,6 +1556,15 @@ var IroColorPicker = /*@__PURE__*/(function (Component) {
         }
         // Fire color switch event
         this.emit('color:setActive', this.color);
+    };
+
+    IroColorPicker.prototype.setWheelColorType = function setWheelColorType (type) {
+      this.setState({ type });
+      this.render(this.props, this.state);
+      };
+    IroColorPicker.prototype.setColorMode = function setColorMode (colorsMode) {
+      this.setState({ colorsMode });
+      this.render(this.props, this.state);
     };
     /**
      * @desc Replace all of the current colorPicker colors
@@ -1728,7 +1768,6 @@ var iro;
         ui.Handle = IroHandle;
         ui.Slider = IroSlider;
         ui.Wheel = IroWheel;
-        ui.Box = IroBox;
     })(ui = iro.ui || (iro.ui = {}));
 })(iro || (iro = {}));
 var iro$1 = iro;

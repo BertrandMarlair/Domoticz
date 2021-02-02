@@ -8,3 +8,4 @@ db
 .eslintcache
 .env
 Client/public/env.js
+Client/build/env.js

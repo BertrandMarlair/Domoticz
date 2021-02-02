@@ -2,18 +2,22 @@
 import React, {useEffect, useRef, useState} from "react";
 import {withStyles} from "@material-ui/core";
 import style from "./ColorSelectorStyle";
-import iro from "@jaames/iro";
+import iro from "../../picker/picker";
 import {EventEmitter} from "../../../core/events/events";
 import {cieToRGB, colorTemperatureToHex, hexToRgb, rgbToCie} from "../../../core/philips/color";
-import Pointer from "./Pointer";
 import {useDispatch} from "react-redux";
 import {EDIT_LIGHT_STATE, SYNC_DEVICE} from "../../../core/reducers/devicesConfig";
 import {useMutation} from "react-apollo";
 import gql from "graphql-tag";
 import {philipsHueFragment} from "../../../app/SyncDevices";
 import LightSelector from "../LightSelector/LightSelector";
+import Button from "../../button/Button";
 
 const ColorSelector = ({classes, hue, device}) => {
+    const canBeColored = ["LST002", "LCT015"];
+
+    const [type, setType] = useState("xy");
+    const [colorsMode, setColorsMode] = useState([]);
     const picker = useRef();
     const dispatch = useDispatch();
     const [activeColor, setActiveColor] = useState(null);
@@ -52,6 +56,7 @@ const ColorSelector = ({classes, hue, device}) => {
                         colorHex: cie,
                         lightId: light?.lightId,
                         bridgeId: light?.bridgeId,
+                        colormode: light?.state?.colormode,
                         ...light,
                     });
                 } else if (light?.state.ct) {
@@ -63,28 +68,43 @@ const ColorSelector = ({classes, hue, device}) => {
                         colorHex: temp,
                         lightId: light?.lightId,
                         bridgeId: light?.bridgeId,
+                        colormode: light?.state?.colormode,
                         ...light,
                     });
                 }
             }
         }
 
-        return colorList;
+        return colorList.sort((a, b) => (a.colormode > b.colormode ? -1 : 1));
     };
 
     const colors = getColors();
 
+    console.log(colors);
+
     useEffect(() => {
+        setType(colors[0].colormode);
+        setColorsMode(colors.map((color) => color.colormode));
+
         let colorPicker = new iro.ColorPicker("#colorPicker", {
             width: 280,
             colors: colors.map((color) => color.colorRGB),
+            colorsMode: colors.map((color) => color.colormode),
+            colorable: colors.map((color) => color.productname === "Hue color lamp"),
             wheelAngle: 120,
             handleRadius: 25,
+            layoutDirection: "horizontal",
+            istemp: true,
+            type,
             borderColor: "#fff",
-            handleSvg: "#handle",
             layout: [
                 {
                     component: iro.ui.Wheel,
+                    options: {
+                        sliderType: "kelvin",
+                        sliderShape: "circle",
+                        // sliderSize: 40,
+                    },
                 },
             ],
         });
@@ -111,6 +131,8 @@ const ColorSelector = ({classes, hue, device}) => {
             EventEmitter.dispatch("SET_ACTIVE_COLORS", colorPicker.color);
         });
 
+        colorPicker.setWheelColorType(colors[0].colormode);
+
         picker.current = colorPicker;
 
         setActiveColor(colors[0]);
@@ -120,36 +142,86 @@ const ColorSelector = ({classes, hue, device}) => {
         };
     }, []);
 
-    useEffect(() => {
-        picker.current.setColors(colors.map((color) => color.colorRGB));
-    }, [hue]);
+    // useEffect(() => {
+    //     picker.current.setColors(colors.map((color) => color.colorRGB));
+    // }, [hue]);
+
+    const handleChangeColorType = () => {
+        const index = picker.current.color.index;
+
+        if (type === "xy") {
+            const newColorMode = [...colorsMode.slice(0, index), "ct", ...colorsMode.slice(index + 1)];
+
+            setColorsMode(newColorMode);
+
+            picker.current.setColorMode(newColorMode);
+
+            picker.current.setWheelColorType("ct");
+            setType("ct");
+        } else {
+            if (canBeColored.includes(colors[index].modelid)) {
+                const newColorMode = [...colorsMode.slice(0, index), "xy", ...colorsMode.slice(index + 1)];
+
+                setColorsMode(newColorMode);
+
+                picker.current.setColorMode(newColorMode);
+            }
+            picker.current.setWheelColorType("xy");
+            setType("xy");
+        }
+    };
 
     useEffect(() => {
         EventEmitter.subscribe("SET_COLORS", (newColors) => {
             const light = colors[newColors.index];
-            const {r, g, b} = hexToRgb(newColors.hexString);
-            const newXY = rgbToCie(r, g, b);
 
-            editLightState({
-                variables: {
-                    bridgeId: light.bridgeId,
-                    lightId: light.lightId,
-                    state: {xy: newXY, on: true},
-                },
-            });
+            const colorMode = colorsMode[newColors.index];
 
-            syncLightPhilipsHue([
-                {
-                    bridgeId: light.bridgeId,
-                    lightId: light.lightId,
-                    state: {xy: {x: newXY[0], y: newXY[1]}, on: true},
-                },
-            ]);
+            if (colorMode === "xy") {
+                const {r, g, b} = hexToRgb(newColors.hexString);
+                const newXY = rgbToCie(r, g, b);
+
+                editLightState({
+                    variables: {
+                        bridgeId: light.bridgeId,
+                        lightId: light.lightId,
+                        state: {xy: newXY, on: true},
+                    },
+                });
+
+                syncLightPhilipsHue([
+                    {
+                        bridgeId: light.bridgeId,
+                        lightId: light.lightId,
+                        state: {xy: {x: newXY[0], y: newXY[1]}, on: true},
+                    },
+                ]);
+            } else {
+                const ct = 500 - Math.round(((picker.current.color.kelvin - 2200) / 8800) * 347);
+
+                editLightState({
+                    variables: {
+                        bridgeId: light.bridgeId,
+                        lightId: light.lightId,
+                        state: {ct, on: true},
+                    },
+                });
+
+                syncLightPhilipsHue([
+                    {
+                        bridgeId: light.bridgeId,
+                        lightId: light.lightId,
+                        state: {ct, on: true},
+                    },
+                ]);
+            }
         });
 
         EventEmitter.subscribe("SET_ACTIVE_COLORS", (color) => {
             const light = colors[color.index];
 
+            setType(colorsMode[color.index]);
+            picker.current.setWheelColorType(colorsMode[color.index]);
             setActiveColor(light);
             setUpdate(new Date().getTime());
         });
@@ -163,13 +235,13 @@ const ColorSelector = ({classes, hue, device}) => {
 
     return (
         <div className={classes.root}>
-            <Pointer />
             <div id="colorPicker"></div>
             {activeColor && (
                 <div className={classes.lightSelector}>
                     <LightSelector hue={hue} device={activeColor} update={update} />
                 </div>
             )}
+            <Button onClick={() => handleChangeColorType()}>test {type}</Button>
         </div>
     );
 };

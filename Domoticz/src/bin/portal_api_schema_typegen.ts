@@ -28,6 +28,7 @@ declare global {
 export interface NexusGenInputs {
   PhilipsHueStateInput: { // input type
     bri?: number | null; // Int
+    ct?: number | null; // Int
     hue?: number | null; // Int
     on?: boolean | null; // Boolean
     sat?: number | null; // Int

@@ -7,6 +7,7 @@ const PhilipsHueStateInput = inputObjectType({
         t.int("bri");
         t.int("hue");
         t.int("sat");
+        t.int("ct");
         t.string("scene");
         t.list.float("xy");
     },
