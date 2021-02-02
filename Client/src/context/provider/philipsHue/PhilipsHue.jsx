@@ -19,7 +19,7 @@ const PhilipsHue = ({classes}) => {
 
     return (
         <div className={classes.root}>
-            {philipsHue && philipsHue?.bridges ? (
+            {philipsHue && philipsHue?.bridges?.length ? (
                 <DeviceList hue={philipsHue} />
             ) : (
                 <Card className={classes.addBridge}>
