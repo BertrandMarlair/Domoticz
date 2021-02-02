@@ -1,6 +1,6 @@
 module.exports = {
     apps : [{
       name: "Gateway",
-      script: "npm start",
+      script: "node dist/api.bundle.js",
     }]
   }
