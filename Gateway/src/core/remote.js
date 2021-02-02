@@ -83,7 +83,7 @@ export const getRemoteSchema = async params => {
                 return;
             }).concat(remoteError).concat(httpLink);
         }
-
+  
         const schema = await introspectSchema(httpLink);
 
         return makeRemoteExecutableSchema({

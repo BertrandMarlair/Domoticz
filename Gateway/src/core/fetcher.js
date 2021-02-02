@@ -17,10 +17,15 @@ export const fetcher = async (uri, req) => {
         }).catch((err) => {
             return err
         });
+        
+        // return await fetch(uri, req).then((res) => {
+        //     return res
+        // }).catch((err) => {
+        //     return err
+        // });
     }
     const refreshToken = req.headers[REFRESH_TOKEN];
     const accessToken = req.headers[ACCESS_TOKEN];
-
 
     if(refreshToken){
         if(getServiceUri("auth") === uri){

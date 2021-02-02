@@ -115,7 +115,7 @@ export default async () => {
                         .filter(ep => ep.connected)
                         .map(ep => getRemoteSchema(ep)),
                 );
-        
+
                 const endpoint = createServer(
                     NODE_ENV === "development" ? true : false,
                     allSchemas,

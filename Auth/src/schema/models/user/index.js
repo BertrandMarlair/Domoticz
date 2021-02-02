@@ -13,6 +13,7 @@ import deleteUser from "./mutation/deleteUser";
 import editUser from "./mutation/editUser";
 import resetUserPwd from "./mutation/resetUserPwd";
 import accountEditType from "./mutation/accountEditType";
+import userSubscription from "./subscription/user";
 
 export const DBUsers = "users";
 
@@ -41,5 +42,8 @@ export default {
     ],
     enum: [
         TypeEnum,
+    ],
+    subscription: [
+        userSubscription,
     ]
 };
