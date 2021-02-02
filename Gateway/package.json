@@ -6,6 +6,7 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "babel-watch src/index.js",
+    "startDocker": "DOCKER=true babel-watch src/index.js",
     "build": "webpack ./src",
     "eslint": "eslint ./",
     "eslint-fix": "eslint ./ --fix",

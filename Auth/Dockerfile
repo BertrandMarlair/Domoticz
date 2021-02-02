@@ -18,4 +18,4 @@ ENTRYPOINT ["sh", "./entrypoint.sh"]
 
 HEALTHCHECK --interval=60s --timeout=10s --retries=3 CMD curl -X POST --fail http://localhost:3003/health || exit 1
 
-CMD ["npm","start"]
+CMD ["npm", "run", "startDocker"]
