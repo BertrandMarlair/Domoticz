@@ -22,7 +22,7 @@ export const textColorDark = "#C4C4C4";
 export const textColorLightGrey = "#dad4d4";
 
 export const background = "#2c2d43";
-export const backgroundDark = "#2c2d43";
+export const backgroundDark = "#232434";
 export const backgroundMedium = "#2f3247";
 export const backgroundWhite = "#ffffff";
 
@@ -151,8 +151,8 @@ export const widthSideBar = 60;
 export const mediaQuerySizeXl = 1490;
 export const mediaQuerySizeSm = 1279;
 export const mediaQuerySizeS = 1059;
-export const mediaQuerySizeXs = 700;
-export const mediaQuerySizeXxs = 500;
+export const mediaQuerySizeXs = 940;
+export const mediaQuerySizeXxs = 720;
 
 export const displayBetween = {
     display: "flex",

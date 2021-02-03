@@ -4,14 +4,15 @@ import MediaQuery from "react-responsive";
 import {withStyles} from "@material-ui/core";
 import style from "./Style";
 
-import {mediaQuerySizeXs, widthSideBar} from "../../../core/style/constant";
+import {mediaQuerySizeXxs, widthSideBar} from "../../../core/style/constant";
 import LoaderLayout from "../../../components/loading/LoaderLayout";
+import Header from "../../../components/header/Header";
 
 const Layout = ({children, classes}) => {
     return (
         <Fragment>
             <Suspense fallback={<LoaderLayout />}>
-                <MediaQuery query={`(min-width: ${mediaQuerySizeXs}px)`}>
+                <MediaQuery query={`(min-width: ${mediaQuerySizeXxs}px)`}>
                     <div
                         className={classes.drawer}
                         style={{
@@ -22,8 +23,9 @@ const Layout = ({children, classes}) => {
                         </div>
                     </div>
                 </MediaQuery>
-                <MediaQuery query={`(max-width: ${mediaQuerySizeXs}px)`}>
+                <MediaQuery query={`(max-width: ${mediaQuerySizeXxs}px)`}>
                     <div className={classes.drawerSmall}>
+                        <Header />
                         <div className={classes.drawerWrapper} id="dashboard">
                             {children}
                         </div>

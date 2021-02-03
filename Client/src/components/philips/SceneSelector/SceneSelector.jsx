@@ -8,6 +8,7 @@ import SceneItem from "./SceneItem";
 import {useDispatch} from "react-redux";
 import {SYNC_DEVICE} from "../../../core/reducers/devicesConfig";
 import {philipsHueFragment} from "../../../app/SyncDevices";
+import Loading from "../../loading/Loading";
 
 const SceneSelector = ({classes, group}) => {
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const SceneSelector = ({classes, group}) => {
     const [targetSceneId, setTargetScene] = useState(null);
     const syncPhilipsHue = (payload) => dispatch({type: SYNC_DEVICE, payload});
 
-    const {data, error} = useQuery(GET_SCENES_BY_GROUP, {
+    const {data, error, loading} = useQuery(GET_SCENES_BY_GROUP, {
         variables: {
             bridgeId: group.bridgeId,
             groupId: group.groupId,
@@ -71,6 +72,7 @@ const SceneSelector = ({classes, group}) => {
                         handleTargetScene={handleTargetScene}
                     />
                 ))}
+                {!scenes.length && loading && <Loading absolute />}
             </Grid>
         </div>
     );

@@ -11,6 +11,7 @@ const style = (theme) => ({
         display: "flex",
         flexDirection: "column",
         zIndex: 1299,
+        width: widthSideBar,
     },
     logo: {
         ...displayCenter,

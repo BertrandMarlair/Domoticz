@@ -1,15 +1,15 @@
-import {borderLight} from "../../../core/style/constant";
+import {borderLight, mediaQuerySizeXxs} from "../../../core/style/constant";
 
-const style = () => {
+const style = (theme) => {
     return {
         drawer: {
             transition: "0.2s",
             width: "100%",
             height: "100%",
+            background: theme.palette.background.default,
         },
         drawerSmall: {
             minHeight: "100%",
-            display: "flex",
         },
         drawerWrapper: {
             display: "flex",
@@ -19,6 +19,9 @@ const style = () => {
         wrapper: {
             display: "flex",
             padding: 15,
+            [`@media (max-width: ${mediaQuerySizeXxs}px)`]: {
+                flexDirection: "column",
+            },
         },
         header: {
             margin: 20,
@@ -33,6 +36,9 @@ const style = () => {
             display: "flex",
             alignItems: "flex-start",
             flexDirection: "column",
+            [`@media (max-width: ${mediaQuerySizeXxs}px)`]: {
+                width: "100%",
+            },
         },
         navItem: {
             display: "flex",
@@ -50,6 +56,9 @@ const style = () => {
         main: {
             width: "100%",
             height: "100%",
+            [`@media (max-width: ${mediaQuerySizeXxs}px)`]: {
+                width: "unset",
+            },
         },
     };
 };

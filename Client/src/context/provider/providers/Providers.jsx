@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, {useState, useEffect} from "react";
-import {withStyles, Grid, IconButton, MenuItem, MenuList} from "@material-ui/core";
+import React, {useState, useEffect, Fragment} from "react";
+import {withStyles, Grid, IconButton, MenuItem, MenuList, Divider} from "@material-ui/core";
 import style from "./ProvidersStyle";
 import gql from "graphql-tag";
-import {useQuery} from "react-apollo";
+import {useMutation, useQuery} from "react-apollo";
 import Loading from "../../../components/loading/Loading";
 import Error from "../../../components/error/Error";
 import Card from "../../../components/card/Card";
@@ -17,6 +17,7 @@ import SmallTitle from "../../../components/typography/SmallTitle";
 import ProviderForm from "./components/ProviderForm";
 import Popper from "../../../components/popper/Popper";
 import DeleteProvider from "./components/DeleteProvider";
+import notify from "../../../core/snackbar/snackbar";
 
 const Provider = ({classes, history}) => {
     const [loaded, setLoaded] = useState(false);
@@ -26,6 +27,17 @@ const Provider = ({classes, history}) => {
     const [option, setOption] = useState(null);
     const [anchorElOption, setAnchorElOption] = useState(false);
     const theme = useTheme();
+
+    const [createProvider, createProviderData] = useMutation(CREATE_PROVIDER);
+
+    useEffect(() => {
+        if (createProviderData?.data?.createProvider?._id) {
+            notify("Success", {
+                variant: "success",
+            });
+            setProviders((e) => [...e, {...createProviderData?.data.createProvider}]);
+        }
+    }, [createProviderData]);
 
     const {data, loading, error} = useQuery(GET_PROVIDER);
 
@@ -68,6 +80,32 @@ const Provider = ({classes, history}) => {
             setProviders(data.getAllProviders);
         }
     }, [data]);
+
+    const defaultProviders = [
+        {
+            title: "Philips Hue",
+            description: "Faites de votre maison un endroit encore plus chaleureux grâce à un éclairage adapté.",
+            slug: "philips_hue",
+            icon: "Hue",
+            button: "Hue",
+        },
+        {
+            title: "Netatmo",
+            description: "La bonne température dans chaque pièce de votre logement",
+            slug: "netatmo",
+            icon: "SmartTemperature",
+            button: "Thermostat",
+        },
+        {
+            title: "Sonoff",
+            description: "Créez facilement votre propre système Smart Home avec Sonoff",
+            slug: "sonoff",
+            icon: "Plug",
+            button: "Sonoff",
+        },
+    ];
+
+    const notInstalledProvider = defaultProviders.filter((def) => !providers.map((p) => p.slug).includes(def.slug));
 
     return (
         <div className={classes.root}>
@@ -126,6 +164,39 @@ const Provider = ({classes, history}) => {
                     </Grid>
                 ))}
             </Grid>
+            {notInstalledProvider.length > 0 && (
+                <Fragment>
+                    <Divider />
+                    <SmallTitle className={classes.installNewProviderText}>Install new provider</SmallTitle>
+                    <Error errorMessage={error} />
+                    <Grid container className={classes.container}>
+                        {notInstalledProvider.map((provider) => (
+                            <Grid
+                                item
+                                lg={4}
+                                md={4}
+                                xs={12}
+                                key={`provider/${provider.slug}`}
+                                className={classes.gridItem}>
+                                <Card className={classes.card}>
+                                    <Icon center size={60}>
+                                        {provider.icon}
+                                    </Icon>
+                                    <Title bold center>
+                                        {provider.title}
+                                    </Title>
+                                    <Text center noWrap className={classes.description}>
+                                        {provider.description}
+                                    </Text>
+                                    <Button onClick={() => createProvider({variables: {provider}})} fullWidth>
+                                        Install {provider.title}
+                                    </Button>
+                                </Card>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Fragment>
+            )}
             {loading && <Loading absolute />}
             <Modal open={open} onClose={() => handleCloseModal()}>
                 <ProviderForm
@@ -157,6 +228,19 @@ const GET_PROVIDER = gql`
             icon
             slug
             button
+            description
+        }
+    }
+`;
+
+const CREATE_PROVIDER = gql`
+    mutation createProvider($provider: createProviderInput!) {
+        createProvider(provider: $provider) {
+            _id
+            title
+            slug
+            button
+            icon
             description
         }
     }

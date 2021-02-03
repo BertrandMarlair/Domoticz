@@ -1,9 +1,5 @@
 const style = () => ({
     root: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        flex: 1,
         overflowY: "scroll",
     },
     action: {
@@ -14,6 +10,8 @@ const style = () => ({
         flexDirection: "column",
         cursor: "pointer",
         transition: "0.5s",
+        maxWidth: 200,
+        margin: "20px auto",
     },
     actionHeader: {
         display: "flex",

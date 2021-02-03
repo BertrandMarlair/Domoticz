@@ -245,4 +245,8 @@ export default [
         name: "Color",
         url: `${url}/color-circle.svg`,
     },
+    {
+        name: "WhiteAmbiance",
+        url: `${url}/whiteAmbiance.svg`,
+    },
 ];

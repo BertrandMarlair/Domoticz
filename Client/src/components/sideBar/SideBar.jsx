@@ -1,12 +1,14 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo, useState, useEffect} from "react";
 import {withStyles} from "@material-ui/styles";
 import style from "./SideBarStyle";
 import PropTypes from "prop-types";
-import {widthSideBar} from "../../core/style/constant";
+import {mediaQuerySizeXxs, widthSideBar} from "../../core/style/constant";
 import Icon from "../icon/Icon";
 import {NavLink, useRouteMatch} from "react-router-dom";
-import {useTheme} from "@material-ui/core";
+import {ClickAwayListener, useTheme} from "@material-ui/core";
 import ProfileOptions from "./components/ProfileOptions";
+import {useDispatch, useSelector} from "react-redux";
+import {useMediaQuery} from "react-responsive";
 
 const SideBarProvider = ({menu, classes}) => {
     const match = useRouteMatch();
@@ -22,6 +24,34 @@ const SideBarProvider = ({menu, classes}) => {
 
 const SideBar = ({classes, match}) => {
     const theme = useTheme();
+    const dispatch = useDispatch();
+    const layoutGlobal = useSelector((state) => state.layout);
+    const {isSidebarOpened} = layoutGlobal;
+
+    const [sideBarOpened, setSideBarOpended] = useState(isSidebarOpened);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setSideBarOpended(isSidebarOpened);
+        }, 100);
+    }, [isSidebarOpened]);
+
+    const isMobile = useMediaQuery({
+        query: `(max-width: ${mediaQuerySizeXxs}px)`,
+    });
+
+    const handleCloseSideBar = () => dispatch({type: "Layout/CLOSE_SIDEBAR"});
+
+    const getSideBarSize = () => {
+        if (isSidebarOpened) {
+            return true;
+        } else if (isMobile) {
+            return false;
+        }
+
+        return true;
+    };
+
     const [anchorElAvatar, setAnchorElAvatar] = useState(null);
 
     const handleClickAvatar = (event) => {
@@ -55,74 +85,96 @@ const SideBar = ({classes, match}) => {
         return false;
     };
 
+    const handleClickAway = () => {
+        if (sideBarOpened) {
+            handleCloseSideBar();
+        }
+    };
+
     return (
-        <div className={classes.root} style={{width: widthSideBar}}>
-            <NavLink className={classes.logo} to={`/app/home`}>
-                <div className={classes.optionItem}>
-                    <img src="/assets/logos/smart.png" alt="logo" className={classes.img} />
+        <ClickAwayListener onClickAway={() => handleClickAway()}>
+            <div className={classes.root} style={{marginLeft: getSideBarSize() ? 0 : `-${widthSideBar}px`}}>
+                <NavLink className={classes.logo} to={`/app/home`}>
+                    <div className={classes.optionItem}>
+                        <img src="/assets/logos/smart.png" alt="logo" className={classes.img} />
+                    </div>
+                </NavLink>
+                <div className={classes.content}>
+                    <div className={classes.contentHeader}>
+                        {menu.header.map((item, i) => {
+                            return (
+                                <NavLink
+                                    to={item.link}
+                                    key={`sideBarItem/${i}`}
+                                    className={classes.menuItem}
+                                    onClick={() => handleCloseSideBar()}>
+                                    <div
+                                        className={classes.target}
+                                        style={{
+                                            background: currentUrl(item.link)
+                                                ? theme.palette.primary.main
+                                                : "transparent",
+                                            boxShadow:
+                                                currentUrl(item.link) &&
+                                                `1px 0px 11px ${theme.palette.primary.light}90`,
+                                        }}></div>
+                                    <div className={classes.icon}>
+                                        <Icon
+                                            size={22}
+                                            color={
+                                                currentUrl(item.link)
+                                                    ? theme.palette.primary.light
+                                                    : theme.palette.grey.primary
+                                            }>
+                                            {item.icon}
+                                        </Icon>
+                                    </div>
+                                </NavLink>
+                            );
+                        })}
+                    </div>
+                    <div className={classes.contentFooter}>
+                        {menu.footer.map((item, i) => {
+                            return (
+                                <NavLink
+                                    to={item.link}
+                                    key={`sideBarItem/${i}`}
+                                    className={classes.menuItem}
+                                    onClick={() => handleCloseSideBar()}>
+                                    <div
+                                        className={classes.target}
+                                        style={{
+                                            background: currentUrl(item.link)
+                                                ? theme.palette.primary.main
+                                                : "transparent",
+                                            boxShadow:
+                                                currentUrl(item.link) &&
+                                                `1px 0px 11px ${theme.palette.primary.light}90`,
+                                        }}></div>
+                                    <div className={classes.icon}>
+                                        <Icon
+                                            size={22}
+                                            color={
+                                                currentUrl(item.link)
+                                                    ? theme.palette.primary.light
+                                                    : theme.palette.grey.primary
+                                            }>
+                                            {item.icon}
+                                        </Icon>
+                                    </div>
+                                </NavLink>
+                            );
+                        })}
+                    </div>
                 </div>
-            </NavLink>
-            <div className={classes.content}>
-                <div className={classes.contentHeader}>
-                    {menu.header.map((item, i) => {
-                        return (
-                            <NavLink to={item.link} key={`sideBarItem/${i}`} className={classes.menuItem}>
-                                <div
-                                    className={classes.target}
-                                    style={{
-                                        background: currentUrl(item.link) ? theme.palette.primary.main : "transparent",
-                                        boxShadow:
-                                            currentUrl(item.link) && `1px 0px 11px ${theme.palette.primary.light}90`,
-                                    }}></div>
-                                <div className={classes.icon}>
-                                    <Icon
-                                        size={22}
-                                        color={
-                                            currentUrl(item.link)
-                                                ? theme.palette.primary.light
-                                                : theme.palette.grey.primary
-                                        }>
-                                        {item.icon}
-                                    </Icon>
-                                </div>
-                            </NavLink>
-                        );
-                    })}
-                </div>
-                <div className={classes.contentFooter}>
-                    {menu.footer.map((item, i) => {
-                        return (
-                            <NavLink to={item.link} key={`sideBarItem/${i}`} className={classes.menuItem}>
-                                <div
-                                    className={classes.target}
-                                    style={{
-                                        background: currentUrl(item.link) ? theme.palette.primary.main : "transparent",
-                                        boxShadow:
-                                            currentUrl(item.link) && `1px 0px 11px ${theme.palette.primary.light}90`,
-                                    }}></div>
-                                <div className={classes.icon}>
-                                    <Icon
-                                        size={22}
-                                        color={
-                                            currentUrl(item.link)
-                                                ? theme.palette.primary.light
-                                                : theme.palette.grey.primary
-                                        }>
-                                        {item.icon}
-                                    </Icon>
-                                </div>
-                            </NavLink>
-                        );
-                    })}
-                </div>
+                <ProfileOptions
+                    classes={classes}
+                    handleCloseAvatar={handleCloseAvatar}
+                    handleClickAvatar={handleClickAvatar}
+                    anchorElAvatar={anchorElAvatar}
+                />
             </div>
-            <ProfileOptions
-                classes={classes}
-                handleCloseAvatar={handleCloseAvatar}
-                handleClickAvatar={handleClickAvatar}
-                anchorElAvatar={anchorElAvatar}
-            />
-        </div>
+        </ClickAwayListener>
     );
 };
 

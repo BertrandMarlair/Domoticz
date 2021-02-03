@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {withStyles} from "@material-ui/core";
+import {Grid, withStyles} from "@material-ui/core";
 import style from "./ActionsStyle";
 import Switch from "../../../../../components/switch/Switch";
 import Icon from "../../../../../components/icon/Icon";
@@ -73,31 +73,33 @@ const Actions = ({classes}) => {
     };
 
     return (
-        <div className={classes.root}>
+        <Grid container className={classes.root}>
             {actions.map((action, index) => {
                 return (
-                    <Card
-                        key={`action/${index}`}
-                        className={classes.action}
-                        onClick={() => handleClick(action, index)}
-                        style={{
-                            transition: "0.5s",
-                            background:
-                                action.on && `linear-gradient(212deg, ${action.colorFrom} 0%, ${action.colorTo} 100%)`,
-                        }}>
-                        <div className={classes.actionHeader}>
-                            <Text>Switch</Text>
-                            <Switch checked={action.on} />
-                        </div>
-                        <Icon className={classes.actionIcon} size={45}>
-                            {action.icon}
-                        </Icon>
-                        <Text className={classes.actionTitle}>Arrivé à maison</Text>
-                        <Text>( {action.on ? "ON" : "OFF"} )</Text>
-                    </Card>
+                    <Grid item xs={12} lg={6} key={`action/${index}`}>
+                        <Card
+                            className={classes.action}
+                            onClick={() => handleClick(action, index)}
+                            style={{
+                                transition: "0.5s",
+                                background:
+                                    action.on &&
+                                    `linear-gradient(212deg, ${action.colorFrom} 0%, ${action.colorTo} 100%)`,
+                            }}>
+                            <div className={classes.actionHeader}>
+                                <Text>Switch</Text>
+                                <Switch checked={action.on} />
+                            </div>
+                            <Icon className={classes.actionIcon} size={45}>
+                                {action.icon}
+                            </Icon>
+                            <Text className={classes.actionTitle}>Arrivé à maison</Text>
+                            <Text>( {action.on ? "ON" : "OFF"} )</Text>
+                        </Card>
+                    </Grid>
                 );
             })}
-        </div>
+        </Grid>
     );
 };
 

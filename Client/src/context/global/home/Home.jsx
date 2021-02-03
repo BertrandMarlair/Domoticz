@@ -6,10 +6,11 @@ import Hours from "./components/hours/Hours";
 import Thermostat from "./components/thermostat/Thermostat";
 import Actions from "./components/actions/Actions";
 import Tabs from "../../../components/tabs/Tabs";
-import Icon from "../../../components/icon/Icon";
 import Title from "../../../components/typography/Title";
 import Text from "../../../components/typography/Text";
 import Lights from "./components/lights/Lights";
+import MediaQuery from "react-responsive";
+import {mediaQuerySizeXs, mediaQuerySizeXxs} from "../../../core/style/constant";
 
 const Home = ({classes}) => {
     const [indexContent, setIndexContent] = useState(0);
@@ -40,25 +41,23 @@ const Home = ({classes}) => {
 
     return (
         <div className={classes.root}>
-            <div className={classes.leftSidenav}>
-                <Actions />
-                <div className={classes.wrapperMain}>
-                    <Hours />
-                    <Thermostat />
+            <MediaQuery query={`(min-width: ${mediaQuerySizeXxs}px)`}>
+                <div className={classes.leftSidenav}>
+                    <MediaQuery query={`(min-width: ${mediaQuerySizeXs}px)`}>
+                        <Actions />
+                    </MediaQuery>
+                    <div className={classes.wrapperMain}>
+                        <Hours />
+                        <Thermostat />
+                    </div>
                 </div>
-            </div>
+            </MediaQuery>
             <div className={classes.rightSidenav}>
                 <div className={classes.headerTabs}>
-                    {/* <IconButton>
-                        <Icon>Back</Icon>
-                    </IconButton> */}
-                    <div>
-                        <Title className={classes.headerTitle}>Salon</Title>
-                        <Text color="primary" className={classes.headerDevices}>
-                            4 devices
-                        </Text>
-                    </div>
-                    <div />
+                    <Title className={classes.headerTitle}>Salon</Title>
+                    {/* <Text color="primary" className={classes.headerDevices}>
+                        4 devices
+                    </Text> */}
                 </div>
                 <Tabs
                     tabs={tabs}

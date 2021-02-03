@@ -7,7 +7,6 @@ import SmallTitle from "../../../../../components/typography/SmallTitle";
 import Icon from "../../../../../components/icon/Icon";
 import Text from "../../../../../components/typography/Text";
 import Button from "../../../../../components/button/Button";
-import {useSelector} from "react-redux";
 
 const Thermostat = ({classes}) => {
     const min = 16;
@@ -15,31 +14,16 @@ const Thermostat = ({classes}) => {
     const heat = 20.5;
     const away = 17;
 
-    const heating = true;
-
     const [degree, setDegree] = useState(180);
+    const [value, setValue] = useState(180);
 
     const temperature = parseFloat(((degree / 360) * (max - min) + min).toFixed(1));
 
-    const weather = useSelector((state) => state.weather);
     const theme = useTheme();
 
     const setNewTemperature = (temp) => {
+        setValue(((temp - min) / 8) * 360);
         setDegree(((temp - min) / 8) * 360);
-    };
-
-    const handleSetStatus = (stt) => {
-        switch (stt) {
-            case "HEAT":
-                setNewTemperature(heat);
-                break;
-            case "OFF":
-                setNewTemperature(min);
-                break;
-            case "AWAY":
-                setNewTemperature(away);
-                break;
-        }
     };
 
     const decreaseTemperature = () => {
@@ -78,14 +62,14 @@ const Thermostat = ({classes}) => {
                                 height="80"
                                 x="-250"
                                 y="160"
-                                style={{fill: theme.palette.background.dark, strokeWidth: "0"}}
+                                style={{fill: theme.palette.background.default, strokeWidth: "0"}}
                             />
                         </g>
                     </svg>
                 </div>
                 <div
                     className={classes.cursor}
-                    style={{transform: `rotate(${Math.round(-135 + (degree / 360) * 270)}deg)`}}>
+                    style={{transform: `rotate(${Math.round(-135 + (value / 360) * 270)}deg)`}}>
                     <svg width="100%" height="100%" viewBox="0 0 300 300">
                         <circle cx="119" cy="134" r="119" fill="#fff" />
                         <path
@@ -100,7 +84,7 @@ const Thermostat = ({classes}) => {
                 </div>
                 <div className={classes.circle}>
                     <CircularSlider
-                        width={335}
+                        width={300}
                         limit={270}
                         dataIndex={degree}
                         offsetAngle={-45}
@@ -117,6 +101,7 @@ const Thermostat = ({classes}) => {
                         range={200}
                         value={degree}
                         onChange={(e) => setDegree(e ?? 0)}
+                        onEnd={(e) => setValue(e ?? 0)}
                     />
                     <div className={classes.thermostat}>
                         <div
@@ -131,7 +116,7 @@ const Thermostat = ({classes}) => {
                                           background: theme.palette.background.light,
                                       }
                             }>
-                            <div className={classes.currentTemperature}>
+                            <div className={classes.currentRoom}>
                                 <SmallTitle className={classes.currentRoomText}>Salon</SmallTitle>
                             </div>
                             <div className={classes.currentTemperature}>

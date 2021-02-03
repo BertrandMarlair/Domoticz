@@ -1,4 +1,4 @@
-import {displayBetween, displayVerticalCenter, mediaQuerySizeSm} from "../../../core/style/constant";
+import {displayBetween, displayVerticalCenter, mediaQuerySizeSm, mediaQuerySizeXxs} from "../../../core/style/constant";
 
 const style = () => ({
     root: {
@@ -34,6 +34,9 @@ const style = () => ({
     addProvider: {
         ...displayBetween,
         margin: 20,
+        [`@media (max-width: ${mediaQuerySizeXxs}px)`]: {
+            flexDirection: "column",
+        },
     },
     addProviderHeader: {
         ...displayVerticalCenter,
@@ -50,6 +53,9 @@ const style = () => ({
     option: {
         display: "flex",
         flexDirection: "row-reverse",
+    },
+    installNewProviderText: {
+        margin: "10px 25px",
     },
 });
 

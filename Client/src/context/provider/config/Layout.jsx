@@ -6,6 +6,7 @@ import style from "./Style";
 
 import {mediaQuerySizeXs, widthSideBar} from "../../../core/style/constant";
 import LoaderLayout from "../../../components/loading/LoaderLayout";
+import Header from "../../../components/header/Header";
 
 const Layout = ({children, classes}) => {
     return (
@@ -24,6 +25,7 @@ const Layout = ({children, classes}) => {
                 </MediaQuery>
                 <MediaQuery query={`(max-width: ${mediaQuerySizeXs}px)`}>
                     <div className={classes.drawerSmall}>
+                        <Header />
                         <div className={classes.drawerWrapper} id="dashboard">
                             {children}
                         </div>

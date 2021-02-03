@@ -5,6 +5,7 @@ import theme from "../reducers/themeConfig";
 import loading from "../reducers/loadingConfig";
 import devices from "../reducers/devicesConfig";
 import weather from "../reducers/weatherConfig";
+import layout from "../reducers/sideBarConfig";
 
 const rootReducer = combineReducers({
     connected,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     loading,
     devices,
     weather,
+    layout,
 });
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

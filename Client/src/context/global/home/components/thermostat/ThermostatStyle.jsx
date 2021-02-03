@@ -1,5 +1,7 @@
 import {boxShadowLight, borderLight} from "../../../../../core/style/constant";
 
+const width = 300;
+
 const style = (theme) => ({
     root: {
         paddingBottom: 30,
@@ -9,12 +11,13 @@ const style = (theme) => ({
         display: "flex",
         position: "relative",
         margin: "0px 25px",
+        marginBottom: "-20px",
     },
     thermostat: {
         top: 50,
         left: 50,
-        width: 230,
-        height: 230,
+        width: width - 105,
+        height: width - 105,
         background: theme.palette.background.light,
         boxShadow: boxShadowLight,
         position: "absolute",
@@ -23,12 +26,13 @@ const style = (theme) => ({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
+        userSelect: "none",
     },
     thermostatInner: {
         top: 30,
         left: 30,
-        width: 170,
-        height: 170,
+        width: width - 165,
+        height: width - 165,
         display: "flex",
         zIndex: 5,
         position: "absolute",
@@ -39,12 +43,17 @@ const style = (theme) => ({
         flexDirection: "column",
         justifyContent: "center",
         transition: "0.2s",
+        userSelect: "none",
+    },
+    currentRoom: {
+        marginBottom: 5,
     },
     currentTemperature: {
         display: "flex",
+        marginBottom: -10,
     },
     currentTemperatureText: {
-        fontSize: "2.5rem",
+        fontSize: "2rem",
         fontWeight: 400,
     },
     currentRoomText: {
@@ -52,9 +61,9 @@ const style = (theme) => ({
         fontWeight: 300,
     },
     currentTemperatureLabel: {
-        fontSize: "1.5rem",
+        fontSize: "1.3rem",
         fontWeight: 300,
-        lineHeight: "65px",
+        lineHeight: "55px",
         marginLeft: 5,
     },
     askTemperature: {
@@ -112,7 +121,7 @@ const style = (theme) => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "-30px",
+        marginTop: 12,
     },
     controlButton: {
         padding: "10px 25px",
@@ -162,23 +171,28 @@ const style = (theme) => ({
         position: "absolute",
         top: "-56px",
         left: "-31px",
-        width: 446,
+        width: width + 111,
+        zIndex: -1,
+        userSelect: "none",
     },
     cursor: {
         position: "absolute",
         top: 31,
         left: 71,
-        width: 300,
+        width: width - 40,
         transformOrigin: "39.7% 44.2%",
         transition: "0.5s",
+        zIndex: "-2",
+        userSelect: "none",
     },
     temperatureText: {
         display: "flex",
         justifyContent: "space-between",
-        width: 250,
+        width: width - 65,
         position: "absolute",
-        top: 298,
-        left: 69,
+        top: 270,
+        left: 57,
+        userSelect: "none",
     },
 });
 

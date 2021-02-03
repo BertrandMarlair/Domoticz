@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, {useEffect, useRef, useState} from "react";
-import {withStyles} from "@material-ui/core";
+import React, {Fragment, useEffect, useRef, useState} from "react";
+import {IconButton, withStyles} from "@material-ui/core";
 import style from "./ColorSelectorStyle";
 import iro from "../../picker/picker";
 import {EventEmitter} from "../../../core/events/events";
+import Icon from "../../../components/icon/Icon";
 import {cieToRGB, colorTemperatureToHex, hexToRgb, rgbToCie} from "../../../core/philips/color";
 import {useDispatch} from "react-redux";
 import {EDIT_LIGHT_STATE, SYNC_DEVICE} from "../../../core/reducers/devicesConfig";
@@ -11,10 +12,12 @@ import {useMutation} from "react-apollo";
 import gql from "graphql-tag";
 import {philipsHueFragment} from "../../../app/SyncDevices";
 import LightSelector from "../LightSelector/LightSelector";
-import Button from "../../button/Button";
+import {useTheme} from "@material-ui/styles";
 
 const ColorSelector = ({classes, hue, device}) => {
     const canBeColored = ["LST002", "LCT015"];
+
+    const theme = useTheme();
 
     const [type, setType] = useState("xy");
     const [colorsMode, setColorsMode] = useState([]);
@@ -80,8 +83,6 @@ const ColorSelector = ({classes, hue, device}) => {
 
     const colors = getColors();
 
-    console.log(colors);
-
     useEffect(() => {
         setType(colors[0].colormode);
         setColorsMode(colors.map((color) => color.colormode));
@@ -103,7 +104,6 @@ const ColorSelector = ({classes, hue, device}) => {
                     options: {
                         sliderType: "kelvin",
                         sliderShape: "circle",
-                        // sliderSize: 40,
                     },
                 },
             ],
@@ -234,15 +234,24 @@ const ColorSelector = ({classes, hue, device}) => {
     }, [colors]);
 
     return (
-        <div className={classes.root}>
-            <div id="colorPicker"></div>
-            {activeColor && (
-                <div className={classes.lightSelector}>
-                    <LightSelector hue={hue} device={activeColor} update={update} />
-                </div>
-            )}
-            <Button onClick={() => handleChangeColorType()}>test {type}</Button>
-        </div>
+        <Fragment>
+            <div className={classes.iconContainer}>
+                <IconButton
+                    className={classes.iconButton}
+                    style={{backgroundColor: type === "ct" ? "white" : theme.palette.background.light}}
+                    onClick={() => handleChangeColorType()}>
+                    <Icon>WhiteAmbiance</Icon>
+                </IconButton>
+            </div>
+            <div className={classes.root}>
+                <div id="colorPicker"></div>
+                {activeColor && (
+                    <div className={classes.lightSelector}>
+                        <LightSelector hue={hue} device={activeColor} update={update} />
+                    </div>
+                )}
+            </div>
+        </Fragment>
     );
 };
 

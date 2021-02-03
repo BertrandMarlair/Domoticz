@@ -7,6 +7,7 @@ const style = () => {
         },
         drawerSmall: {
             minHeight: "100%",
+            width: "100%",
         },
         logo: {
             height: "100%",

@@ -1,15 +1,19 @@
-import {boxShadowLight} from "../../../core/style/constant";
+import {boxShadowLight, mediaQuerySizeXs, mediaQuerySizeXxs} from "../../../core/style/constant";
 
 const style = (theme) => ({
     root: {
         height: "100%",
         display: "flex",
+        width: "100%",
     },
     leftSidenav: {
         width: "65%",
         height: "100%",
         display: "flex",
         flexDirection: "row",
+        [`@media (max-width: ${mediaQuerySizeXs}px)`]: {
+            width: "50%",
+        },
     },
     rightSidenav: {
         width: "35%",
@@ -19,6 +23,14 @@ const style = (theme) => ({
         zIndex: 1,
         display: "flex",
         flexDirection: "column",
+        [`@media (max-width: ${mediaQuerySizeXs}px)`]: {
+            width: "50%",
+        },
+        [`@media (max-width: ${mediaQuerySizeXxs}px)`]: {
+            width: "100%",
+            boxShadow: "none",
+            borderRadius: "30px",
+        },
     },
     wrapperMain: {
         display: "flex",
@@ -27,9 +39,10 @@ const style = (theme) => ({
         flexDirection: "column",
     },
     headerTabs: {
-        margin: 10,
+        marginTop: 10,
+        padding: "0 10px",
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent: "center",
         alignItems: "center",
     },
     headerTitle: {

@@ -4,6 +4,7 @@ const style = (theme) => ({
     },
     wrapper: {
         padding: 20,
+        minHeight: 200,
     },
     scene: {
         height: 50,

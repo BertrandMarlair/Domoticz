@@ -16,6 +16,8 @@ const LightPage = ({classes, selectedGroup, setSelectedGroup, hue}) => {
     const targetPage = () => {
         switch (target) {
             case 0:
+                return <SceneSelector group={selectedGroup} setSelectedGroup={setSelectedGroup} />;
+            case 1:
                 return selectedGroup.lights.map((light, index) => {
                     return (
                         <LightSelector
@@ -29,8 +31,6 @@ const LightPage = ({classes, selectedGroup, setSelectedGroup, hue}) => {
                         />
                     );
                 });
-            case 1:
-                return <SceneSelector group={selectedGroup} setSelectedGroup={setSelectedGroup} />;
             case 2:
                 return <ColorSelector hue={hue} device={selectedGroup} setSelectedGroup={setSelectedGroup} />;
             default:
@@ -61,13 +61,13 @@ const LightPage = ({classes, selectedGroup, setSelectedGroup, hue}) => {
                         className={classes.iconButton}
                         style={{backgroundColor: target === 0 ? "white" : theme.palette.background.light}}
                         onClick={() => setTarget(0)}>
-                        <Icon color={target === 0 ? theme.palette.background.light : "white"}>List</Icon>
+                        <Icon color={target === 0 ? theme.palette.background.light : "white"}>Palette</Icon>
                     </IconButton>
                     <IconButton
                         className={classes.iconButton}
                         style={{backgroundColor: target === 1 ? "white" : theme.palette.background.light}}
                         onClick={() => setTarget(1)}>
-                        <Icon color={target === 1 ? theme.palette.background.light : "white"}>Palette</Icon>
+                        <Icon color={target === 1 ? theme.palette.background.light : "white"}>List</Icon>
                     </IconButton>
                     <IconButton
                         className={classes.iconButton}

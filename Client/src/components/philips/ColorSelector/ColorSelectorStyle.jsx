@@ -42,6 +42,11 @@ const style = (theme) => ({
     lightSelector: {
         width: "100%",
     },
+    iconContainer: {
+        display: "flex",
+        justifyContent: "flex-end",
+        marginRight: 30,
+    },
 });
 
 export default style;

@@ -83,6 +83,7 @@ const CircularSlider = ({
     range = 220,
     value = 0,
     onChange = () => {},
+    onEnd = () => {},
 }) => {
     const contentWidth = width - 2 * labelOffset;
     const initialState = {
@@ -186,7 +187,6 @@ const CircularSlider = ({
             pt.x = Math.round(pt.x);
             pt.y = Math.round(pt.y);
 
-            // change direction
             const dashOffset = (degrees / spreadDegrees) * state.dashFullArray;
 
             degrees = getSliderRotation(direction) === -1 ? spreadDegrees - degrees : degrees;
@@ -212,8 +212,8 @@ const CircularSlider = ({
                             : (state.dashFullArray || svgFullPath.current.getTotalLength()) - dashOffset,
                     label: state.data[currentPoint - 1],
                     knob: {
-                        x: pt.x, // + Math.cos(radians) * 0
-                        y: pt.y, // + Math.sin(radians) * 0
+                        x: pt.x,
+                        y: pt.y,
                     },
                 },
             });
@@ -313,6 +313,8 @@ const CircularSlider = ({
                 isDragging: false,
             },
         });
+
+        onEnd(state.label);
 
         setTimeout(() => {
             updateState(Math.random());
@@ -425,6 +427,8 @@ const CircularSlider = ({
 
             setKnobPosition(radians);
         }
+
+        // onEnd(value);
     }, [value, min, max]);
 
     const sanitizedLabel = label.replace(/[\W_]/g, "_");
