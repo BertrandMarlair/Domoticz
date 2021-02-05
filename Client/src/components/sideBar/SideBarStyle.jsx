@@ -6,7 +6,7 @@ const style = (theme) => ({
         position: "fixed",
         boxShadow: theme.palette.boxShadow.main,
         height: "100%",
-        background: theme.palette.background.paper,
+        background: theme.palette.background.default,
         transition: "0.3s",
         display: "flex",
         flexDirection: "column",

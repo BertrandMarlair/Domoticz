@@ -14,6 +14,10 @@ export default [
         url: `${url}/chandeliers.svg`,
     },
     {
+        name: "Chandelier",
+        url: `${url}/chandelier.svg`,
+    },
+    {
         name: "Checked",
         url: `${url}/checked.svg`,
     },
@@ -202,6 +206,10 @@ export default [
         url: `${url}/lightbulb.svg`,
     },
     {
+        name: "LightBulb",
+        url: `${url}/lightbulbMain.svg`,
+    },
+    {
         name: "Hue ambiance lamp",
         url: `${url}/lightbulb.svg`,
     },
@@ -248,5 +256,21 @@ export default [
     {
         name: "WhiteAmbiance",
         url: `${url}/whiteAmbiance.svg`,
+    },
+    {
+        name: "Thermostat",
+        url: `${url}/thermostat.svg`,
+    },
+    {
+        name: "TableLamp",
+        url: `${url}/table-lamp.svg`,
+    },
+    {
+        name: "Netflix",
+        url: `${url}/netflix.svg`,
+    },
+    {
+        name: "Walk",
+        url: `${url}/relaxing-walk.svg`,
     },
 ];

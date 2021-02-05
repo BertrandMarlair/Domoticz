@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, {useState, useEffect} from "react";
-// import {useTranslation} from "react-i18next";
 import style from "./AccountsStyle";
 import gql from "graphql-tag";
 import {useQuery} from "react-apollo";
@@ -15,7 +14,6 @@ import Card from "../../../components/card/Card";
 import Button from "../../../components/button/Button";
 import Icon from "../../../components/icon/Icon";
 import SmallTitle from "../../../components/typography/SmallTitle";
-import GoBack from "../../../components/goBack/GoBack";
 import Date from "../../../components/date/Date";
 import AccountAdd from "../accountAdd/AccountAdd";
 import {useHistory} from "react-router-dom";
@@ -27,7 +25,6 @@ const Account = ({classes}) => {
     const theme = useTheme();
     const history = useHistory();
 
-    // const {t} = useTranslation();
     const {data, loading, error} = useQuery(GET_USERS);
 
     const handleManageAccount = (account) => {
@@ -70,7 +67,6 @@ const Account = ({classes}) => {
 
     return (
         <div className={classes.root}>
-            <GoBack />
             <Card className={classes.addCard}>
                 <div className={classes.addCardHeader}>
                     <Icon color={theme.palette.primary.main} className={classes.addCardIcon}>
@@ -82,61 +78,63 @@ const Account = ({classes}) => {
                     Add new account
                 </Button>
             </Card>
-            <TableContainer className={classes.tableContainer}>
-                <Table className={classes.table} aria-label="simple table">
-                    <TableHead className={classes.tableHead}>
-                        <TableRow>
-                            <TableCell align="center">Nom</TableCell>
-                            <TableCell align="center">Type</TableCell>
-                            <TableCell align="center">Permission</TableCell>
-                            <TableCell align="center">Actif</TableCell>
-                            <TableCell align="center">Vérifié</TableCell>
-                            <TableCell className={classes.optionalDisplay} align="center">
-                                Création
-                            </TableCell>
-                            <TableCell className={classes.optionalDisplay} align="center">
-                                Dernière activité
-                            </TableCell>
-                            <TableCell align="center">Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <Error errorMessage={error} />
-                        {accounts.map((account) => (
-                            <TableRow key={account._id}>
-                                <TableCell align="center" component="th" scope="row">
-                                    {account.name}
-                                </TableCell>
-                                <TableCell align="center">{account.type}</TableCell>
-                                <TableCell align="center">{account.permission}</TableCell>
-                                <TableCell align="center">
-                                    <Icon color={getActiveColor(account.active)} className={classes.addAccountIcon}>
-                                        {getActiveIcon(account.active)}
-                                    </Icon>
-                                </TableCell>
-                                <TableCell align="center">
-                                    <Icon
-                                        color={getActiveColor(account.basic.verified)}
-                                        className={classes.addAccountIcon}>
-                                        {getActiveIcon(account.basic.verified)}
-                                    </Icon>
+            <Card noPadding>
+                <TableContainer className={classes.tableContainer}>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead className={classes.tableHead}>
+                            <TableRow>
+                                <TableCell align="center">Nom</TableCell>
+                                <TableCell align="center">Type</TableCell>
+                                <TableCell align="center">Permission</TableCell>
+                                <TableCell align="center">Actif</TableCell>
+                                <TableCell align="center">Vérifié</TableCell>
+                                <TableCell className={classes.optionalDisplay} align="center">
+                                    Création
                                 </TableCell>
                                 <TableCell className={classes.optionalDisplay} align="center">
-                                    {getDate(account.createdAt)}
+                                    Dernière activité
                                 </TableCell>
-                                <TableCell className={classes.optionalDisplay} align="center">
-                                    {getDate(account.basic.lastLogin)}
-                                </TableCell>
-                                <TableCell align="center" className={classes.editAccountButton}>
-                                    <Button round size="sm" onClick={() => handleManageAccount(account)}>
-                                        Manage
-                                    </Button>
-                                </TableCell>
+                                <TableCell align="center">Actions</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            <Error errorMessage={error} />
+                            {accounts.map((account) => (
+                                <TableRow key={account._id}>
+                                    <TableCell align="center" component="th" scope="row">
+                                        {account.name}
+                                    </TableCell>
+                                    <TableCell align="center">{account.type}</TableCell>
+                                    <TableCell align="center">{account.permission}</TableCell>
+                                    <TableCell align="center">
+                                        <Icon color={getActiveColor(account.active)} className={classes.addAccountIcon}>
+                                            {getActiveIcon(account.active)}
+                                        </Icon>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <Icon
+                                            color={getActiveColor(account.basic.verified)}
+                                            className={classes.addAccountIcon}>
+                                            {getActiveIcon(account.basic.verified)}
+                                        </Icon>
+                                    </TableCell>
+                                    <TableCell className={classes.optionalDisplay} align="center">
+                                        {getDate(account.createdAt)}
+                                    </TableCell>
+                                    <TableCell className={classes.optionalDisplay} align="center">
+                                        {getDate(account.basic.lastLogin)}
+                                    </TableCell>
+                                    <TableCell align="center" className={classes.editAccountButton}>
+                                        <Button round size="sm" onClick={() => handleManageAccount(account)}>
+                                            Manage
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Card>
             {loading && <Loading absolute />}
             <Modal open={open} onClose={() => handleCloseModal()}>
                 <AccountAdd onClose={() => handleCloseModal()} />

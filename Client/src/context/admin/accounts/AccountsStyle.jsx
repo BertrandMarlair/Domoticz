@@ -41,7 +41,7 @@ const style = () => ({
     },
     addCard: {
         ...displayBetween,
-        margin: 10,
+        marginBottom: 30,
     },
     addCardHeader: {
         ...displayVerticalCenter,

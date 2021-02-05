@@ -19,7 +19,6 @@ const style = (theme) => ({
         cursor: "pointer",
         backgroundSize: "100%",
         position: "relative",
-        zIndex: 100,
         "&:before": {
             content: "''",
             display: "block",
@@ -28,7 +27,6 @@ const style = (theme) => ({
             top: 0,
             left: 0,
             width: "100%",
-            zIndex: "-100",
             transition: "opacity 0.7s",
             borderRadius: 11,
         },

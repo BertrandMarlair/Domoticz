@@ -1,33 +1,11 @@
-import {
-    blueLight,
-    green,
-    greenLight,
-    red,
-    redLight,
-    yellow,
-    dark,
-    light,
-    grey,
-    error,
-    success,
-    warning,
-    white,
-    link,
-} from "../style/constant";
+import {dark, light, grey, error, success, white, link} from "../style/constant";
 
 export const globalPalette = {
-    blueLight,
-    green,
-    greenLight,
-    red,
-    redLight,
-    yellow,
     dark,
     light,
     grey,
     error,
     success,
-    warning,
     white,
     link,
 };

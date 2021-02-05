@@ -1,5 +1,3 @@
-import {boxShadowLight, borderLight} from "../../../../../core/style/constant";
-
 const width = 300;
 
 const style = (theme) => ({
@@ -19,7 +17,7 @@ const style = (theme) => ({
         width: width - 105,
         height: width - 105,
         background: theme.palette.background.light,
-        boxShadow: boxShadowLight,
+        boxShadow: theme.palette.boxShadow.main,
         position: "absolute",
         borderRadius: "100%",
         display: "flex",
@@ -97,7 +95,7 @@ const style = (theme) => ({
         textAlign: "right",
     },
     divider: {
-        borderLeft: borderLight,
+        borderLeft: theme.palette.border.main,
         height: 66,
         margin: "0 10px",
     },

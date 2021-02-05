@@ -1,12 +1,11 @@
 const style = (theme) => ({
     root: {
-        background: theme.palette.background.light,
+        background: theme.palette.background.default,
         margin: "12px",
         padding: 0,
         cursor: "pointer",
         backgroundSize: "100%",
         position: "relative",
-        zIndex: 100,
         borderRadius: 11,
         "&:before": {
             content: "''",
@@ -16,7 +15,6 @@ const style = (theme) => ({
             top: 0,
             left: 0,
             width: "100%",
-            zIndex: "-100",
             transition: "opacity 0.7s",
             borderRadius: 11,
         },

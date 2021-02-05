@@ -8,59 +8,22 @@ export const secondaryDark = "#39BE83";
 export const borderInput = "1px solid #cccccc";
 export const borderLight = "1px solid #4e4e4e";
 export const borderMedium = "1px solid #e2e0e4";
-export const borderDark = "1px solid #2a3544";
-export const borderWhite = "1px solid #ffffff";
-export const borderLeft = "4px solid #cccccc";
-export const borderReactionLight = "1px solid #8caeff";
-export const borderReactionDark = "1px solid #708bcc";
+export const borderDark = "1px solid #343434";
 
 export const dangerColor = "#EB5757";
 export const linkColor = "#4891FF";
 
-export const textColorLight = "#565F5A";
-export const textColorDark = "#C4C4C4";
-export const textColorLightGrey = "#dad4d4";
+export const textColorLight = "#CDCDCD";
+export const textColorDark = "#72757C";
+export const textColorDisabled = "#888888";
+export const textColorWhite = "#ffffff";
 
-export const background = "#2c2d43";
-export const backgroundDark = "#232434";
-export const backgroundMedium = "#2f3247";
-export const backgroundWhite = "#ffffff";
-
-export const blueLight = {
-    primary: "#2261A1",
-    primaryLight: "#428cd7",
-    primaryDark: "#0d263f",
-};
-
-export const green = {
-    primary: "#0D4524",
-    primaryLight: "#1c964e",
-    primaryDark: "#04150b",
-};
-
-export const greenLight = {
-    primary: "#156B39",
-    primaryLight: "#26c066",
-    primaryDark: "#0d4022",
-};
-
-export const red = {
-    primary: "#691A16",
-    primaryLight: "#A62E21",
-    primaryDark: "#3f100d",
-};
-
-export const redLight = {
-    primary: "#A62E21",
-    primaryLight: "#d94f40",
-    primaryDark: "#40120d",
-};
-
-export const yellow = {
-    primary: "#cccc00",
-    primaryLight: "#d6d632",
-    primaryDark: "#a3a300",
-};
+export const background = "#1E2024";
+export const backgroundPaper = "#2d3339";
+export const backgroundLight = "#F2F2F2";
+export const backgroundCard = "#D6D6D744";
+export const backgroundCardOff = "#D6D6D755";
+export const backgroundCardOn = "#F2F2F2";
 
 export const dark = {
     primary: "#2E2E2E",
@@ -94,13 +57,6 @@ export const success = {
     contrastText: "#ffffff",
 };
 
-export const warning = {
-    main: "#de7e00",
-    light: "#fc9403",
-    dark: "#ba6b03",
-    contrastText: "#ffffff",
-};
-
 export const white = {
     main: "#ffffff",
     light: "#D9D9D9",
@@ -114,12 +70,7 @@ export const link = {
     dark: "#2476f2",
 };
 
-export const boxShadowLight = "0px 0px 10px rgba(0, 0, 0, 0.35)";
-export const boxShadowDark = "0px 0px 20px rgb(43 46 66)";
-export const boxShadowLightWhite = "0px 12px 28px #bfc1d4";
-export const boxShadowDarkWhite = "0px 12px 28px #0f101f";
-
-export const strongWhiteBorder = "5px solid #eee";
+export const boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.35)";
 
 // rem
 export const remXXXs = "0,6875rem";

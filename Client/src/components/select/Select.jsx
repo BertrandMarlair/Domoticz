@@ -63,6 +63,7 @@ const CustomSelect = (props) => {
             borderColor: error ? "red" : "#c4c4c4",
             overflow: "hidden",
             maxHeight: "70px !important",
+            background: "inherit",
         }),
         input: (provided) => ({
             ...provided,

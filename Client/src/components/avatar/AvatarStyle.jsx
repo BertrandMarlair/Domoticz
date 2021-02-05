@@ -16,7 +16,7 @@ const avatarStyle = (theme) => ({
         display: "block",
     },
     whiteBorder: {
-        border: `solid 2px ${theme.palette.background.paper}`,
+        border: `solid 2px ${theme.palette.background.default}`,
     },
     bigger: {
         width: 100,

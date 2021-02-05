@@ -37,7 +37,7 @@ const style = (theme) => ({
     },
     lightPrimary: {
         border: `1px solid ${theme.palette.text.colored}`,
-        background: theme.palette.background.paper,
+        background: theme.palette.background.default,
         color: theme.palette.text.colored,
         "&:hover": {
             border: `1px solid ${theme.palette.primary.light}`,
@@ -60,7 +60,7 @@ const style = (theme) => ({
         },
     },
     errorInverted: {
-        background: theme.palette.background.paper,
+        background: theme.palette.background.default,
         color: theme.palette.error.main,
         borderColor: theme.palette.error.main,
         "&:hover": {

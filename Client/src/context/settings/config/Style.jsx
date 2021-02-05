@@ -1,12 +1,14 @@
-import {borderLight, mediaQuerySizeXxs} from "../../../core/style/constant";
+import {mediaQuerySizeXxs, mediaQuerySizeSm, displayBetween, displayVerticalCenter} from "../../../core/style/constant";
 
 const style = (theme) => {
     return {
         drawer: {
-            transition: "0.2s",
+            maxWidth: mediaQuerySizeSm,
+            margin: "auto",
+            minHeight: "96vh",
+            height: "96%",
+            padding: 10,
             width: "100%",
-            height: "100%",
-            background: theme.palette.background.default,
         },
         drawerSmall: {
             minHeight: "100%",
@@ -14,24 +16,34 @@ const style = (theme) => {
         drawerWrapper: {
             display: "flex",
             flexDirection: "column",
-            height: "95%",
+            height: "100%",
         },
         wrapper: {
             display: "flex",
-            padding: 15,
+            marginTop: 25,
             [`@media (max-width: ${mediaQuerySizeXxs}px)`]: {
                 flexDirection: "column",
             },
         },
         header: {
+            ...displayBetween,
+            margin: 0,
+            [`@media (max-width: ${mediaQuerySizeXxs}px)`]: {
+                flexDirection: "column",
+            },
+        },
+        headerWrapper: {
+            ...displayVerticalCenter,
+        },
+        headerIcon: {
             margin: 20,
-            padding: 30,
         },
         logo: {
             height: "100%",
         },
         navBar: {
             width: 400,
+            marginLeft: 0,
             height: "100%",
             display: "flex",
             alignItems: "flex-start",
@@ -46,7 +58,7 @@ const style = (theme) => {
             alignItems: "center",
             margin: 5,
             padding: 20,
-            borderBottom: borderLight,
+            borderBottom: theme.palette.border.main,
             width: "-webkit-fill-available",
             height: "100px",
         },
@@ -56,6 +68,7 @@ const style = (theme) => {
         main: {
             width: "100%",
             height: "100%",
+            marginRight: 0,
             [`@media (max-width: ${mediaQuerySizeXxs}px)`]: {
                 width: "unset",
             },

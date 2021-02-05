@@ -48,16 +48,15 @@ const Home = ({classes}) => {
                     </MediaQuery>
                     <div className={classes.wrapperMain}>
                         <Hours />
-                        <Thermostat />
                     </div>
                 </div>
             </MediaQuery>
             <div className={classes.rightSidenav}>
                 <div className={classes.headerTabs}>
                     <Title className={classes.headerTitle}>Salon</Title>
-                    {/* <Text color="primary" className={classes.headerDevices}>
-                        4 devices
-                    </Text> */}
+                    <Text color="primary" className={classes.headerDevices}>
+                        6 appareils allumés
+                    </Text>
                 </div>
                 <Tabs
                     tabs={tabs}

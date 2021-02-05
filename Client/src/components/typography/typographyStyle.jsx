@@ -2,17 +2,7 @@
 // // // Typography styles
 // #############################
 
-import {
-    remXXS,
-    strongWhiteBorder,
-    remS,
-    remL,
-    remMl,
-    sizeS,
-    remXs,
-    fontFamily,
-    remXXl,
-} from "../../core/style/constant";
+import {remXXS, remS, remL, remMl, sizeS, remXs, fontFamily, remXXl} from "../../core/style/constant";
 
 const typographyStyle = (theme) => ({
     defaultFontStyle: {
@@ -38,7 +28,7 @@ const typographyStyle = (theme) => ({
         padding: "10px 20px",
         margin: "0 0 20px",
         fontSize: remXXS,
-        borderLeft: strongWhiteBorder,
+        borderLeft: theme.palette.border.main,
     },
     quoteText: {
         margin: "0 0 10px",

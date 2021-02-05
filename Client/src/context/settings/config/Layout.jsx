@@ -6,7 +6,6 @@ import style from "./Style";
 import {widthSideBar, mediaQuerySizeXs} from "../../../core/style/constant";
 import LoaderLayout from "../../../components/loading/LoaderLayout";
 import SmallTitle from "../../../components/typography/SmallTitle";
-import Title from "../../../components/typography/Title";
 import Text from "../../../components/typography/Text";
 import Card from "../../../components/card/Card";
 import Icon from "../../../components/icon/Icon";
@@ -19,7 +18,6 @@ const LayoutConfig = ({children, classes}) => {
     const location = useLocation();
 
     const selectedStyle = {
-        backgroundColor: theme.palette.background.paper,
         boxShadow: theme.palette.boxShadow.main,
         borderBottom: "1px solid transparent",
         borderRadius: 10,
@@ -43,11 +41,20 @@ const LayoutConfig = ({children, classes}) => {
     return (
         <div className={classes.drawerWrapper} id="dashboard">
             <Card className={classes.header}>
-                <Title bold>Paramètres</Title>
-                <Text>Changer les paramètres concernant votre compte, la tablette ou tout autres options</Text>
+                <div className={classes.headerWrapper}>
+                    <Icon color={theme.palette.primary.main} className={classes.headerIcon}>
+                        Checked
+                    </Icon>
+                    <div>
+                        <SmallTitle className={classes.addProviderTitle}>Paramètres</SmallTitle>
+                        <Text className={classes.addProviderText} color="lightGrey">
+                            Changer les paramètres concernant votre compte, la tablette ou tout autres options
+                        </Text>
+                    </div>
+                </div>
             </Card>
             <div className={classes.wrapper}>
-                <div className={classes.navBar}>
+                <Card className={classes.navBar}>
                     {settingsConfig.map((setting, index) => {
                         return (
                             <NavLink
@@ -68,7 +75,7 @@ const LayoutConfig = ({children, classes}) => {
                             </NavLink>
                         );
                     })}
-                </div>
+                </Card>
                 <Card className={classes.main}>{children}</Card>
             </div>
         </div>

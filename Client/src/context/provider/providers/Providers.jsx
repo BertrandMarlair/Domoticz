@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, {useState, useEffect, Fragment} from "react";
+import React, {useState, useEffect} from "react";
 import {withStyles, Grid, IconButton, MenuItem, MenuList, Divider} from "@material-ui/core";
 import style from "./ProvidersStyle";
 import gql from "graphql-tag";
@@ -121,9 +121,9 @@ const Provider = ({classes, history}) => {
                         </Text>
                     </div>
                 </div>
-                <Button round size="sm" onClick={() => setOpen(true)}>
+                {/* <Button round size="sm" onClick={() => setOpen(true)}>
                     Add new provider
-                </Button>
+                </Button> */}
             </Card>
             <Grid container className={classes.container}>
                 <Error errorMessage={error} />
@@ -165,7 +165,7 @@ const Provider = ({classes, history}) => {
                 ))}
             </Grid>
             {notInstalledProvider.length > 0 && (
-                <Fragment>
+                <div className={classes.newProviders}>
                     <Divider />
                     <SmallTitle className={classes.installNewProviderText}>Install new provider</SmallTitle>
                     <Error errorMessage={error} />
@@ -179,6 +179,7 @@ const Provider = ({classes, history}) => {
                                 key={`provider/${provider.slug}`}
                                 className={classes.gridItem}>
                                 <Card className={classes.card}>
+                                    <div className={classes.option} />
                                     <Icon center size={60}>
                                         {provider.icon}
                                     </Icon>
@@ -195,10 +196,13 @@ const Provider = ({classes, history}) => {
                             </Grid>
                         ))}
                     </Grid>
-                </Fragment>
+                </div>
             )}
             {loading && <Loading absolute />}
-            <Modal open={open} onClose={() => handleCloseModal()}>
+            <Modal
+                open={open}
+                onClose={() => handleCloseModal()}
+                title={option?.title ? `Edition de ${option.title}` : "Creation d'un provider"}>
                 <ProviderForm
                     onClose={() => handleCloseModal()}
                     option={option}
@@ -206,7 +210,7 @@ const Provider = ({classes, history}) => {
                     providers={providers}
                 />
             </Modal>
-            <Modal open={openDelete} onClose={() => handleCloseDeleteModal()}>
+            <Modal open={openDelete} onClose={() => handleCloseDeleteModal()} title={`Suppression de ${option?.title}`}>
                 <DeleteProvider
                     onClose={() => handleCloseDeleteModal()}
                     option={option}

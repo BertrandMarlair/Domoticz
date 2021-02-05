@@ -10,7 +10,6 @@ import Error from "../../../../components/error/Error";
 import notify from "../../../../core/snackbar/snackbar";
 import Button from "../../../../components/button/Button";
 import Text from "../../../../components/typography/Text";
-import Title from "../../../../components/typography/Title";
 import SmallTitle from "../../../../components/typography/SmallTitle";
 
 const ProviderForm = ({classes, history, onClose, setProviders, option, providers}) => {
@@ -122,11 +121,6 @@ const ProviderForm = ({classes, history, onClose, setProviders, option, provider
 
     return (
         <div className={classes.wrapper}>
-            <div className={classes.title}>
-                <Title normal centered>
-                    {editMode ? `Edition de ${option.title}` : "Creation d'un provider"}
-                </Title>
-            </div>
             <div className={classes.description}>
                 <Text noWrap centered>
                     Le provider est le point central d'un device domotique pour la maison. Ils sont centralisé par un

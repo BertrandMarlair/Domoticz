@@ -51,11 +51,15 @@ const style = () => ({
         marginBottom: 8,
     },
     option: {
+        height: 44,
         display: "flex",
         flexDirection: "row-reverse",
     },
     installNewProviderText: {
-        margin: "10px 25px",
+        margin: "36px 25px 10px 25px",
+    },
+    newProviders: {
+        marginTop: 36,
     },
 });
 

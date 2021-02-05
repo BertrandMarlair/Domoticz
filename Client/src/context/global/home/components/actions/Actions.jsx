@@ -1,105 +1,124 @@
 import React, {useState} from "react";
-import {Grid, withStyles} from "@material-ui/core";
+import {withStyles} from "@material-ui/core";
 import style from "./ActionsStyle";
-import Switch from "../../../../../components/switch/Switch";
-import Icon from "../../../../../components/icon/Icon";
-import Text from "../../../../../components/typography/Text";
-import Card from "../../../../../components/card/Card";
+import Action from "../../../../../components/action/Action";
+import SmallTitle from "../../../../../components/typography/SmallTitle";
 
-const actionsConfig = [
+const defaultCategories = [
     {
-        icon: "Snowflake",
-        title: "Arrivé à la maison",
-        colorFrom: "#21B4F2",
-        colorTo: "#723BF4",
-        on: true,
+        id: 1,
+        title: "All Lights",
+        actions: [
+            {
+                id: 1,
+                icon: "Walk",
+                title: "All lights",
+                iconColor: "#53BAE7",
+                on: true,
+            },
+        ],
     },
     {
-        icon: "Snowflake",
-        title: "Arrivé à la maison",
-        colorFrom: "#21B4F2",
-        colorTo: "#723BF4",
-        on: false,
+        id: 2,
+        title: "Ambiances",
+        actions: [
+            {
+                id: 1,
+                icon: "Netflix",
+                title: "Netflix and Chill",
+                iconColor: "#D5011D",
+                on: true,
+            },
+            {
+                id: 2,
+                icon: "Chandelier",
+                title: "Eclairage complet",
+                iconColor: "#FFBB56",
+                on: true,
+            },
+            {
+                id: 3,
+                icon: "LightBulb",
+                title: "Détente",
+                iconColor: "#FFBB56",
+                on: true,
+            },
+            {
+                id: 4,
+                icon: "TableLamp",
+                title: "Stimulation",
+                iconColor: "#FFBB56",
+                on: true,
+            },
+        ],
     },
     {
-        icon: "Snowflake",
-        title: "Arrivé à la maison",
-        colorFrom: "#EF6D5E",
-        colorTo: "#F8BC6C",
-        on: true,
-    },
-    {
-        icon: "Snowflake",
-        title: "Arrivé à la maison",
-        colorFrom: "#1BD3A5",
-        colorTo: "#337CDE",
-        on: true,
-    },
-    {
-        icon: "Snowflake",
-        title: "Arrivé à la maison",
-        colorFrom: "#21B4F2",
-        colorTo: "#723BF4",
-        on: true,
-    },
-    {
-        icon: "Snowflake",
-        title: "Arrivé à la maison",
-        colorFrom: "#21B4F2",
-        colorTo: "#723BF4",
-        on: false,
-    },
-    {
-        icon: "Snowflake",
-        title: "Arrivé à la maison",
-        colorFrom: "#EF6D5E",
-        colorTo: "#F8BC6C",
-        on: true,
-    },
-    {
-        icon: "Snowflake",
-        title: "Arrivé à la maison",
-        colorFrom: "#1BD3A5",
-        colorTo: "#337CDE",
-        on: true,
+        id: 3,
+        title: "Temperature",
+        actions: [
+            {
+                id: 1,
+                icon: "Thermostat",
+                title: "Salon",
+                iconColor: "#DB8648",
+                on: true,
+            },
+        ],
     },
 ];
 
 const Actions = ({classes}) => {
-    const [actions, setActions] = useState(actionsConfig);
+    // eslint-disable-next-line no-unused-vars
+    const [categories, setCategories] = useState(defaultCategories);
 
-    const handleClick = (action, index) => {
-        setActions((e) => [...e.slice(0, index), {...action, on: !action.on}, ...e.slice(index + 1)]);
+    const handleClick = (categoryId, actionId) => {
+        const categoryIndex = categories.findIndex((cat) => cat.id === categoryId);
+        const category = categories[categoryIndex];
+        const actionIndex = category.actions.findIndex((act) => act.id === actionId);
+
+        const newCategories = [
+            ...categories.slice(0, categoryIndex),
+            {
+                ...category,
+                actions: [
+                    ...category.actions.slice(0, actionIndex),
+                    {
+                        ...category.actions[actionIndex],
+                        on: !category.actions[actionIndex].on,
+                    },
+                    ...category.actions.slice(actionIndex + 1),
+                ],
+            },
+            ...categories.slice(categoryIndex + 1),
+        ];
+
+        setCategories(newCategories);
     };
 
     return (
-        <Grid container className={classes.root}>
-            {actions.map((action, index) => {
+        <div container className={classes.root}>
+            {categories.map((category) => {
                 return (
-                    <Grid item xs={12} lg={6} key={`action/${index}`}>
-                        <Card
-                            className={classes.action}
-                            onClick={() => handleClick(action, index)}
-                            style={{
-                                transition: "0.5s",
-                                background:
-                                    action.on &&
-                                    `linear-gradient(212deg, ${action.colorFrom} 0%, ${action.colorTo} 100%)`,
-                            }}>
-                            <div className={classes.actionHeader}>
-                                <Text>Switch</Text>
-                                <Switch checked={action.on} />
-                            </div>
-                            <Icon className={classes.actionIcon} size={45}>
-                                {action.icon}
-                            </Icon>
-                            <Text className={classes.actionTitle}>Arrivé à maison</Text>
-                            <Text>( {action.on ? "ON" : "OFF"} )</Text>
-                        </Card>
-                    </Grid>
+                    <div className={classes.category} key={`category+${category.id}`}>
+                        <SmallTitle className={classes.categoryTitle}>{category.title}</SmallTitle>
+                        <div className={classes.categoryWrapper}>
+                            {category.actions.map((action, index) => {
+                                return (
+                                    <Action
+                                        key={`action/${index}`}
+                                        active={action.on}
+                                        onClick={() => handleClick(category.id, action.id)}
+                                        title={action.title}
+                                        icon={action.icon}
+                                        iconColor={action.iconColor}
+                                    />
+                                );
+                            })}
+                        </div>
+                    </div>
                 );
             })}
-        </Grid>
+        </div>
     );
 };
 

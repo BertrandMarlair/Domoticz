@@ -10,7 +10,6 @@ import Error from "../../../../components/error/Error";
 import notify from "../../../../core/snackbar/snackbar";
 import Button from "../../../../components/button/Button";
 import Text from "../../../../components/typography/Text";
-import Title from "../../../../components/typography/Title";
 import SmallTitle from "../../../../components/typography/SmallTitle";
 
 const DeleteProvider = ({classes, onClose, option, providers, setProviders}) => {
@@ -51,11 +50,6 @@ const DeleteProvider = ({classes, onClose, option, providers, setProviders}) => 
 
     return (
         <div className={classes.wrapper}>
-            <div className={classes.title}>
-                <Title normal centered>
-                    Suppression de {option?.title}
-                </Title>
-            </div>
             <div className={classes.description}>
                 <Text noWrap centered>
                     Si vous supprimer le provider vous devrez le reconfigurer si vous souhaiter le remettre à therme.

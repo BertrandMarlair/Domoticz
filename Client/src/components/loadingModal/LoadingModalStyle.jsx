@@ -3,7 +3,7 @@ const LoadingModalStyle = (theme) => ({
         width: "100%",
         display: "flex",
         justifyContent: "space-between",
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: theme.palette.background.default,
     },
     sideContainer: {
         display: "flex",

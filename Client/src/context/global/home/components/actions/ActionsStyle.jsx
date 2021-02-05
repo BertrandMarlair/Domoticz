@@ -1,6 +1,15 @@
 const style = () => ({
     root: {
         overflowY: "scroll",
+        width: "100%",
+        padding: 25,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
+    categoryTitle: {
+        marginTop: 12,
+        marginLeft: 12,
     },
     action: {
         minWidth: 155,
@@ -12,6 +21,13 @@ const style = () => ({
         transition: "0.5s",
         maxWidth: 200,
         margin: "20px auto",
+    },
+    categoryWrapper: {
+        display: "flex",
+        flexWrap: "wrap",
+    },
+    category: {
+        width: 270,
     },
     actionHeader: {
         display: "flex",

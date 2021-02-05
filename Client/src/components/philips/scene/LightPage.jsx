@@ -52,26 +52,26 @@ const LightPage = ({classes, selectedGroup, setSelectedGroup, hue}) => {
             <div className={classes.iconContainer}>
                 <IconButton
                     className={classes.iconButton}
-                    style={{backgroundColor: theme.palette.background.light}}
+                    style={{backgroundColor: theme.palette.background.default}}
                     onClick={() => setSelectedGroup(null)}>
                     <Icon color="white">Left</Icon>
                 </IconButton>
                 <div className={classes.iconLeftContainer}>
                     <IconButton
                         className={classes.iconButton}
-                        style={{backgroundColor: target === 0 ? "white" : theme.palette.background.light}}
+                        style={{backgroundColor: target === 0 ? "white" : theme.palette.background.default}}
                         onClick={() => setTarget(0)}>
-                        <Icon color={target === 0 ? theme.palette.background.light : "white"}>Palette</Icon>
+                        <Icon color={target === 0 ? theme.palette.background.default : "white"}>Palette</Icon>
                     </IconButton>
                     <IconButton
                         className={classes.iconButton}
-                        style={{backgroundColor: target === 1 ? "white" : theme.palette.background.light}}
+                        style={{backgroundColor: target === 1 ? "white" : theme.palette.background.default}}
                         onClick={() => setTarget(1)}>
-                        <Icon color={target === 1 ? theme.palette.background.light : "white"}>List</Icon>
+                        <Icon color={target === 1 ? theme.palette.background.default : "white"}>List</Icon>
                     </IconButton>
                     <IconButton
                         className={classes.iconButton}
-                        style={{backgroundColor: target === 2 ? "white" : theme.palette.background.light}}
+                        style={{backgroundColor: target === 2 ? "white" : theme.palette.background.default}}
                         onClick={() => setTarget(2)}>
                         <Icon>Color</Icon>
                     </IconButton>

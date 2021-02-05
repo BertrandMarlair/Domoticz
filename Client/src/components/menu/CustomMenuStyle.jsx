@@ -2,7 +2,7 @@ const style = (theme) => ({
     menu: {
         paddingTop: 10,
         boxShadow: theme.palette.boxShadow.main,
-        background: theme.palette.background.paper,
+        background: theme.palette.background.default,
     },
     icon: {
         display: "flex",
