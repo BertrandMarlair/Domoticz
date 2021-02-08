@@ -8,7 +8,7 @@ const style = (theme) => ({
     },
     scene: {
         height: 50,
-        background: theme.palette.background.light,
+        background: theme.palette.background.default,
         padding: 10,
         margin: 8,
         display: "flex",
@@ -28,7 +28,7 @@ const style = (theme) => ({
             left: 0,
             width: "100%",
             transition: "opacity 0.7s",
-            borderRadius: 11,
+            borderRadius: 8,
         },
     },
 });

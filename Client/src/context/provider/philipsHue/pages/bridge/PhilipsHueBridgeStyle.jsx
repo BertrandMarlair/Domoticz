@@ -1,6 +1,6 @@
 import {displayBetween, displayVerticalCenter, mediaQuerySizeS} from "../../../../../core/style/constant";
 
-const style = (theme) => ({
+const style = () => ({
     root: {
         maxWidth: mediaQuerySizeS,
         margin: "auto",
@@ -12,9 +12,6 @@ const style = (theme) => ({
         minHeight: 90,
         cursor: "pointer",
         flexDirection: "column",
-        "&:hover": {
-            background: theme.palette.background.light,
-        },
     },
     bridgeHeader: {
         ...displayVerticalCenter,
@@ -38,6 +35,36 @@ const style = (theme) => ({
     title: {
         margin: "30px 16px",
         fontSize: "1.4rem",
+    },
+    header: {
+        ...displayVerticalCenter,
+    },
+    bridgeParam: {
+        display: "flex",
+        alignItems: "center",
+        marginBottom: 5,
+    },
+    bridgeParamTitle: {
+        width: 170,
+        fontSize: "0.9rem",
+        fontWeight: "300",
+    },
+    bridgeParamValue: {
+        fontSize: "0.9rem",
+        fontWeight: "400",
+    },
+    bridgeFromWrapper: {
+        marginBottom: 30,
+    },
+    label: {
+        marginBottom: 10,
+    },
+    bridgeFooter: {
+        marginTop: 30,
+    },
+    bridgeParamWrapper: {
+        margin: "auto",
+        width: "fit-content",
     },
 });
 

@@ -107,10 +107,10 @@ const style = (theme) => ({
     },
     white: {
         background: theme.palette.white.main,
-        color: `${theme.palette.text.contrasted} !important`,
+        color: `${theme.palette.text.dark} !important`,
         "&:hover": {
             backgroundColor: theme.palette.white.light,
-            color: theme.palette.text.light,
+            color: theme.palette.text.dark,
         },
     },
     transparent: {

@@ -3,8 +3,22 @@ import {withStyles} from "@material-ui/styles";
 import style from "./CardStyle";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import useLongPress from "../../core/hooks/useLongPress";
 
-const Card = ({classes, className, children, noPadding, noMargin, width, onClick, type, style: customStyle}) => {
+const Card = ({
+    classes,
+    className,
+    children,
+    noPadding,
+    noMargin,
+    width,
+    onClick,
+    onLongPress,
+    type,
+    style: customStyle,
+}) => {
+    const longPressEvent = useLongPress(onLongPress, onClick);
+
     const cardClasses = classNames({
         [classes.root]: true,
         [className]: className,
@@ -14,7 +28,7 @@ const Card = ({classes, className, children, noPadding, noMargin, width, onClick
     });
 
     return (
-        <div className={cardClasses} style={{width, ...customStyle}} onClick={onClick}>
+        <div className={cardClasses} style={{width, ...customStyle}} {...longPressEvent}>
             {children}
         </div>
     );

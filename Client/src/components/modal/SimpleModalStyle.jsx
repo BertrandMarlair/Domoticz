@@ -21,6 +21,7 @@ const style = (theme) => ({
     },
     headerTitle: {
         marginLeft: 30,
+        marginRight: 80,
     },
     maxWidth: {
         maxWidth: 0,

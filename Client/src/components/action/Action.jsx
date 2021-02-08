@@ -7,26 +7,29 @@ import Icon from "../icon/Icon";
 import Card from "../card/Card";
 import Text from "../typography/Text";
 
-const Action = ({classes, active, onClick, title, icon, iconColor, children}) => {
+const Action = ({classes, action, onClick, onLongPress, children}) => {
     const theme = useTheme();
 
     const actionClasses = classNames({
         [classes.action]: true,
-        [classes.on]: active,
-        [classes.off]: !active,
+        [classes.on]: action.on,
+        [classes.off]: !action.on,
     });
 
     return (
-        <Card className={actionClasses} type={active ? "on" : "off"} onClick={onClick}>
+        <Card className={actionClasses} type={action.on ? "on" : "off"} onClick={onClick} onLongPress={onLongPress}>
             <div className={classes.actionHeader}>
-                <Icon className={classes.actionIcon} size={30} color={active ? iconColor : theme.palette.text.disabled}>
-                    {icon}
+                <Icon
+                    className={classes.actionIcon}
+                    size={30}
+                    color={action.on ? action.iconColor : theme.palette.text.disabled}>
+                    {action.icon}
                 </Icon>
                 {children}
             </div>
             <div className={classes.actionFooter}>
-                <Text className={classes.actionTitle}>{title}</Text>
-                <Text className={classes.actionDescription}>{active ? "On" : "Off"}</Text>
+                <Text className={classes.actionTitle}>{action.title}</Text>
+                <Text className={classes.actionDescription}>{action.on ? "On" : "Off"}</Text>
             </div>
         </Card>
     );
@@ -35,10 +38,7 @@ const Action = ({classes, active, onClick, title, icon, iconColor, children}) =>
 Action.propTypes = {
     classes: PropTypes.object.isRequired,
     children: PropTypes.node,
-    active: PropTypes.bool.isRequired,
-    title: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired,
-    iconColor: PropTypes.string,
+    action: PropTypes.object,
     onClick: PropTypes.func.isRequired,
 };
 

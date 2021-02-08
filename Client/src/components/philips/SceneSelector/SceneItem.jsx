@@ -88,7 +88,7 @@ const SceneItem = ({classes, scene, targetSceneId, handleTargetScene}) => {
     return (
         <Grid item xs={6}>
             <div className={containerClasses} onClick={() => handleTargetScene(scene.sceneId)}>
-                <Text style={{color: getState && lightsColor?.color}}>{scene.name}</Text>
+                <Text style={{color: getState && lightsColor?.color, zIndex: 1}}>{scene.name}</Text>
             </div>
         </Grid>
     );

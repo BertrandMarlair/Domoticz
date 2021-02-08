@@ -9,6 +9,7 @@ const PhilipsHueBridgeType = objectType({
         t.id("_id");
         t.id("providerId");
         t.string("ipAddress");
+        t.string("name");
         t.string("token", {nullable: true});
         t.field("config", {type: PhilipsHueBridgeConfigType})
         t.list.field("groups", {
@@ -29,7 +30,7 @@ const PhilipsHueBridgeType = objectType({
 export default PhilipsHueBridgeType;
 
 const groupsResolver = async ({_id, groups}) => {
-    return Object.keys(groups).map((l) => ({...groups[l], bridgeId: _id, groupId: l})).filter((g) => g.type === "Room");
+    return Object.keys(groups).map((l) => ({...groups[l], bridgeId: _id, groupId: l})).filter((g) => g.type === "Zone");
 }
 
 const lightsResolver = async ({_id, lights}) => {

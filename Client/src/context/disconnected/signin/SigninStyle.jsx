@@ -1,4 +1,4 @@
-import {displayBetween, mediaQuerySizeXs} from "../../../core/style/constant";
+import {displayBetween, displayFlex, mediaQuerySizeXs} from "../../../core/style/constant";
 
 const containerHeight = 650;
 
@@ -16,7 +16,7 @@ const style = (theme) => ({
         minHeight: 600,
         maxHeight: containerHeight,
         overflow: "hidden",
-        ...displayBetween,
+        ...displayFlex,
         padding: 0,
         [`@media (max-width: ${mediaQuerySizeXs}px)`]: {
             padding: 10,

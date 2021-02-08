@@ -170,7 +170,7 @@ const style = (theme) => ({
         top: "-56px",
         left: "-31px",
         width: width + 111,
-        zIndex: -1,
+        zIndex: 0,
         userSelect: "none",
     },
     cursor: {
@@ -180,7 +180,7 @@ const style = (theme) => ({
         width: width - 40,
         transformOrigin: "39.7% 44.2%",
         transition: "0.5s",
-        zIndex: "-2",
+        zIndex: 0,
         userSelect: "none",
     },
     temperatureText: {

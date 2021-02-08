@@ -1,6 +1,6 @@
 import {displayBetween, displayCenter, displayFlex, displayVerticalCenter} from "../../../../core/style/constant";
 
-const style = (theme) => ({
+const style = () => ({
     modalWrapper: {
         padding: 30,
     },
@@ -45,9 +45,6 @@ const style = (theme) => ({
         padding: "0 20px",
         minHeight: 90,
         cursor: "pointer",
-        "&:hover": {
-            background: theme.palette.background.light,
-        },
     },
     deviceHeader: {
         ...displayVerticalCenter,

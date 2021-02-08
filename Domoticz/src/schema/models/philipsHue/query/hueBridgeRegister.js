@@ -42,6 +42,7 @@ const hueBridgeRegister = async (_, {ipAddress, name}) => {
             await insertOne(DBBridges, {
                 providerId: provider._id,
                 ipAddress,
+                name: "Philips Hue",
                 token: data.success.username,
             });
 

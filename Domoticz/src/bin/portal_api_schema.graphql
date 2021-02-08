@@ -25,12 +25,17 @@ scalar Email
 scalar Json
 
 type Mutation {
+  addGroup(bridgeId: ID!, class: String!, lights: [ID!]!, name: String!): PhilipsHue!
   createBlock(block: createBlockInput!): Block!
   createProvider(provider: createProviderInput!): Provider!
   deleteBlock(_id: ID!): Block!
+  deleteBridge(bridgeId: ID!): PhilipsHue!
+  deleteGroup(bridgeId: ID!, groupId: ID!): PhilipsHue!
   deleteProvider(_id: ID!): Provider!
   editApplication: Application!
   editBlock(block: editBlockInput!): Block!
+  editBridgeName(bridgeId: ID!, name: String!): PhilipsHue!
+  editGroupConfig(bridgeId: ID!, class: String!, groupId: ID!, lights: [ID!]!, name: String!): PhilipsHue!
   editGroupState(bridgeId: ID!, groupId: ID!, state: PhilipsHueStateInput!): PhilipsHue!
   editGroupStateWhitoutSync(bridgeId: ID!, groupId: ID!, state: PhilipsHueStateInput!): Response!
   editLightState(bridgeId: ID!, lightId: ID!, state: PhilipsHueStateInput!): PhilipsHue!
@@ -53,6 +58,7 @@ type PhilipsHueBridge {
   groups: [PhilipsHueGroups!]!
   ipAddress: String!
   lights: [PhilipsHueLight!]!
+  name: String!
   providerId: ID!
   token: String
 }
@@ -173,6 +179,7 @@ type Query {
   getPhilipsHueDevices: PhilipsHue
   getScenesByGroup(bridgeId: ID!, groupId: ID!): [philipsHueScene!]
   getWeatherInfo: Weather
+  hueBridgeAddConnection(ipAddress: String!): PhilipsHueBridgeStatus
   hueBridgeConnection(ipAddress: String!): PhilipsHueBridgeStatus
   hueBridgeRegister(ipAddress: String!, name: String!): PhilipsHueBridgeStatus
   syncAll: SyncAll

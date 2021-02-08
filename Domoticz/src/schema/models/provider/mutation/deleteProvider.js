@@ -1,6 +1,6 @@
 import { idArg } from "nexus";
 import { DBProvider } from "..";
-import { queryOneById, deleteById } from "../../../../core/mongo";
+import { queryOneById, deleteOneById } from "../../../../core/mongo";
 import ProviderType from "../type/provider";
 
 export default (t) => 
@@ -21,7 +21,7 @@ const deleteProvider = async (_, {_id}) => {
         throw new Error("provider.edit.errors.notFound");
     }
 
-    await deleteById(DBProvider, _id);
+    await deleteOneById(DBProvider, _id);
 
     return oldProvider;
 }

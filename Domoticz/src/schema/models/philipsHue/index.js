@@ -19,6 +19,12 @@ import editLightStateWhitoutSync from "./mutation/light/editLightStateWhitoutSyn
 import philipsHueSceneType from "./type/scnene/philipsHueScene";
 import getScenesByGroup from "./query/getScenesByGroup";
 import PhilipsHueSceneLightStateType from "./type/scnene/philipsHueSceneLightStateType";
+import hueBridgeAddConnection from "./query/hueBridgeAddConnection";
+import editBridgeName from "./mutation/bridge/editBridgeName";
+import deleteBridge from "./mutation/bridge/deleteBridge";
+import editGroupConfig from "./mutation/group/editGroupConfig";
+import addGroup from "./mutation/group/addGroup";
+import deleteGroup from "./mutation/group/deleteGroup";
 
 export const DBBridges = "Bridges";
 
@@ -42,12 +48,18 @@ export default {
         hueBridgeConnection,
         hueBridgeRegister,
         getScenesByGroup,
+        hueBridgeAddConnection,
     ],
     mutation: [
         editGroupState,
         editGroupStateWhitoutSync,
         editLightState,
         editLightStateWhitoutSync,
+        editBridgeName,
+        deleteBridge,
+        editGroupConfig,
+        addGroup,
+        deleteGroup,
     ],
     input: [
         PhilipsHueStateInput,

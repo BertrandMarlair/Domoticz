@@ -7,6 +7,7 @@ export const FIFTEEN_MINUTES = 900000;
 export const THIRTY_MINUTES = 1800000;
 export const ONE_HOUR = 3600000;
 export const ONE_DAY = 86400000;
+export const MAX_TIMEOUT = 5000;
 
 export const NEEDED_ENV = [
     "NODE_ENV",

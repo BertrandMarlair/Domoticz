@@ -3,6 +3,8 @@ import {withStyles} from "@material-ui/core";
 import style from "./ActionsStyle";
 import Action from "../../../../../components/action/Action";
 import SmallTitle from "../../../../../components/typography/SmallTitle";
+import Modal from "../../../../../components/modal/SimpleModal";
+import Thermostat from "../thermostat/Thermostat";
 
 const defaultCategories = [
     {
@@ -62,6 +64,7 @@ const defaultCategories = [
                 title: "Salon",
                 iconColor: "#DB8648",
                 on: true,
+                longPress: "thermostat",
             },
         ],
     },
@@ -70,6 +73,8 @@ const defaultCategories = [
 const Actions = ({classes}) => {
     // eslint-disable-next-line no-unused-vars
     const [categories, setCategories] = useState(defaultCategories);
+    const [open, setOpen] = useState(false);
+    const [modalType, setModalType] = useState(null);
 
     const handleClick = (categoryId, actionId) => {
         const categoryIndex = categories.findIndex((cat) => cat.id === categoryId);
@@ -95,8 +100,28 @@ const Actions = ({classes}) => {
         setCategories(newCategories);
     };
 
+    const onLongPress = (actionPress) => {
+        if (actionPress) {
+            setModalType(actionPress);
+            setOpen(true);
+        }
+    };
+
+    const modalRenderer = (type) => {
+        switch (type) {
+            case "thermostat":
+                return (
+                    <div className={classes.modalContent}>
+                        <Thermostat />
+                    </div>
+                );
+            default:
+                break;
+        }
+    };
+
     return (
-        <div container className={classes.root}>
+        <div className={classes.root}>
             {categories.map((category) => {
                 return (
                     <div className={classes.category} key={`category+${category.id}`}>
@@ -108,9 +133,8 @@ const Actions = ({classes}) => {
                                         key={`action/${index}`}
                                         active={action.on}
                                         onClick={() => handleClick(category.id, action.id)}
-                                        title={action.title}
-                                        icon={action.icon}
-                                        iconColor={action.iconColor}
+                                        onLongPress={() => onLongPress(action.longPress)}
+                                        action={action}
                                     />
                                 );
                             })}
@@ -118,6 +142,9 @@ const Actions = ({classes}) => {
                     </div>
                 );
             })}
+            <Modal open={open} onClose={() => setOpen(false)} title={modalType}>
+                <div>{modalRenderer(modalType)}</div>
+            </Modal>
         </div>
     );
 };

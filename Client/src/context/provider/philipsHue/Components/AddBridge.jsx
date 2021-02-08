@@ -38,13 +38,16 @@ const AddBridge = ({classes, open, setOpen, fetchMore}) => {
 
     useEffect(() => {
         setConnectionError("");
-        if (hueBridgeConnectionData?.data?.hueBridgeConnection) {
-            if (hueBridgeConnectionData.data.hueBridgeConnection.ok) {
+        if (hueBridgeConnectionData?.data?.hueBridgeAddConnection) {
+            if (hueBridgeConnectionData.data.hueBridgeAddConnection.ok) {
                 setActiveStep(1);
-                setBridge(hueBridgeConnectionData.data.hueBridgeConnection);
+                setBridge(hueBridgeConnectionData.data.hueBridgeAddConnection);
             } else {
                 setConnectionError("La connection n'a pas pu être établie. Vérifiez que vous êtes sur le bon réseau");
             }
+        }
+        if (hueBridgeConnectionData?.error) {
+            setConnectionError(hueBridgeConnectionData?.error?.message);
         }
     }, [hueBridgeConnectionData]);
 
@@ -163,7 +166,7 @@ const AddBridge = ({classes, open, setOpen, fetchMore}) => {
     };
 
     return (
-        <Modal open={open} onClose={() => setOpen(false)} maxWidth="xl">
+        <Modal open={open} onClose={() => setOpen(false)} maxWidth="xl" title="Ajouter un nouveau pont">
             <div className={classes.modalWrapper}>
                 <div className={classes.instructions}>{getStepContent(activeStep)}</div>
                 <Stepper activeStep={activeStep}>
@@ -183,8 +186,8 @@ const AddBridge = ({classes, open, setOpen, fetchMore}) => {
 export default withStyles(style)(AddBridge);
 
 const HUE_BRIDGE_CONNECTION = gql`
-    query hueBridgeConnection($ipAddress: String!) {
-        hueBridgeConnection(ipAddress: $ipAddress) {
+    query hueBridgeAddConnection($ipAddress: String!) {
+        hueBridgeAddConnection(ipAddress: $ipAddress) {
             ok
             bridgeId
         }

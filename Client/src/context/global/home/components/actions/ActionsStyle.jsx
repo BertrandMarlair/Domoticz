@@ -10,6 +10,7 @@ const style = () => ({
     categoryTitle: {
         marginTop: 12,
         marginLeft: 12,
+        userSelect: "none",
     },
     action: {
         minWidth: 155,
@@ -42,6 +43,9 @@ const style = () => ({
         fontWeight: 500,
         marginBottom: 5,
         fontSize: "0.9rem",
+    },
+    modalContent: {
+        padding: 20,
     },
 });
 

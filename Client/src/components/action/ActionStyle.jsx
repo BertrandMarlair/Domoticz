@@ -32,10 +32,12 @@ const style = (theme) => ({
         fontSize: "0.8rem",
         letterSpacing: 0,
         color: "inherit",
+        userSelect: "none",
     },
     actionDescription: {
         fontWeight: 400,
         color: "inherit",
+        userSelect: "none",
     },
     on: {
         color: theme.palette.text.dark,

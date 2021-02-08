@@ -5,6 +5,7 @@ export const initialState = {
 
 export const SYNC_DEVICE = "SYNC_DEVICE";
 export const EDIT_LIGHT_STATE = "EDIT_LIGHT_STATE";
+export const FAIL_TO_CONNECT_PHILIPS_HUE = "FAIL_TO_CONNECT_PHILIPS_HUE";
 
 export default function DeviceReducer(state = initialState, {type, payload}) {
     switch (type) {
@@ -80,6 +81,26 @@ export default function DeviceReducer(state = initialState, {type, payload}) {
                 philipsHue: {
                     ...state.philipsHue,
                     bridges,
+                    lastUpdate: new Date(),
+                },
+            };
+        case FAIL_TO_CONNECT_PHILIPS_HUE:
+            const bridgeIndex = state.philipsHue.bridges.findIndex((b) => b.ipAddress === payload.bridgeId);
+
+            const newBridges = [
+                ...state.philipsHue.bridges.slice(0, bridgeIndex),
+                {
+                    ...state.philipsHue.bridges[bridgeIndex],
+                    connection: false,
+                },
+                ...state.philipsHue.bridges.slice(bridgeIndex + 1),
+            ];
+
+            return {
+                ...state,
+                philipsHue: {
+                    ...state.philipsHue,
+                    bridges: newBridges,
                     lastUpdate: new Date(),
                 },
             };

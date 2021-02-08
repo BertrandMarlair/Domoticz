@@ -118,7 +118,7 @@ export const deleteOne = async (collection_name, rawQuery) => {
     return await db.collection(collection_name).deleteOne(rawQuery);
 };
 
-export const deleteById = async (collection_name, _id) => {
+export const deleteOneById = async (collection_name, _id) => {
     const db = await mongo();
 
     return await db.collection(collection_name).deleteOne({_id: new ObjectId(_id)});

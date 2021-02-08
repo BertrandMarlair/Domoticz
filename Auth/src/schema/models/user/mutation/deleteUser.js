@@ -1,6 +1,6 @@
 import UserType from "../type/user";
 import {DBUsers} from "../index";
-import {deleteById} from "../../../../core/mongo";
+import {deleteOneById} from "../../../../core/mongo";
 import {getUserById} from "../utils";
 import { idArg, stringArg } from "nexus";
 
@@ -27,7 +27,7 @@ const deleteUser = async (_, {_id, name}) => {
         throw new Error("contexttest.deleteBlock.errors.notsamename");
     }
 
-    await deleteById(DBUsers, _id);
+    await deleteOneById(DBUsers, _id);
 
     console.log("------blockToDelete-------")
 

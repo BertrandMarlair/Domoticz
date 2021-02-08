@@ -4,25 +4,35 @@ import { queryOne, query } from "./mongo";
 import memoize from "memoizee";
 import { DBBridges } from "../schema/models/philipsHue";
 import { ObjectId } from "mongodb";
+import { MAX_TIMEOUT } from "./constants";
 
 const getProvider = () => queryOne(DBProvider, {slug: "philips_hue"});
 
 const memoized = memoize(getProvider);
 
+const httpClient = axios.create();
+httpClient.defaults.timeout = MAX_TIMEOUT;
+
 export const HueBridgeConnection = async (ipAddress) => {
-    const res = await new Promise((resolve) => {
+    const res = await new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+            reject(new Error('TIMEOUT'))
+        }, 1000);
+
         axios({
             method: "GET",
             url: `http://${ipAddress}/api/config/swupdate`,
         })
             .then((res) => {
+                clearTimeout(timer)
                 resolve(res);
             })
             .catch((error) => {
+                clearTimeout(timer)
                 resolve({...error, error: true});
             });
-    });
-
+        });
+        
     return res;
 };
 
@@ -31,7 +41,7 @@ export const HueBridgeRegister = async (ipAddress, name) => {
         axios({
             method: "POST",
             url: `http://${ipAddress}/api`,
-            data: {'devicetype': name}
+            data: {'devicetype': name},
         })
             .then((res) => {
                 resolve(res);
@@ -78,8 +88,13 @@ export const QueryHueBridge = async (method = "GET", api = "", bridge, data) => 
                 data
             })
 
-            if (res.data?.[0]?.error) {
-                throw new Error(res.data[0].error.description);
+            if (res?.data?.length > 0) {
+                for (let data of res?.data) {
+                    console.log(data);
+                    if (data?.error) {
+                        throw new Error(data.error.description);
+                    }
+                }
             }
     
             return res;

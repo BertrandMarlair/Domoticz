@@ -1,6 +1,6 @@
 import {displayBetween, displayVerticalCenter, mediaQuerySizeS} from "../../../../../core/style/constant";
 
-const style = (theme) => ({
+const style = () => ({
     root: {
         maxWidth: mediaQuerySizeS,
         margin: "auto",
@@ -12,9 +12,6 @@ const style = (theme) => ({
         minHeight: 90,
         cursor: "pointer",
         flexDirection: "column",
-        "&:hover": {
-            background: theme.palette.background.light,
-        },
     },
     lightHeader: {
         ...displayVerticalCenter,
