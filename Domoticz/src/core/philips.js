@@ -17,7 +17,7 @@ export const HueBridgeConnection = async (ipAddress) => {
     const res = await new Promise((resolve, reject) => {
         const timer = setTimeout(() => {
             reject(new Error('TIMEOUT'))
-        }, 1000);
+        }, 2000);
 
         axios({
             method: "GET",
