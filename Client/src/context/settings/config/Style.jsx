@@ -17,6 +17,7 @@ const style = (theme) => {
             display: "flex",
             flexDirection: "column",
             height: "100%",
+            padding: 20,
         },
         wrapper: {
             display: "flex",

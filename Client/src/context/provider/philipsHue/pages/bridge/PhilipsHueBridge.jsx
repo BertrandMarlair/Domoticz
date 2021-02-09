@@ -103,7 +103,7 @@ const PhilipsHueBridge = ({classes}) => {
 
     const handleDeleteBridge = () => {
         // eslint-disable-next-line no-alert
-        window.confirm("voulez vous vraiment surprimer ce pont ?");
+        window.confirm("Voulez vous vraiment surprimer ce pont ?");
 
         deleteBridge({
             variables: {
@@ -125,7 +125,6 @@ const PhilipsHueBridge = ({classes}) => {
             </Title>
             <Grid container>
                 {getBridges().map((bridge, index) => {
-                    console.log(bridge);
                     return (
                         <Grid item lg={4} md={4} xs={12} key={`bridge/${index}`}>
                             <Card className={classes.bridge}>

@@ -245,6 +245,7 @@ export interface NexusGenFieldTypes {
     deleteBlock: NexusGenRootTypes['Block']; // Block!
     deleteBridge: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
     deleteGroup: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
+    deleteLight: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
     deleteProvider: NexusGenRootTypes['Provider']; // Provider!
     editApplication: NexusGenRootTypes['Application']; // Application!
     editBlock: NexusGenRootTypes['Block']; // Block!
@@ -252,6 +253,7 @@ export interface NexusGenFieldTypes {
     editGroupConfig: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
     editGroupState: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
     editGroupStateWhitoutSync: NexusGenRootTypes['Response']; // Response!
+    editLightName: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
     editLightState: NexusGenRootTypes['PhilipsHue']; // PhilipsHue!
     editLightStateWhitoutSync: NexusGenRootTypes['Response']; // Response!
     editProvider: NexusGenRootTypes['Provider']; // Provider!
@@ -449,6 +451,10 @@ export interface NexusGenArgTypes {
       bridgeId: string; // ID!
       groupId: string; // ID!
     }
+    deleteLight: { // args
+      bridgeId: string; // ID!
+      lightId: string; // ID!
+    }
     deleteProvider: { // args
       _id: string; // ID!
     }
@@ -475,6 +481,11 @@ export interface NexusGenArgTypes {
       bridgeId: string; // ID!
       groupId: string; // ID!
       state: NexusGenInputs['PhilipsHueStateInput']; // PhilipsHueStateInput!
+    }
+    editLightName: { // args
+      bridgeId: string; // ID!
+      lightId: string; // ID!
+      name: string; // String!
     }
     editLightState: { // args
       bridgeId: string; // ID!

@@ -25,6 +25,8 @@ import deleteBridge from "./mutation/bridge/deleteBridge";
 import editGroupConfig from "./mutation/group/editGroupConfig";
 import addGroup from "./mutation/group/addGroup";
 import deleteGroup from "./mutation/group/deleteGroup";
+import editLightName from "./mutation/light/editLightName";
+import deleteLight from "./mutation/light/deleteLight";
 
 export const DBBridges = "Bridges";
 
@@ -60,6 +62,8 @@ export default {
         editGroupConfig,
         addGroup,
         deleteGroup,
+        editLightName,
+        deleteLight,
     ],
     input: [
         PhilipsHueStateInput,

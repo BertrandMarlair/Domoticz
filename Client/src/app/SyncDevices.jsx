@@ -140,6 +140,7 @@ export const philipsHueFragment = gql`
                     bridgeId
                     name
                     productname
+                    manufacturername
                     modelid
                     state {
                         on
@@ -162,6 +163,7 @@ export const philipsHueFragment = gql`
                 bridgeId
                 name
                 productname
+                manufacturername
                 modelid
                 state {
                     on

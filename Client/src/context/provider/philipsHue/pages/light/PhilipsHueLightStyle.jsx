@@ -36,6 +36,36 @@ const style = () => ({
         margin: "30px 16px",
         fontSize: "1.4rem",
     },
+    header: {
+        ...displayVerticalCenter,
+    },
+    lightParam: {
+        display: "flex",
+        alignItems: "center",
+        marginBottom: 5,
+    },
+    lightParamTitle: {
+        width: 170,
+        fontSize: "0.9rem",
+        fontWeight: "300",
+    },
+    lightParamValue: {
+        fontSize: "0.9rem",
+        fontWeight: "400",
+    },
+    lightFromWrapper: {
+        marginBottom: 30,
+    },
+    label: {
+        marginBottom: 10,
+    },
+    lightFooter: {
+        marginTop: 30,
+    },
+    lightParamWrapper: {
+        margin: "auto",
+        width: "fit-content",
+    },
 });
 
 export default style;
